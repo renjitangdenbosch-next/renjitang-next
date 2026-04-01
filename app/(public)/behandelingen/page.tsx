@@ -12,6 +12,7 @@ export default function BehandelingenPage() {
   return (
     <div className="mx-auto max-w-5xl px-6 py-12">
       <h1 className="mb-3 font-serif text-4xl text-rjt-dark dark:text-rjt-cream">Onze behandelingen</h1>
+      <p className="mb-8 text-sm text-stone-400">我们的治疗项目</p>
       <p className="mb-10 text-lg text-stone-600 dark:text-stone-400">
         Traditionele Chinese geneeskunde voor lichaam en geest — heldere tijden en tarieven.
       </p>
@@ -29,9 +30,7 @@ export default function BehandelingenPage() {
             <p className="mb-6 leading-relaxed text-stone-600">{service.beschrijving}</p>
 
             <a
-              href="https://renjitang.nl/index.php/book-appointment/"
-              target="_blank"
-              rel="noopener noreferrer"
+              href="/bookings"
               className="block w-full rounded-full bg-rjt-red py-3 text-center font-semibold text-white transition-colors hover:bg-red-900"
             >
               Boek nu

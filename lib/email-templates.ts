@@ -74,6 +74,15 @@ export function generateAnnuleringsLink(email: string, id: string): string {
   return `${base}/api/bookings/annuleer?id=${encodeURIComponent(id)}&token=${encodeURIComponent(token)}`;
 }
 
+function absBookingsUrl(): string {
+  const base = (
+    process.env.NEXTAUTH_URL ??
+    process.env.NEXT_PUBLIC_SITE_URL ??
+    "https://renjitang.nl"
+  ).replace(/\/$/, "");
+  return `${base}/bookings`;
+}
+
 function prijsEuro(b: BookingEmailData): string {
   const n =
     typeof b.prijs === "number"
@@ -225,6 +234,11 @@ export function boekingGeannuleerd(booking: BookingEmailData): EmailTemplateResu
   <p style="color:#666;font-size:14px;line-height:1.6">
     Voor een nieuwe afspraak kunt u contact met ons opnemen of online boeken.
   </p>
+  <a href="${esc(absBookingsUrl())}" style="display:inline-block;
+    background:#8B2635;color:white;padding:12px 28px;
+    border-radius:24px;text-decoration:none;font-size:14px;margin-top:16px">
+    Nieuwe afspraak boeken
+  </a>
   <p style="color:#666;font-size:13px;margin-top:24px">
     Vragen? Bel 073 211 02 24
   </p>`;

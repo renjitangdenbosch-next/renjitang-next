@@ -10,12 +10,12 @@ const nextConfig = {
     return [
       {
         source: "/index.php/book-appointment",
-        destination: "https://renjitang.nl/index.php/book-appointment/",
+        destination: "/bookings",
         permanent: true,
       },
       {
         source: "/index.php/book-appointment/",
-        destination: "https://renjitang.nl/index.php/book-appointment/",
+        destination: "/bookings",
         permanent: true,
       },
       {

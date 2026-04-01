@@ -173,6 +173,7 @@ export default function BookingsPage() {
           <h1 className="font-serif text-3xl text-rjt-dark">
             Afspraak maken
           </h1>
+          <p className="text-sm text-stone-400">预约挂号</p>
         </div>
 
         <div className="bg-white rounded-2xl p-6 md:p-8 shadow-sm">

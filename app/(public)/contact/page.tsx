@@ -23,6 +23,7 @@ export default function ContactPage() {
   return (
     <PageLayout
       title="Contact"
+      titleZh="联系我们"
       subtitle="Wij helpen u graag verder"
       heroImage="/images/PHOTO-2024-11-26-19-19-05(1).jpg"
     >

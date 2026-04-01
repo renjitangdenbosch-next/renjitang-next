@@ -14,8 +14,12 @@ export function Footer() {
         <div className="grid gap-12 sm:grid-cols-2 lg:grid-cols-3 lg:gap-10">
           <div>
             <p className="font-serif text-xl tracking-tight text-rjt-gold">{SITE.name}</p>
+            <p className="text-sm text-stone-400">仁济堂</p>
             <p className="mt-3 max-w-xs text-sm leading-relaxed text-rjt-cream/65">
               {SITE.shortDescription}
+            </p>
+            <p className="mt-3 text-xs text-stone-400">
+              荷兰 &apos;s-Hertogenbosch 传统中医诊所
             </p>
           </div>
           <div>

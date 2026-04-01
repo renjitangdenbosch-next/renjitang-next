@@ -33,9 +33,10 @@ const klachten = [
 export default function AcupunctuurPage() {
   return (
     <div className="mx-auto max-w-4xl px-6 py-12">
-      <h1 className="mb-8 font-serif text-4xl text-rjt-dark dark:text-rjt-cream">
+      <h1 className="font-serif text-4xl text-rjt-dark dark:text-rjt-cream">
         Acupunctuur in Den Bosch
       </h1>
+      <p className="mb-8 text-sm text-stone-400">针灸治疗</p>
 
       <div className="mb-6 rounded-2xl bg-white p-8 shadow-sm dark:bg-stone-900/90">
         <h2 className="mb-4 font-serif text-2xl text-rjt-dark dark:text-rjt-cream">
@@ -110,9 +111,7 @@ export default function AcupunctuurPage() {
         <h3 className="mb-3 font-serif text-2xl">Maak vandaag nog een afspraak</h3>
         <p className="mb-6 text-white/80">Ervaar zelf de heilzame werking van acupunctuur</p>
         <a
-          href="https://renjitang.nl/index.php/book-appointment/"
-          target="_blank"
-          rel="noopener noreferrer"
+          href="/bookings"
           className="inline-block rounded-full bg-white px-8 py-3 font-semibold text-rjt-red transition-colors hover:bg-rjt-beige"
         >
           Boek een behandeling

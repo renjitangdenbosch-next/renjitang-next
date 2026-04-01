@@ -226,17 +226,21 @@ export function HomePageView() {
           <p className="mb-4 text-xs uppercase tracking-[0.4em] text-white/60">
             Ren Ji Tang
           </p>
-          <h1 className="mb-6 font-serif text-5xl text-white md:text-7xl">
+          <h1 className="mb-2 font-serif text-5xl text-white md:text-7xl">
             Herstel je balans
           </h1>
-          <p className="mb-10 text-lg text-white/80">
+          <p className="mb-2 text-sm tracking-widest text-white/60">
+            恢复您的平衡
+          </p>
+          <p className="mb-2 text-lg text-white/80">
             Traditionele Chinese geneeskunde · &apos;s-Hertogenbosch
+          </p>
+          <p className="mb-10 text-sm text-white/50">
+            &apos;s-Hertogenbosch 传统中医
           </p>
           <div className="flex flex-col justify-center gap-4 sm:flex-row">
             <a
-              href="https://renjitang.nl/index.php/book-appointment/"
-              target="_blank"
-              rel="noopener noreferrer"
+              href="/bookings"
               className="rounded-full bg-rjt-red px-8 py-3 font-semibold text-white transition-colors hover:bg-red-900"
             >
               Maak een afspraak
@@ -580,8 +584,6 @@ export function HomePageView() {
             </a>
             <Link
               href={SITE.bookingUrl}
-              target="_blank"
-              rel="noopener noreferrer"
               className="mt-8 inline-flex w-fit items-center justify-center rounded-sm bg-rjt-red px-10 py-4 text-base font-semibold text-white shadow-lg transition hover:bg-[#a02f40]"
             >
               Boek nu

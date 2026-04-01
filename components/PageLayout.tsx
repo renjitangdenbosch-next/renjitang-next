@@ -6,11 +6,14 @@ import { motion } from "framer-motion";
 
 export function PageLayout({
   title,
+  titleZh,
   subtitle,
   heroImage = "/images/DSC_0350-scaled.jpg",
   children,
 }: {
   title: string;
+  /** Chinese ondertitel direct onder de h1 (hero) */
+  titleZh?: string;
   subtitle?: string;
   heroImage?: string;
   children: ReactNode;
@@ -43,6 +46,16 @@ export function PageLayout({
           >
             {title}
           </motion.h1>
+          {titleZh ? (
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.15 }}
+              className="text-stone-400 text-sm mb-8"
+            >
+              {titleZh}
+            </motion.p>
+          ) : null}
           {subtitle ? (
             <motion.p
               initial={{ opacity: 0 }}
@@ -104,9 +117,7 @@ export function CTACard() {
       <h3 className="mb-3 font-serif text-2xl">Klaar om een afspraak te maken?</h3>
       <p className="mb-6 text-white/80">Neem contact op of boek direct online</p>
       <a
-        href="https://renjitang.nl/index.php/book-appointment/"
-        target="_blank"
-        rel="noopener noreferrer"
+        href="/bookings"
         className="inline-block rounded-full bg-white px-8 py-3 font-semibold text-rjt-red transition-colors hover:bg-rjt-beige"
       >
         Maak een afspraak

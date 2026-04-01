@@ -25,6 +25,7 @@ export default function MassagePage() {
         <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
         <div className="absolute bottom-6 left-0 right-0 px-6">
           <h1 className="font-serif text-3xl text-white sm:text-4xl">Massage in Den Bosch</h1>
+          <p className="mt-1 text-sm text-stone-400">按摩治疗</p>
           <p className="mt-2 text-white/85">Tuina &amp; ontspanningsmassage · Herstel en balans</p>
         </div>
       </div>
@@ -86,9 +87,7 @@ export default function MassagePage() {
           <h3 className="mb-3 font-serif text-2xl">Massage boeken?</h3>
           <p className="mb-6 text-white/80">Neem contact op of plan direct een afspraak</p>
           <a
-            href="https://renjitang.nl/index.php/book-appointment/"
-            target="_blank"
-            rel="noopener noreferrer"
+            href="/bookings"
             className="inline-block rounded-full bg-white px-8 py-3 font-semibold text-rjt-red transition-colors hover:bg-rjt-beige"
           >
             Maak een afspraak
