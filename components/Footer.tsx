@@ -104,7 +104,7 @@ export function Footer() {
               />
             </a>
             <a
-              href="https://www.kab.nl"
+              href="https://www.kab-koepel.nl/"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-block"
