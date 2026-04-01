@@ -33,11 +33,17 @@ const config: Config = {
       },
       animation: {
         marquee: "marquee 25s linear infinite",
+        gradientShift: "gradientShift 4s ease infinite",
       },
       keyframes: {
         marquee: {
           "0%": { transform: "translateX(0%)" },
           "100%": { transform: "translateX(-33.333%)" },
+        },
+        gradientShift: {
+          "0%": { backgroundPosition: "0% 50%" },
+          "50%": { backgroundPosition: "100% 50%" },
+          "100%": { backgroundPosition: "0% 50%" },
         },
       },
     },

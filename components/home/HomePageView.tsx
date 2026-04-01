@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { animate, motion, useInView } from "framer-motion";
+import { cn } from "@/lib/cn";
 import { SERVICES, SITE } from "@/lib/site";
 import {
   DragonScaleBackground,
@@ -16,7 +17,7 @@ import {
 
 const waUrl = `https://wa.me/${SITE.phoneTel.replace(/\D/g, "")}`;
 
-function useAnimatedInt(target: number, enabled: boolean, duration = 1.15) {
+function useAnimatedInt(target: number, enabled: boolean, duration = 2) {
   const [v, setV] = useState(0);
   useEffect(() => {
     if (!enabled) return;
@@ -180,32 +181,123 @@ function serviceIcon(id: string) {
   return <LotusIcon className="h-10 w-10" />;
 }
 
-const reviews = [
+const googleReviews = [
   {
-    quote: "De beste praktijk in 's-Hertogenbosch",
-    name: "Mike",
+    naam: "Rocky",
+    datum: "5 maanden geleden",
+    sterren: 5,
+    tekst:
+      "Bizar goed. Eerste naar fysio geweest. Die wisten niet wat ze ermee aan moesten. Maar hier, wauw! Zowel massage als acupunctuur. Heb een hele zware rug, bil en benen blessure opgelopen icm verrekte nek en vastzittend verdriet van rouwen om Mam (dat laatste constateerden zij, dat er verdriet vast zat). Na meerdere sessies herstel ik niet alleen lichamelijk, ook emotioneel gebeurt er veel, ik laat veel los, voel blokkades verdwijnen en de balans in lichaam en geest terugkeren. Absolute aanrader!!!!!!! Weten echt waar ze mee bezig zijn!",
   },
   {
-    quote: "Na jaren pijnklachten eindelijk verlichting",
-    name: "Cindy",
+    naam: "Sjoerd",
+    datum: "een jaar geleden",
+    sterren: 5,
+    tekst: "In tijden niet meer z'n goede massage gehad, zeer relaxt 🙌 nogmaals bedankt",
   },
   {
-    quote: "Professioneel en hartelijk, echt aanrader",
-    name: "Mariejanke",
+    naam: "Tevreden klant",
+    datum: "een jaar geleden",
+    sterren: 5,
+    tekst: "Na afloop van de behandeling door de acupuncturist ben ik nog steeds verbaasd en dankbaar voor het resultaat.",
   },
-];
+  {
+    naam: "Tevreden klant",
+    datum: "een jaar geleden",
+    sterren: 5,
+    tekst: "Zeer bekwaam. Na m'n acupunctuur behandelingen totaal geen pijn meer!",
+  },
+  {
+    naam: "Tevreden klant",
+    datum: "5 maanden geleden",
+    sterren: 5,
+    tekst: "Voor jouw gezondheid is dit een plek waar je naar toe moet 👍👍👍👍👍",
+  },
+] as const;
 
-function Stars() {
+function Stars({ count = 5 }: { count?: number }) {
   return (
     <div className="flex gap-0.5" aria-hidden>
-      {Array.from({ length: 5 }).map((_, i) => (
-        <svg key={i} viewBox="0 0 20 20" className="h-4 w-4 text-rjt-gold">
+      {Array.from({ length: count }).map((_, i) => (
+        <svg key={i} viewBox="0 0 20 20" className="h-4 w-4 shrink-0 text-rjt-gold">
           <path fill="currentColor" d="M10 1.5l2.2 5.6h6l-4.8 3.6 1.8 5.8L10 13.9 4.8 16.5l1.8-5.8L1.8 7.1h6L10 1.5z" />
         </svg>
       ))}
     </div>
   );
 }
+
+function ReviewTekst({ tekst }: { tekst: string }) {
+  const [expanded, setExpanded] = useState(false);
+  const long = tekst.length > 200;
+  return (
+    <div className="mt-3 text-sm leading-relaxed text-stone-800 dark:text-stone-200">
+      <p>
+        {long && !expanded ? (
+          <>
+            {tekst.slice(0, 200).trim()}…{" "}
+            <button
+              type="button"
+              className="font-medium text-rjt-red hover:underline dark:text-[#c45a68]"
+              onClick={() => setExpanded(true)}
+              aria-expanded={false}
+            >
+              Lees meer
+            </button>
+          </>
+        ) : (
+          <>
+            {tekst}
+            {long ? (
+              <>
+                {" "}
+                <button
+                  type="button"
+                  className="font-medium text-rjt-red hover:underline dark:text-[#c45a68]"
+                  onClick={() => setExpanded(false)}
+                  aria-expanded
+                >
+                  Lees minder
+                </button>
+              </>
+            ) : null}
+          </>
+        )}
+      </p>
+    </div>
+  );
+}
+
+function SectionLotusFade() {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 16 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-24px" }}
+      transition={{ duration: 1.4, ease: "easeOut" }}
+      className="flex justify-center py-10"
+      aria-hidden
+    >
+      <LotusIcon className="h-24 w-24 text-rjt-gold drop-shadow-[0_0_24px_rgba(201,168,76,0.35)]" />
+    </motion.div>
+  );
+}
+
+const reviewListVariants = {
+  hidden: {},
+  visible: {
+    transition: { staggerChildren: 0.2 },
+  },
+};
+
+const reviewCardVariants = {
+  hidden: { opacity: 0, y: 30 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.55, ease: [0, 0, 0.2, 1] },
+  },
+} as const;
 
 export function HomePageView() {
   return (
@@ -260,7 +352,11 @@ export function HomePageView() {
       </section>
 
       {/* —— Trust —— */}
-      <section
+      <motion.section
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6, delay: 0 }}
         className="full-bleed border-y border-rjt-gold/15 bg-rjt-beige py-14 dark:border-rjt-gold/10 dark:bg-[#1c1814]"
         aria-label="Kerngegevens praktijk"
       >
@@ -270,10 +366,16 @@ export function HomePageView() {
           <StatBlock end={8} label="behandelingen" />
           <StatBlock isText label="Vergoed door zorgverzekeraar" />
         </div>
-      </section>
+      </motion.section>
+
+      <SectionLotusFade />
 
       {/* —— Over ons —— */}
-      <section
+      <motion.section
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6, delay: 0.1 }}
         className="mx-auto grid max-w-6xl gap-12 px-4 py-20 sm:px-6 lg:grid-cols-2 lg:items-center lg:gap-16 lg:py-28"
         aria-labelledby="over-ons-heading"
       >
@@ -284,20 +386,32 @@ export function HomePageView() {
           transition={{ duration: 0.6 }}
           className="flex flex-col gap-8"
         >
-          <Image
-            src="/images/PHOTO-2024-11-26-19-19-52-2.jpg"
-            alt="Behandeling bij Ren Ji Tang"
-            width={500}
-            height={400}
-            className="w-full max-w-[500px] rounded-2xl object-cover"
-          />
-          <Image
-            src="/images/PHOTO-2024-11-26-19-19-05-6.jpg"
-            alt="Sfeerimpressie praktijk Ren Ji Tang"
-            width={500}
-            height={400}
-            className="w-full max-w-[500px] rounded-2xl object-cover"
-          />
+          <motion.div
+            whileHover={{ scale: 1.03 }}
+            transition={{ duration: 0.4 }}
+            className="max-w-[500px] overflow-hidden rounded-2xl ring-2 ring-transparent transition-shadow duration-300 hover:ring-rjt-gold"
+          >
+            <Image
+              src="/images/PHOTO-2024-11-26-19-19-52-2.jpg"
+              alt="Behandeling bij Ren Ji Tang"
+              width={500}
+              height={400}
+              className="w-full object-cover"
+            />
+          </motion.div>
+          <motion.div
+            whileHover={{ scale: 1.03 }}
+            transition={{ duration: 0.4 }}
+            className="max-w-[500px] overflow-hidden rounded-2xl ring-2 ring-transparent transition-shadow duration-300 hover:ring-rjt-gold"
+          >
+            <Image
+              src="/images/PHOTO-2024-11-26-19-19-05-6.jpg"
+              alt="Sfeerimpressie praktijk Ren Ji Tang"
+              width={500}
+              height={400}
+              className="w-full object-cover"
+            />
+          </motion.div>
           <div className="relative flex min-h-[220px] items-center justify-center rounded-sm border border-rjt-gold/25 bg-rjt-cream/80 p-10 dark:border-rjt-gold/20 dark:bg-[#1f1b17]">
           <DragonScaleBackground className="!opacity-30 rounded-sm" />
           <div className="relative text-center">
@@ -350,10 +464,14 @@ export function HomePageView() {
             </p>
           </div>
         </motion.div>
-      </section>
+      </motion.section>
 
       {/* —— Behandelingen —— */}
-      <section
+      <motion.section
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6, delay: 0.2 }}
         id="behandelingen"
         className="full-bleed bg-rjt-cream py-20 dark:bg-[#181512]"
         aria-labelledby="behandelingen-heading"
@@ -378,31 +496,77 @@ export function HomePageView() {
             </p>
           </motion.div>
 
-          <ul className="mt-14 grid list-none gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {SERVICES.map((s, i) => (
-              <motion.li
-                key={s.id}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-40px" }}
-                transition={{ duration: 0.45, delay: i * 0.05 }}
-              >
-                <div className="group h-full rounded-sm border border-stone-200/90 bg-white p-6 shadow-sm transition duration-300 hover:-translate-y-0.5 hover:border-rjt-red/50 hover:shadow-md dark:border-stone-700 dark:bg-[#1f1b17] dark:hover:border-rjt-red/55">
-                  <div className="text-rjt-gold">{serviceIcon(s.id)}</div>
-                  <h3 className="mt-4 font-serif text-xl text-rjt-dark dark:text-rjt-cream">{s.naam}</h3>
-                  <p className="mt-2 text-sm text-stone-600 dark:text-stone-400">{s.beschrijving}</p>
-                  <p className="mt-4 text-sm font-medium text-rjt-red dark:text-[#c45a68]">
-                    €{s.prijs} · {s.duur} min
-                  </p>
-                </div>
-              </motion.li>
-            ))}
+          <ul className="mt-14 grid list-none gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            {SERVICES.map((s, i) => {
+              const featured = i === 0;
+              return (
+                <motion.li
+                  key={s.id}
+                  initial={{ opacity: 0, y: 40 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-40px" }}
+                  transition={{ duration: 0.6, delay: i * 0.1 }}
+                  className={cn(featured && "sm:col-span-2 lg:col-span-2")}
+                >
+                  {featured ? (
+                    <motion.div
+                      whileHover={{
+                        y: -8,
+                        boxShadow: "0 20px 40px rgba(139,38,53,0.25)",
+                      }}
+                      transition={{ type: "spring", stiffness: 300 }}
+                      className="relative h-full min-h-[260px] overflow-hidden rounded-sm bg-rjt-red p-8 text-white shadow-md ring-2 ring-transparent transition-[box-shadow] hover:ring-rjt-gold"
+                    >
+                      <span
+                        className="pointer-events-none absolute -bottom-2 -right-1 select-none font-serif text-[clamp(4.5rem,14vw,8rem)] leading-none text-white/[0.14]"
+                        aria-hidden
+                      >
+                        医
+                      </span>
+                      <div className="relative z-[1] text-rjt-gold">
+                        {serviceIcon(s.id)}
+                      </div>
+                      <h3 className="relative z-[1] mt-4 font-serif text-xl text-white">
+                        {s.naam}
+                      </h3>
+                      <p className="relative z-[1] mt-2 text-sm text-white/85">
+                        {s.beschrijving}
+                      </p>
+                      <p className="relative z-[1] mt-4 text-sm font-medium text-rjt-gold">
+                        €{s.prijs} · {s.duur} min
+                      </p>
+                    </motion.div>
+                  ) : (
+                    <motion.div
+                      whileHover={{
+                        y: -8,
+                        boxShadow:
+                          "0 20px 40px rgba(139,38,53,0.15), 0 0 0 2px rgba(201,168,76,0.9)",
+                      }}
+                      transition={{ type: "spring", stiffness: 300 }}
+                      className="h-full rounded-sm border-2 border-stone-200/90 bg-white p-6 shadow-sm dark:border-stone-700 dark:bg-[#1f1b17]"
+                    >
+                      <div className="text-rjt-gold">{serviceIcon(s.id)}</div>
+                      <h3 className="mt-4 font-serif text-xl text-rjt-dark dark:text-rjt-cream">
+                        {s.naam}
+                      </h3>
+                      <p className="mt-2 text-sm text-stone-600 dark:text-stone-400">
+                        {s.beschrijving}
+                      </p>
+                      <p className="mt-4 text-sm font-medium text-rjt-red dark:text-[#c45a68]">
+                        €{s.prijs} · {s.duur} min
+                      </p>
+                    </motion.div>
+                  )}
+                </motion.li>
+              );
+            })}
             <motion.li
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-40px" }}
-              transition={{ duration: 0.45, delay: 0.4 }}
-              className="sm:col-span-2 lg:col-span-3"
+              transition={{ duration: 0.6, delay: SERVICES.length * 0.1 }}
+              className="sm:col-span-2 lg:col-span-4"
             >
               <div className="group flex h-full min-h-[200px] flex-col justify-center rounded-sm border border-dashed border-rjt-gold/40 bg-rjt-beige/50 p-6 text-center transition hover:border-rjt-gold hover:bg-rjt-beige dark:border-rjt-gold/30 dark:bg-[#252018] dark:hover:bg-[#2a241c]">
                 <LotusIcon className="mx-auto h-12 w-12 opacity-70" />
@@ -431,10 +595,16 @@ export function HomePageView() {
             </Link>
           </div>
         </div>
-      </section>
+      </motion.section>
+
+      <SectionLotusFade />
 
       {/* —— Hoe het werkt —— */}
-      <section
+      <motion.section
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6, delay: 0.3 }}
         className="mx-auto max-w-6xl px-4 py-20 sm:px-6 lg:py-24"
         aria-labelledby="stappen-heading"
       >
@@ -458,10 +628,10 @@ export function HomePageView() {
           ].map((item, i) => (
             <motion.div
               key={item.step}
-              initial={{ opacity: 0, y: 24 }}
+              initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-60px" }}
-              transition={{ duration: 0.5, delay: i * 0.15 }}
+              transition={{ duration: 0.6, delay: i * 0.1 }}
               className="relative flex flex-col items-center text-center"
             >
               <div className="relative z-10 flex h-16 w-16 items-center justify-center rounded-full border-2 border-rjt-gold bg-rjt-beige text-lg font-serif text-rjt-dark dark:border-rjt-gold dark:bg-[#1f1b17] dark:text-rjt-cream">
@@ -478,10 +648,16 @@ export function HomePageView() {
             </motion.div>
           ))}
         </div>
-      </section>
+      </motion.section>
+
+      <SectionLotusFade />
 
       {/* —— Reviews —— */}
-      <section
+      <motion.section
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6, delay: 0.4 }}
         className="full-bleed border-y border-stone-200/80 bg-rjt-beige py-20 dark:border-stone-800 dark:bg-[#1c1814]"
         aria-labelledby="reviews-heading"
       >
@@ -493,30 +669,54 @@ export function HomePageView() {
             Wat onze klanten zeggen
           </h2>
           <GoldDivider className="my-8" />
-          <ul className="mt-10 grid gap-8 md:grid-cols-3">
-            {reviews.map((r, i) => (
-              <motion.li
-                key={r.name}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-40px" }}
-                transition={{ duration: 0.45, delay: i * 0.1 }}
-              >
-                <blockquote className="h-full rounded-sm border border-stone-200/90 bg-rjt-cream p-6 shadow-md dark:border-stone-700 dark:bg-[#232018]">
-                  <Stars />
-                  <p className="mt-4 text-stone-800 dark:text-stone-200">&ldquo;{r.quote}&rdquo;</p>
-                  <footer className="mt-4 text-sm font-medium text-rjt-red dark:text-[#c45a68]">
-                    — {r.name}
+          <div className="mb-4 text-center">
+            <div className="mb-2 flex justify-center gap-1 text-lg" aria-hidden>
+              ⭐⭐⭐⭐⭐
+            </div>
+            <p className="text-2xl font-bold text-rjt-dark dark:text-rjt-cream">5.0</p>
+            <p className="text-sm text-stone-500 dark:text-stone-400">7 Google reviews</p>
+          </div>
+          <motion.ul
+            className="mt-10 grid gap-8 md:grid-cols-2 lg:grid-cols-3"
+            variants={reviewListVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-40px" }}
+          >
+            {googleReviews.map((r, i) => (
+              <motion.li key={`${r.naam}-${i}`} variants={reviewCardVariants}>
+                <blockquote className="flex h-full flex-col rounded-sm border border-stone-200/90 bg-rjt-cream p-6 shadow-md dark:border-stone-700 dark:bg-[#232018]">
+                  <Stars count={r.sterren} />
+                  <footer className="mt-4 flex flex-wrap items-baseline justify-between gap-2 border-b border-stone-200/80 pb-3 dark:border-stone-600/80">
+                    <cite className="not-italic">
+                      <span className="font-semibold text-rjt-dark dark:text-rjt-cream">{r.naam}</span>
+                    </cite>
+                    <span className="text-xs text-stone-500 dark:text-stone-400">{r.datum}</span>
                   </footer>
+                  <ReviewTekst tekst={r.tekst} />
                 </blockquote>
               </motion.li>
             ))}
-          </ul>
+          </motion.ul>
+          <p className="mt-10 text-center">
+            <a
+              href="https://www.google.com/maps/place/Renjitang+Massage+%26+Acupunctuur+praktijk/@51.7210204,5.3090705"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-sm text-rjt-red underline underline-offset-2 hover:text-red-900 dark:text-[#c45a68] dark:hover:text-[#e07d88]"
+            >
+              Bekijk alle reviews op Google (5.0 ⭐ · 7 reviews)
+            </a>
+          </p>
         </div>
-      </section>
+      </motion.section>
 
       {/* —— Openingstijden + contact —— */}
-      <section
+      <motion.section
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6, delay: 0.5 }}
         className="full-bleed bg-rjt-dark py-20 text-rjt-cream dark:bg-[#0f0e0c]"
         aria-labelledby="contact-heading"
       >
@@ -582,15 +782,26 @@ export function HomePageView() {
               </svg>
               WhatsApp ons
             </a>
-            <Link
-              href={SITE.bookingUrl}
-              className="mt-8 inline-flex w-fit items-center justify-center rounded-sm bg-rjt-red px-10 py-4 text-base font-semibold text-white shadow-lg transition hover:bg-[#a02f40]"
-            >
-              Boek nu
-            </Link>
+            <div className="relative mt-8 inline-flex w-fit">
+              <motion.div
+                aria-hidden
+                className="absolute inset-0 -m-3 rounded-full bg-rjt-red blur-xl"
+                animate={{
+                  scale: [1, 1.2, 1],
+                  opacity: [0.5, 0.8, 0.5],
+                }}
+                transition={{ duration: 2, repeat: Infinity }}
+              />
+              <Link
+                href={SITE.bookingUrl}
+                className="relative z-10 inline-flex w-fit items-center justify-center rounded-sm bg-rjt-red px-10 py-4 text-base font-semibold text-white shadow-lg transition hover:bg-[#a02f40]"
+              >
+                Boek nu
+              </Link>
+            </div>
           </motion.div>
         </div>
-      </section>
+      </motion.section>
     </div>
   );
 }
