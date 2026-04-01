@@ -60,6 +60,20 @@ function esc(s: string): string {
     .replace(/"/g, "&quot;");
 }
 
+export function generateAnnuleringsToken(email: string, id: string): string {
+  return Buffer.from(email + id).toString("base64").slice(0, 16);
+}
+
+export function generateAnnuleringsLink(email: string, id: string): string {
+  const token = generateAnnuleringsToken(email, id);
+  const base = (
+    process.env.NEXTAUTH_URL ??
+    process.env.NEXT_PUBLIC_SITE_URL ??
+    "https://renjitang.nl"
+  ).replace(/\/$/, "");
+  return `${base}/api/bookings/annuleer?id=${encodeURIComponent(id)}&token=${encodeURIComponent(token)}`;
+}
+
 function prijsEuro(b: BookingEmailData): string {
   const n =
     typeof b.prijs === "number"
@@ -96,6 +110,21 @@ function afspraakBox(b: BookingEmailData): string {
   </div>`;
 }
 
+function annuleerViaEmailBlock(booking: BookingEmailData): string {
+  const annuleerLink = generateAnnuleringsLink(booking.email, booking.id);
+  return `<div style="margin-top:20px;padding:16px;background:#fff9f9;
+  border:1px solid #ffcccc;border-radius:8px;font-size:13px;
+  color:#666;text-align:center">
+  <p style="margin:0 0 8px">
+    Wilt u annuleren? Dat kan tot 24 uur voor uw afspraak.
+  </p>
+  <a href="${esc(annuleerLink)}"
+    style="color:#8B2635;text-decoration:underline;font-size:13px">
+    Afspraak annuleren
+  </a>
+</div>`;
+}
+
 export type EmailTemplateResult = { subject: string; html: string };
 
 export function aanvraagOntvangen(booking: BookingEmailData): EmailTemplateResult {
@@ -107,6 +136,7 @@ export function aanvraagOntvangen(booking: BookingEmailData): EmailTemplateResul
   <p>Wij hebben uw aanvraag ontvangen en nemen zo spoedig 
   mogelijk contact op ter bevestiging.</p>
   ${afspraakBox(booking)}
+  ${annuleerViaEmailBlock(booking)}
   <a href="https://renjitang.nl" style="display:inline-block;
     background:#8B2635;color:white;padding:12px 28px;
     border-radius:24px;text-decoration:none;font-size:14px">
@@ -157,6 +187,7 @@ export function boekingBevestigd(booking: BookingEmailData): EmailTemplateResult
   </div>
   <p>Beste ${esc(booking.naam)}, wij verheugen ons op uw bezoek.</p>
   ${afspraakBox(booking)}
+  ${annuleerViaEmailBlock(booking)}
   <div style="background:#FFF9E6;border:1px solid #C9A84C;
     padding:16px 20px;border-radius:4px;margin:20px 0;
     font-size:13px;line-height:2">
