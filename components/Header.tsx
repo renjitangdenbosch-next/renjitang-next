@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { AnnouncementBanner } from "./AnnouncementBanner";
+import { TopBar } from "./TopBar";
 import { cn } from "@/lib/cn";
 import { PRIMARY_NAV } from "@/lib/navigation";
 import { SITE } from "@/lib/site";
@@ -10,10 +11,11 @@ import { SITE } from "@/lib/site";
 export function Header() {
   return (
     <>
+      <TopBar />
       <AnnouncementBanner />
-      <header className="fixed left-0 right-0 top-11 z-50 border-b border-stone-200 bg-white/95 backdrop-blur-sm">
+      <header className="sticky top-0 z-50 border-b border-stone-200 bg-white/95 backdrop-blur-sm">
         <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-2 sm:px-6">
-          <Link href="/" className="flex shrink-0 flex-col items-start">
+          <Link href="/" className="flex shrink-0 items-center">
             <Image
               src="/images/cropped-logorenjitang.png"
               alt="Ren Ji Tang"
@@ -23,7 +25,6 @@ export function Header() {
               sizes="80px"
               className="h-10 w-auto object-contain"
             />
-            <span className="hidden text-xs text-stone-500 md:block">仁济堂</span>
           </Link>
           <nav
             className="hidden items-center gap-2 text-sm font-medium md:flex lg:gap-3"

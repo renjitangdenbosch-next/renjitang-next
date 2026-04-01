@@ -32,13 +32,13 @@ const config: Config = {
         sans: ["var(--font-sans)", "system-ui", "sans-serif"],
       },
       animation: {
-        marquee: "marquee 25s linear infinite",
+        marquee: "marquee 30s linear infinite",
         gradientShift: "gradientShift 4s ease infinite",
       },
       keyframes: {
         marquee: {
           "0%": { transform: "translateX(0%)" },
-          "100%": { transform: "translateX(-33.333%)" },
+          "100%": { transform: "translateX(-25%)" },
         },
         gradientShift: {
           "0%": { backgroundPosition: "0% 50%" },

@@ -303,7 +303,7 @@ export function HomePageView() {
   return (
     <div className="bg-rjt-beige text-rjt-dark dark:bg-[#141210] dark:text-rjt-cream">
       {/* —— Hero —— */}
-      <section className="relative flex min-h-screen items-center justify-center overflow-hidden -mt-[7.75rem] md:-mt-[8.75rem]">
+      <section className="relative flex min-h-screen items-center justify-center overflow-hidden">
         <Image
           src="/images/DSC_0350-scaled.jpg"
           alt="Ren Ji Tang team"
