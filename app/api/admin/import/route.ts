@@ -125,6 +125,7 @@ export async function POST(req: Request) {
         telefoon: (row.telefoon || "").trim(),
         opmerking: row.opmerking?.trim() || null,
         behandeling: svc?.naam ?? row.behandeling.trim(),
+        behandelingId: svc?.id ?? SERVICES[0].id,
         duur,
         prijs: new Prisma.Decimal(prijsEur),
         datum: parsed.datum,

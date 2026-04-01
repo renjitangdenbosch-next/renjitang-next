@@ -1,23 +1,58 @@
-import { SITE } from "@/lib/site";
+const header = `
+<div style="background:#1A1A1A;padding:24px 32px;text-align:center">
+  <p style="color:white;font-family:Georgia,serif;font-size:24px;
+    margin:0;letter-spacing:2px">REN JI TANG</p>
+  <p style="color:#C9A84C;font-size:11px;letter-spacing:3px;margin:4px 0 0">
+    仁济堂 · ACUPUNCTUUR · MASSAGE · TCG
+  </p>
+</div>
+<div style="height:3px;background:linear-gradient(
+  90deg,#8B2635,#C9A84C,#8B2635)"></div>`;
 
-const siteUrl = () =>
-  (process.env.NEXT_PUBLIC_SITE_URL || "https://www.renjitang.nl").replace(/\/$/, "");
+const footer = `
+<div style="background:#F5EFE6;padding:24px 32px;
+  text-align:center;border-top:1px solid #e5e0d8;
+  font-family:Arial,sans-serif">
+  <p style="color:#8B2635;font-weight:bold;margin:0 0 8px;font-size:15px">
+    Ren Ji Tang
+  </p>
+  <p style="color:#666;font-size:13px;margin:0;line-height:1.6">
+    Hazenburgstede 7 · 5235 HR 's-Hertogenbosch<br/>
+    Tel: 073 211 02 24 · 
+    <a href="mailto:info@renjitang.nl" 
+      style="color:#8B2635;text-decoration:none">
+      info@renjitang.nl
+    </a>
+  </p>
+  <p style="color:#999;font-size:11px;margin:12px 0 0">
+    © 2026 Ren Ji Tang · 
+    <a href="https://renjitang.nl/privacy" 
+      style="color:#999;text-decoration:none">Privacybeleid</a>
+  </p>
+</div>`;
 
-export type BookingMailPayload = {
-  id: string;
-  naam: string;
-  email: string;
-  telefoon: string;
-  opmerking?: string | null;
-  behandeling: string;
-  duur: number;
-  prijsFormatted: string;
-  datum: Date;
-  tijdslot: string;
-  annuleringsReden?: string | null;
-};
+function wrap(content: string): string {
+  return `<div style="font-family:Arial,sans-serif;background:#FAFAF8;
+    max-width:600px;margin:0 auto;border-radius:8px;overflow:hidden;
+    box-shadow:0 2px 8px rgba(0,0,0,0.1)">
+    ${header}
+    <div style="padding:40px 32px;background:white">
+      ${content}
+    </div>
+    ${footer}
+  </div>`;
+}
 
-function esc(s: string) {
+function formatDatum(d: Date): string {
+  return new Intl.DateTimeFormat("nl-NL", {
+    weekday: "long",
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  }).format(d);
+}
+
+function esc(s: string): string {
   return s
     .replace(/&/g, "&amp;")
     .replace(/</g, "&lt;")
@@ -25,165 +60,168 @@ function esc(s: string) {
     .replace(/"/g, "&quot;");
 }
 
-function formatDatumNl(d: Date): string {
-  return d.toLocaleDateString("nl-NL", {
-    weekday: "long",
-    day: "numeric",
-    month: "long",
-    year: "numeric",
-    timeZone: "Europe/Amsterdam",
-  });
+function prijsEuro(b: BookingEmailData): string {
+  const n =
+    typeof b.prijs === "number"
+      ? b.prijs
+      : typeof b.prijs === "string"
+        ? parseFloat(b.prijs)
+        : Number(b.prijs.toString());
+  return Number.isFinite(n) ? n.toFixed(2) : "0.00";
 }
 
-function emailShell(inner: string): string {
-  const gold = "#C9A84C";
-  const red = "#8B2635";
-  const beige = "#F5EFE6";
-  const dark = "#1A1A1A";
-  return `
-<!DOCTYPE html>
-<html lang="nl">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width">
-</head>
-<body style="margin:0;padding:0;background:${beige};font-family:Georgia,'Times New Roman',serif;">
-  <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background:${beige};padding:24px 16px;">
-    <tr>
-      <td align="center">
-        <table role="presentation" width="600" cellspacing="0" cellpadding="0" style="max-width:600px;background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,.08);">
-          <tr>
-            <td style="padding:28px 32px 16px;background:#FAFAF8;border-bottom:3px solid ${gold};">
-              <p style="margin:0;font-size:22px;font-weight:600;color:${dark};letter-spacing:.02em;">${esc(SITE.name)}</p>
-              <p style="margin:6px 0 0;font-size:12px;color:#78716c;text-transform:uppercase;letter-spacing:.2em;">Acupunctuur &amp; TCG</p>
-            </td>
-          </tr>
-          <tr>
-            <td style="padding:28px 32px;color:#44403c;font-size:16px;line-height:1.65;">
-              ${inner}
-            </td>
-          </tr>
-          <tr>
-            <td style="padding:20px 32px 28px;background:#FAFAF8;border-top:1px solid #e7e5e4;font-size:13px;color:#78716c;line-height:1.6;">
-              <strong style="color:${dark};">Hazenburgstede 7</strong><br>
-              5235 HR &apos;s-Hertogenbosch<br>
-              ${esc(SITE.phone)} · <a href="mailto:${esc(SITE.email)}" style="color:${red};">${esc(SITE.email)}</a><br>
-              <a href="${esc(siteUrl())}" style="color:${red};">${esc(siteUrl().replace(/^https?:\/\//, ""))}</a>
-            </td>
-          </tr>
-        </table>
-      </td>
-    </tr>
-  </table>
-</body>
-</html>`;
+export type BookingEmailData = {
+  id: string;
+  naam: string;
+  email: string;
+  telefoon: string;
+  opmerking?: string | null;
+  behandeling: string;
+  duur: number;
+  prijs: { toString(): string; toNumber?(): number } | string | number;
+  datum: Date;
+  tijdslot: string;
+  annuleringsReden?: string | null;
+};
+
+function afspraakBox(b: BookingEmailData): string {
+  return `<div style="background:#F5EFE6;border-left:4px solid #8B2635;
+    padding:16px 20px;border-radius:4px;margin:20px 0;
+    font-family:Arial,sans-serif;font-size:14px;line-height:2">
+    <strong>Behandeling:</strong> ${esc(b.behandeling)}<br/>
+    <strong>Datum:</strong> ${formatDatum(new Date(b.datum))}<br/>
+    <strong>Tijd:</strong> ${esc(b.tijdslot)}<br/>
+    <strong>Duur:</strong> ${b.duur} minuten<br/>
+    <strong>Prijs:</strong> €${prijsEuro(b)}
+  </div>`;
 }
 
-function afspraakBlock(b: BookingMailPayload, titel = "Uw afspraak"): string {
-  return `
-  <table role="presentation" width="100%" style="background:#F5EFE6;border-radius:8px;padding:16px;margin:16px 0;border-left:4px solid #8B2635;">
-    <tr><td style="padding:8px 12px;">
-      <p style="margin:0 0 8px;font-size:13px;font-weight:600;color:#8B2635;text-transform:uppercase;letter-spacing:.08em;">${esc(titel)}</p>
-      <p style="margin:4px 0;"><strong>Behandeling:</strong> ${esc(b.behandeling)}</p>
-      <p style="margin:4px 0;"><strong>Datum:</strong> ${esc(formatDatumNl(b.datum))}</p>
-      <p style="margin:4px 0;"><strong>Tijd:</strong> ${esc(b.tijdslot)}</p>
-      <p style="margin:4px 0;"><strong>Duur:</strong> ${b.duur} minuten</p>
-      <p style="margin:4px 0;"><strong>Prijs:</strong> €${esc(b.prijsFormatted)}</p>
-    </td></tr>
-  </table>`;
+export type EmailTemplateResult = { subject: string; html: string };
+
+export function aanvraagOntvangen(booking: BookingEmailData): EmailTemplateResult {
+  const content = `
+  <h2 style="color:#1A1A1A;font-family:Georgia,serif">
+    Bedankt voor uw aanvraag
+  </h2>
+  <p>Beste ${esc(booking.naam)},</p>
+  <p>Wij hebben uw aanvraag ontvangen en nemen zo spoedig 
+  mogelijk contact op ter bevestiging.</p>
+  ${afspraakBox(booking)}
+  <a href="https://renjitang.nl" style="display:inline-block;
+    background:#8B2635;color:white;padding:12px 28px;
+    border-radius:24px;text-decoration:none;font-size:14px">
+    Bezoek onze website
+  </a>
+  <p style="color:#666;font-size:13px;margin-top:24px">
+    Heeft u vragen? Bel ons op 073 211 02 24
+  </p>`;
+  return {
+    subject: "Uw aanvraag is ontvangen — Ren Ji Tang",
+    html: wrap(content),
+  };
 }
 
-export function subjectAanvraagOntvangen(): string {
-  return "Uw aanvraag is ontvangen — Ren Ji Tang";
+export function praktijkNieuweAanvraag(booking: BookingEmailData): EmailTemplateResult {
+  const content = `
+  <h2 style="color:#1A1A1A;font-family:Georgia,serif">
+    Nieuwe boekingsaanvraag
+  </h2>
+  <div style="background:#f8f8f8;padding:16px 20px;
+    border-radius:4px;margin:16px 0;font-size:14px;line-height:2">
+    <strong>Naam:</strong> ${esc(booking.naam)}<br/>
+    <strong>Email:</strong> ${esc(booking.email)}<br/>
+    <strong>Telefoon:</strong> ${esc(booking.telefoon)}<br/>
+    <strong>Opmerking:</strong> ${booking.opmerking?.trim() ? esc(booking.opmerking.trim()) : "geen"}
+  </div>
+  ${afspraakBox(booking)}
+  <div style="display:flex;gap:12px;margin-top:20px">
+    <a href="https://renjitang.nl/admin/boekingen"
+      style="background:#2d6a4f;color:white;padding:12px 24px;
+      border-radius:24px;text-decoration:none;font-size:14px">
+      ✓ Bekijk en bevestig
+    </a>
+  </div>`;
+  return {
+    subject: `🆕 Nieuwe boeking: ${booking.naam} — ${booking.behandeling}`,
+    html: wrap(content),
+  };
 }
 
-export function htmlAanvraagOntvangen(b: BookingMailPayload): string {
-  const inner = `
-    <p style="margin:0 0 16px;">Beste ${esc(b.naam)},</p>
-    <p style="margin:0 0 16px;">Bedankt voor uw aanvraag bij Ren Ji Tang!</p>
-    ${afspraakBlock(b, "Uw aanvraag")}
-    <p style="margin:16px 0 0;">Wij nemen zo spoedig mogelijk contact met u op ter bevestiging.</p>
-    <p style="margin:24px 0 0;">Met vriendelijke groet,<br><strong>Ren Ji Tang</strong></p>
-  `;
-  return emailShell(inner);
+export function boekingBevestigd(booking: BookingEmailData): EmailTemplateResult {
+  const content = `
+  <div style="text-align:center;margin-bottom:24px">
+    <div style="font-size:48px">✅</div>
+    <h2 style="color:#2d6a4f;font-family:Georgia,serif">
+      Uw afspraak is bevestigd!
+    </h2>
+  </div>
+  <p>Beste ${esc(booking.naam)}, wij verheugen ons op uw bezoek.</p>
+  ${afspraakBox(booking)}
+  <div style="background:#FFF9E6;border:1px solid #C9A84C;
+    padding:16px 20px;border-radius:4px;margin:20px 0;
+    font-size:13px;line-height:2">
+    <strong style="color:#8B2635">Praktische tips:</strong><br/>
+    ✓ Kom 5 minuten voor uw afspraak<br/>
+    ✓ Draag comfortabele, loshangende kleding<br/>
+    ✓ Eet niet te zwaar voor de behandeling<br/>
+    ✓ Annuleren? Minimaal 24 uur van tevoren
+  </div>
+  <a href="https://maps.google.com/?q=Hazenburgstede+7+Den+Bosch"
+    style="display:inline-block;background:#8B2635;color:white;padding:12px 28px;
+    border-radius:24px;text-decoration:none;font-size:14px">
+    Route naar de praktijk
+  </a>`;
+  return {
+    subject: "✅ Uw afspraak is bevestigd — Ren Ji Tang",
+    html: wrap(content),
+  };
 }
 
-export function subjectPraktijkNieuweAanvraag(b: BookingMailPayload): string {
-  return `🆕 Nieuwe boeking: ${b.naam} — ${b.behandeling}`;
+export function boekingGeannuleerd(booking: BookingEmailData): EmailTemplateResult {
+  const reden = booking.annuleringsReden?.trim();
+  const content = `
+  <h2 style="color:#1A1A1A;font-family:Georgia,serif">
+    Afspraak geannuleerd
+  </h2>
+  <p>Beste ${esc(booking.naam)},</p>
+  <p>Uw geplande afspraak bij Ren Ji Tang is geannuleerd.</p>
+  ${afspraakBox(booking)}
+  ${
+    reden
+      ? `<p style="font-size:14px;line-height:1.6"><strong>Reden:</strong> ${esc(reden)}</p>`
+      : ""
+  }
+  <p style="color:#666;font-size:14px;line-height:1.6">
+    Voor een nieuwe afspraak kunt u contact met ons opnemen of online boeken.
+  </p>
+  <p style="color:#666;font-size:13px;margin-top:24px">
+    Vragen? Bel 073 211 02 24
+  </p>`;
+  return {
+    subject: "Uw boeking is geannuleerd — Ren Ji Tang",
+    html: wrap(content),
+  };
 }
 
-export function htmlPraktijkNieuweAanvraag(b: BookingMailPayload): string {
-  const adminUrl = `${siteUrl()}/admin/boekingen#${b.id}`;
-  const inner = `
-    <p style="margin:0 0 16px;font-size:18px;font-weight:600;color:#8B2635;">Nieuwe boekingsaanvraag ontvangen!</p>
-    <p style="margin:8px 0;"><strong>Klant:</strong> ${esc(b.naam)}</p>
-    <p style="margin:8px 0;"><strong>E-mail:</strong> ${esc(b.email)}</p>
-    <p style="margin:8px 0;"><strong>Telefoon:</strong> ${esc(b.telefoon)}</p>
-    <p style="margin:8px 0;"><strong>Behandeling:</strong> ${esc(b.behandeling)}</p>
-    <p style="margin:8px 0;"><strong>Datum:</strong> ${esc(formatDatumNl(b.datum))}</p>
-    <p style="margin:8px 0;"><strong>Tijd:</strong> ${esc(b.tijdslot)}</p>
-    <p style="margin:8px 0;"><strong>Opmerking:</strong> ${b.opmerking ? esc(b.opmerking) : "—"}</p>
-    <p style="margin:24px 0 0;">
-      <a href="${esc(adminUrl)}" style="display:inline-block;background:#8B2635;color:#fff;padding:12px 24px;border-radius:999px;text-decoration:none;font-weight:600;">Bekijk en bevestig in beheer</a>
-    </p>
-    <p style="margin:12px 0 0;font-size:12px;color:#78716c;">${esc(adminUrl)}</p>
-  `;
-  return emailShell(inner);
+export function herinnering(booking: BookingEmailData): EmailTemplateResult {
+  const content = `
+  <h2 style="color:#1A1A1A;font-family:Georgia,serif">
+    Herinnering: morgen uw afspraak
+  </h2>
+  <p>Beste ${esc(booking.naam)},</p>
+  <p>Morgen heeft u een afspraak bij Ren Ji Tang. Wij kijken ernaar uit u te verwelkomen.</p>
+  ${afspraakBox(booking)}
+  <p style="color:#666;font-size:13px;margin-top:20px">
+    Heeft u vragen of moet u verzetten? Bel ons op 073 211 02 24.
+  </p>`;
+  return {
+    subject: "⏰ Morgen uw afspraak bij Ren Ji Tang",
+    html: wrap(content),
+  };
 }
 
-export function subjectBoekingBevestigd(): string {
-  return "✅ Uw boeking is bevestigd — Ren Ji Tang";
-}
-
-export function htmlBoekingBevestigd(b: BookingMailPayload): string {
-  const inner = `
-    <p style="margin:0 0 16px;">Beste ${esc(b.naam)},</p>
-    <p style="margin:0 0 16px;">Geweldig nieuws! Uw boeking is bevestigd.</p>
-    ${afspraakBlock(b)}
-    <p style="margin:16px 0 8px;font-weight:600;color:#1A1A1A;">📍 Locatie</p>
-    <p style="margin:0;">Hazenburgstede 7<br>5235 HR &apos;s-Hertogenbosch</p>
-    <p style="margin:20px 0 8px;font-weight:600;color:#1A1A1A;">💡 Tips</p>
-    <ul style="margin:0;padding-left:20px;color:#57534e;">
-      <li>Kom 5 minuten van tevoren</li>
-      <li>Draag comfortabele kleding</li>
-      <li>Annuleren? Minimaal 24 uur van tevoren</li>
-    </ul>
-    <p style="margin:24px 0 0;">Tot dan!<br><strong>Ren Ji Tang</strong></p>
-  `;
-  return emailShell(inner);
-}
-
-export function subjectBoekingGeannuleerd(): string {
-  return "Uw boeking is geannuleerd — Ren Ji Tang";
-}
-
-export function htmlBoekingGeannuleerd(b: BookingMailPayload): string {
-  const reden = b.annuleringsReden?.trim();
-  const inner = `
-    <p style="margin:0 0 16px;">Beste ${esc(b.naam)},</p>
-    <p style="margin:0 0 16px;">Uw geplande afspraak bij Ren Ji Tang is geannuleerd.</p>
-    ${afspraakBlock(b)}
-    ${reden ? `<p style="margin:16px 0;"><strong>Reden:</strong> ${esc(reden)}</p>` : ""}
-    <p style="margin:16px 0 0;">Voor een nieuwe afspraak kunt u contact met ons opnemen of online boeken.</p>
-    <p style="margin:24px 0 0;">Met vriendelijke groet,<br><strong>Ren Ji Tang</strong></p>
-  `;
-  return emailShell(inner);
-}
-
-export function subjectHerinnering(): string {
-  return "⏰ Morgen uw afspraak bij Ren Ji Tang";
-}
-
-export function htmlHerinnering(b: BookingMailPayload): string {
-  const inner = `
-    <p style="margin:0 0 16px;">Beste ${esc(b.naam)},</p>
-    <p style="margin:0 0 16px;">Herinnering: <strong>morgen</strong> heeft u een afspraak bij Ren Ji Tang!</p>
-    ${afspraakBlock(b)}
-    <p style="margin:16px 0 0;">Heeft u vragen? Bel ons: <strong>${esc(SITE.phone)}</strong></p>
-    <p style="margin:24px 0 0;">Tot morgen!<br><strong>Ren Ji Tang</strong></p>
-  `;
-  return emailShell(inner);
-}
+/** @deprecated gebruik aanvraagOntvangen(booking).html */
+export type BookingMailPayload = BookingEmailData;
 
 export function bookingToMailPayload(b: {
   id: string;
@@ -198,21 +236,45 @@ export function bookingToMailPayload(b: {
   tijdslot: string;
   annuleringsReden?: string | null;
 }): BookingMailPayload {
-  let p: string;
-  if (typeof b.prijs === "number") p = b.prijs.toFixed(2);
-  else if (typeof b.prijs === "string") p = parseFloat(b.prijs).toFixed(2);
-  else p = Number(b.prijs.toString()).toFixed(2);
-  return {
-    id: b.id,
-    naam: b.naam,
-    email: b.email,
-    telefoon: b.telefoon,
-    opmerking: b.opmerking,
-    behandeling: b.behandeling,
-    duur: b.duur,
-    prijsFormatted: p.replace(/\.00$/, ""),
-    datum: b.datum,
-    tijdslot: b.tijdslot,
-    annuleringsReden: b.annuleringsReden,
-  };
+  return { ...b };
+}
+
+export function subjectAanvraagOntvangen(): string {
+  return "Uw aanvraag is ontvangen — Ren Ji Tang";
+}
+
+export function htmlAanvraagOntvangen(b: BookingMailPayload): string {
+  return aanvraagOntvangen(b).html;
+}
+
+export function subjectPraktijkNieuweAanvraag(b: BookingMailPayload): string {
+  return praktijkNieuweAanvraag(b).subject;
+}
+
+export function htmlPraktijkNieuweAanvraag(b: BookingMailPayload): string {
+  return praktijkNieuweAanvraag(b).html;
+}
+
+export function subjectBoekingBevestigd(): string {
+  return "✅ Uw afspraak is bevestigd — Ren Ji Tang";
+}
+
+export function htmlBoekingBevestigd(b: BookingMailPayload): string {
+  return boekingBevestigd(b).html;
+}
+
+export function subjectBoekingGeannuleerd(): string {
+  return "Uw boeking is geannuleerd — Ren Ji Tang";
+}
+
+export function htmlBoekingGeannuleerd(b: BookingMailPayload): string {
+  return boekingGeannuleerd(b).html;
+}
+
+export function subjectHerinnering(): string {
+  return "⏰ Morgen uw afspraak bij Ren Ji Tang";
+}
+
+export function htmlHerinnering(b: BookingMailPayload): string {
+  return herinnering(b).html;
 }

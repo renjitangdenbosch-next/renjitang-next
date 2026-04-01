@@ -67,6 +67,7 @@ export async function POST(req: Request) {
       telefoon: telefoon.trim(),
       opmerking: opmerking?.trim() || null,
       behandeling: svc.naam,
+      behandelingId,
       duur,
       prijs,
       datum: datumDb,
