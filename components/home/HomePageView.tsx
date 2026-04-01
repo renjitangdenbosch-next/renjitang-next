@@ -211,7 +211,7 @@ export function HomePageView() {
   return (
     <div className="bg-rjt-beige text-rjt-dark dark:bg-[#141210] dark:text-rjt-cream">
       {/* —— Hero —— */}
-      <section className="relative -mt-20 flex min-h-screen items-center justify-center overflow-hidden md:-mt-24">
+      <section className="relative min-h-screen flex items-center justify-center overflow-hidden -mt-20 md:-mt-24">
         <Image
           src="/images/DSC_0350-scaled.jpg"
           alt="Ren Ji Tang team"
@@ -220,9 +220,9 @@ export function HomePageView() {
           className="object-cover object-top"
         />
 
-        <div className="absolute inset-0 bg-black/55" />
+        <div className="absolute inset-0 bg-black/55 z-[1]" />
 
-        <div className="relative z-10 mx-auto max-w-3xl px-6 text-center text-white">
+        <div className="relative z-10 text-center text-white px-6 max-w-3xl mx-auto">
           <p className="mb-4 text-xs uppercase tracking-[0.4em] text-white/60">
             Ren Ji Tang
           </p>
