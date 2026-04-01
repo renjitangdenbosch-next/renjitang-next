@@ -200,6 +200,9 @@ export default function BookingsPage() {
                     <div className="flex justify-between items-center">
                       <div>
                         <p className="font-semibold text-rjt-dark">{s.naam}</p>
+                        {s.naamCN && (
+                          <p className="text-sm text-stone-400">{s.naamCN}</p>
+                        )}
                         <p className="text-sm text-stone-500">
                           {s.duur} minuten
                         </p>
