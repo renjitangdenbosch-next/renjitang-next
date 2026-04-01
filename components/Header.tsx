@@ -2,13 +2,16 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { AnnouncementBanner } from "./AnnouncementBanner";
 import { cn } from "@/lib/cn";
 import { PRIMARY_NAV } from "@/lib/navigation";
 import { SITE } from "@/lib/site";
 
 export function Header() {
   return (
-    <header className="fixed left-0 right-0 top-0 z-50 border-b border-stone-200/80 bg-white/95 backdrop-blur-sm dark:border-stone-700/80">
+    <>
+      <AnnouncementBanner />
+      <header className="fixed left-0 right-0 top-11 z-50 border-b border-stone-200/80 bg-white/95 backdrop-blur-sm dark:border-stone-700/80">
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-2 sm:px-6">
         <Link href="/" className="flex shrink-0 flex-col items-start">
           <Image
@@ -82,5 +85,6 @@ export function Header() {
         })}
       </nav>
     </header>
+    </>
   );
 }

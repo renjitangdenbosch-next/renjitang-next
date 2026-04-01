@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { SITE } from "@/lib/site";
 import { PRIMARY_NAV } from "@/lib/navigation";
@@ -82,6 +83,37 @@ export function Footer() {
               </li>
             </ul>
           </div>
+        </div>
+        <div className="mt-8 border-t border-stone-800 pt-8">
+          <p className="mb-6 text-center text-sm text-stone-400">
+            Wij zijn aangesloten bij:
+          </p>
+          <div className="mb-6 flex flex-wrap items-center justify-center gap-6">
+            <Image
+              src="/images/logo-zhong.png"
+              alt="Zhong - Nederlandse Vereniging voor Traditionele Chinese Geneeskunde"
+              width={80}
+              height={40}
+              className="object-contain opacity-80 brightness-0 invert transition-opacity hover:opacity-100"
+            />
+            <Image
+              src="/images/kab-koepel.webp"
+              alt="KAB - Koepel Alternatieve Behandelwijzen"
+              width={80}
+              height={40}
+              className="object-contain opacity-80 brightness-0 invert transition-opacity hover:opacity-100"
+            />
+            <Image
+              src="/images/logo-scag.png"
+              alt="SCAG"
+              width={80}
+              height={40}
+              className="object-contain opacity-80 brightness-0 invert transition-opacity hover:opacity-100"
+            />
+          </div>
+          <p className="text-center text-xs text-stone-500">
+            KvK-nummer: 94217262
+          </p>
         </div>
         <p className="mt-12 border-t border-white/10 pt-8 text-center text-xs text-rjt-cream/45">
           © {new Date().getFullYear()} renjitang.nl · Traditionele Chinese Geneeskunde
