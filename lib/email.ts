@@ -103,6 +103,31 @@ export async function sendHerinnering(
   return sendHtml(booking.email, subjectHerinnering(), htmlHerinnering(p));
 }
 
+export async function stuurAanvraagMails(booking: Booking): Promise<void> {
+  await Promise.all([
+    sendAanvraagOntvangen(booking),
+    sendPraktijkNieuweAanvraag(booking),
+  ]);
+}
+
+export async function stuurBevestiging(
+  booking: Booking
+): Promise<{ ok: boolean; error?: string }> {
+  return sendBoekingBevestigd(booking);
+}
+
+export async function stuurAnnulering(
+  booking: Booking,
+  reden?: string | null
+): Promise<{ ok: boolean; error?: string }> {
+  const merged: Booking = {
+    ...booking,
+    annuleringsReden:
+      booking.annuleringsReden ?? (reden?.trim() ? reden.trim() : null),
+  };
+  return sendBoekingGeannuleerd(merged);
+}
+
 /** @deprecated gebruik sendAanvraagOntvangen */
 export async function sendBookingConfirmationEmail(
   to: string,
