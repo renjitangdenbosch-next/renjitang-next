@@ -91,14 +91,14 @@ export function Footer() {
           <div className="mb-6 flex flex-wrap items-center justify-center gap-6">
             <Image
               src="/images/logo-zhong.png"
-              alt="Zhong - Nederlandse Vereniging voor Traditionele Chinese Geneeskunde"
+              alt="Zhong"
               width={80}
               height={40}
               className="object-contain opacity-80 brightness-0 invert transition-opacity hover:opacity-100"
             />
             <Image
               src="/images/kab-koepel.webp"
-              alt="KAB - Koepel Alternatieve Behandelwijzen"
+              alt="KAB Koepel"
               width={80}
               height={40}
               className="object-contain opacity-80 brightness-0 invert transition-opacity hover:opacity-100"

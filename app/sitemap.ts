@@ -12,6 +12,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: base, lastModified, changeFrequency: "weekly", priority: 1 },
     { url: `${base}/acupunctuur`, lastModified, changeFrequency: "monthly", priority: 0.9 },
     { url: `${base}/massage`, lastModified, changeFrequency: "monthly", priority: 0.9 },
+    { url: `${base}/cupping`, lastModified, changeFrequency: "monthly", priority: 0.8 },
+    { url: `${base}/guasha`, lastModified, changeFrequency: "monthly", priority: 0.8 },
     { url: `${base}/behandelingen`, lastModified, changeFrequency: "monthly", priority: 0.9 },
     { url: `${base}/contact`, lastModified, changeFrequency: "monthly", priority: 0.85 },
     { url: `${base}/privacy`, lastModified, changeFrequency: "yearly", priority: 0.5 },
@@ -26,6 +28,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const nextAppSlugs = new Set([
     "acupunctuur",
     "massage",
+    "cupping",
+    "guasha",
     "contact",
     "behandelingen",
     "bookings",
