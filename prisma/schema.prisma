@@ -1,0 +1,80 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Booking {
+  id               String    @id @default(cuid())
+  naam             String
+  email            String
+  telefoon         String
+  opmerking        String?
+  behandeling      String
+  duur             Int
+  prijs            Decimal   @db.Decimal(10, 2)
+  datum            DateTime
+  tijdslot         String
+  status           String    @default("pending")
+  bevestigdOp      DateTime?
+  geannuleerdOp    DateTime?
+  annuleringsReden String?
+  herinneringSent  Boolean   @default(false)
+  bron             String    @default("website")
+  wpId             String?   @unique
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+
+  @@index([email, datum])
+  @@index([datum])
+  @@index([status])
+}
+
+model Tijdslot {
+  id        String  @id @default(cuid())
+  dag       Int
+  startTijd String
+  eindTijd  String
+  actief    Boolean @default(true)
+}
+
+model Blokkering {
+  id        String   @id @default(cuid())
+  datum     DateTime
+  tijdslot  String?
+  reden     String?
+  createdAt DateTime @default(now())
+}
+
+model WPKlant {
+  id         String    @id @default(cuid())
+  wpId       String    @unique
+  voornaam   String
+  achternaam String
+  email      String
+  telefoon   String?
+  aangemaakt DateTime?
+  syncedAt   DateTime  @default(now())
+
+  @@index([email])
+}
+
+model WPBoeking {
+  id              String   @id @default(cuid())
+  wpId            String   @unique
+  klantNaam       String
+  klantEmail      String
+  klantTelefoon   String?
+  dienst          String
+  datum           DateTime
+  tijd            String
+  status          String
+  notities        String?
+  syncedAt        DateTime @default(now())
+
+  @@index([klantEmail])
+  @@index([datum])
+}

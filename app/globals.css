@@ -1,0 +1,71 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #f5efe6;
+  --foreground: #1a1a1a;
+  --rjt-beige: #f5efe6;
+  --rjt-red: #8b2635;
+  --rjt-gold: #c9a84c;
+  --rjt-dark: #1a1a1a;
+  --rjt-cream: #fafaf8;
+}
+
+.dark {
+  --background: #141210;
+  --foreground: #fafaf8;
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+}
+
+/* WordPress-achtige inhoud (WpContent) */
+.wp-content h2 {
+  font-family: var(--font-serif), Georgia, serif;
+  font-size: 1.8rem;
+  color: #1a1a1a;
+  margin-bottom: 1rem;
+}
+
+.wp-content p {
+  color: #57534e;
+  line-height: 1.8;
+  margin-bottom: 1rem;
+}
+
+.wp-content a {
+  color: #8b2635;
+  text-decoration: underline;
+}
+
+.dark .wp-content h2 {
+  color: #fafaf8;
+}
+
+.dark .wp-content p {
+  color: #a8a29e;
+}
+
+.dark .wp-content a {
+  color: #c45a68;
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  /** Breekt uit de parent container voor volle viewportbreedte */
+  .full-bleed {
+    position: relative;
+    width: 100vw;
+    max-width: 100vw;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+  }
+}
