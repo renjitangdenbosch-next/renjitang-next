@@ -35,8 +35,8 @@ export function localBusinessJsonLd() {
         "@type": "Offer",
         itemOffered: {
           "@type": "Service",
-          name: s.title,
-          description: s.description,
+          name: s.naam,
+          description: s.beschrijving,
           areaServed: { "@type": "City", name: SITE.city },
         },
         position: i + 1,

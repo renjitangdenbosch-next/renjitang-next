@@ -2,7 +2,7 @@ import { Prisma } from "@prisma/client";
 import { format } from "date-fns";
 import { fromZonedTime, toZonedTime } from "date-fns-tz";
 import { prisma } from "@/lib/prisma";
-import { SERVICES } from "@/lib/site";
+import { LEGACY_SERVICE_ID_MAP, SERVICES } from "@/lib/site";
 
 const TZ = "Europe/Amsterdam";
 
@@ -26,8 +26,17 @@ function mapWpNaarBookingStatus(raw: string): string {
 
 function vindServiceVoorDienst(dienst: string) {
   const d = dienst.trim();
+  const legacyId = LEGACY_SERVICE_ID_MAP[d.toLowerCase()];
+  if (legacyId) {
+    const hit = SERVICES.find((s) => s.id === legacyId);
+    if (hit) return hit;
+  }
   return SERVICES.find(
-    (s) => s.id === d || s.title === d || d.toLowerCase().includes(s.title.toLowerCase())
+    (s) =>
+      s.id === d ||
+      s.naam === d ||
+      d.toLowerCase().includes(s.naam.toLowerCase()) ||
+      s.naam.toLowerCase().includes(d.toLowerCase())
   );
 }
 
@@ -388,8 +397,8 @@ export async function importeerAlles(
   let siteUpserted = 0;
   for (const b of boekingenRows) {
     const svc = vindServiceVoorDienst(b.dienst);
-    const duur = svc?.durationMin ?? 60;
-    const prijsEur = svc?.priceEur ?? 65;
+    const duur = svc?.duur ?? 60;
+    const prijsEur = svc?.prijs ?? 60;
     const status = mapWpNaarBookingStatus(b.status);
     const tijdslot = normaliseerTijd(b.tijd);
     const datum = alleenDatumAmsterdam(b.datum);
@@ -402,7 +411,7 @@ export async function importeerAlles(
         email: b.klantEmail,
         telefoon: (b.klantTelefoon || "").trim(),
         opmerking: b.notities,
-        behandeling: svc?.title ?? b.dienst,
+        behandeling: svc?.naam ?? b.dienst,
         duur,
         prijs: new Prisma.Decimal(prijsEur),
         datum,
@@ -417,7 +426,7 @@ export async function importeerAlles(
         email: b.klantEmail,
         telefoon: (b.klantTelefoon || "").trim(),
         opmerking: b.notities,
-        behandeling: svc?.title ?? b.dienst,
+        behandeling: svc?.naam ?? b.dienst,
         duur,
         prijs: new Prisma.Decimal(prijsEur),
         datum,

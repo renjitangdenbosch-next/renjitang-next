@@ -4,7 +4,7 @@ import { formatInTimeZone } from "date-fns-tz";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
-import { SERVICES } from "@/lib/site";
+import { LEGACY_SERVICE_ID_MAP, SERVICES } from "@/lib/site";
 import { parsePublicBookingDate } from "@/lib/slots";
 
 const TZ = "Europe/Amsterdam";
@@ -21,14 +21,27 @@ type Row = {
   opmerking?: string | null;
 };
 
-function vindService(naam: string) {
+function vindService(naam: string, duurHint?: number) {
   const t = naam.trim();
-  return SERVICES.find(
+  const legacyId = LEGACY_SERVICE_ID_MAP[t.toLowerCase()];
+  if (legacyId) {
+    const hit = SERVICES.find((s) => s.id === legacyId);
+    if (hit) return hit;
+  }
+  const byId = SERVICES.find((s) => s.id === t);
+  if (byId) return byId;
+  const candidates = SERVICES.filter(
     (s) =>
-      s.id === t ||
-      s.title === t ||
-      t.toLowerCase().includes(s.title.toLowerCase())
+      s.naam === t ||
+      t.toLowerCase().includes(s.naam.toLowerCase()) ||
+      s.naam.toLowerCase().includes(t.toLowerCase())
   );
+  if (candidates.length === 1) return candidates[0];
+  if (candidates.length > 1 && duurHint && duurHint > 0) {
+    const byDuur = candidates.find((s) => s.duur === duurHint);
+    if (byDuur) return byDuur;
+  }
+  return candidates[0];
 }
 
 function normaliseerTijd(t: string): string {
@@ -84,11 +97,11 @@ export async function POST(req: Request) {
       continue;
     }
 
-    const svc = vindService(row.behandeling);
+    const svc = vindService(row.behandeling, row.duur);
     const duur =
-      row.duur && row.duur > 0 ? row.duur : svc?.durationMin ?? 60;
+      row.duur && row.duur > 0 ? row.duur : svc?.duur ?? 60;
     const prijsEur =
-      row.prijs != null && row.prijs > 0 ? row.prijs : svc?.priceEur ?? 65;
+      row.prijs != null && row.prijs > 0 ? row.prijs : svc?.prijs ?? 60;
 
     const dup = await prisma.booking.findFirst({
       where: {
@@ -111,7 +124,7 @@ export async function POST(req: Request) {
         email: row.email.trim().toLowerCase(),
         telefoon: (row.telefoon || "").trim(),
         opmerking: row.opmerking?.trim() || null,
-        behandeling: svc?.title ?? row.behandeling.trim(),
+        behandeling: svc?.naam ?? row.behandeling.trim(),
         duur,
         prijs: new Prisma.Decimal(prijsEur),
         datum: parsed.datum,

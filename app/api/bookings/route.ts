@@ -47,8 +47,8 @@ export async function POST(req: Request) {
   }
 
   const svc = SERVICES.find((s) => s.id === behandelingId)!;
-  const duur = svc.durationMin;
-  const prijs = new Prisma.Decimal(svc.priceEur);
+  const duur = svc.duur;
+  const prijs = new Prisma.Decimal(svc.prijs);
   const datumDb = parsePublicBookingDate(datum);
 
   const slots = await getAvailableSlots(datum, duur);
@@ -66,7 +66,7 @@ export async function POST(req: Request) {
       email: email.trim().toLowerCase(),
       telefoon: telefoon.trim(),
       opmerking: opmerking?.trim() || null,
-      behandeling: svc.title,
+      behandeling: svc.naam,
       duur,
       prijs,
       datum: datumDb,

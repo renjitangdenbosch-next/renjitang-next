@@ -74,39 +74,110 @@ function StatBlock({
   );
 }
 
+const acupunctuurIcon = (
+  <svg viewBox="0 0 48 48" className="h-10 w-10" fill="none" aria-hidden>
+    <circle
+      cx="24"
+      cy="24"
+      r="20"
+      stroke="currentColor"
+      strokeWidth="1"
+      className="text-rjt-gold/50"
+    />
+    <path
+      d="M24 8v32M14 14l20 20M34 14L14 34"
+      stroke="currentColor"
+      strokeWidth="1.2"
+      className="text-rjt-gold"
+      strokeLinecap="round"
+    />
+  </svg>
+);
+
+const cuppingIcon = (
+  <svg viewBox="0 0 48 48" className="h-10 w-10" fill="none" aria-hidden>
+    <ellipse
+      cx="24"
+      cy="26"
+      rx="14"
+      ry="16"
+      stroke="currentColor"
+      strokeWidth="1.2"
+      className="text-rjt-gold"
+    />
+    <path
+      d="M24 10v6"
+      stroke="currentColor"
+      strokeWidth="1"
+      className="text-rjt-gold/70"
+      strokeLinecap="round"
+    />
+  </svg>
+);
+
+const tuinaIcon = (
+  <svg viewBox="0 0 48 48" className="h-10 w-10" fill="none" aria-hidden>
+    <path
+      d="M14 30c6-8 14-8 20 0M18 22c4-5 10-5 14 0"
+      stroke="currentColor"
+      strokeWidth="1.2"
+      className="text-rjt-gold"
+      strokeLinecap="round"
+    />
+    <circle cx="24" cy="34" r="3" className="fill-rjt-gold/40" />
+  </svg>
+);
+
+const massageIcon = (
+  <svg viewBox="0 0 48 48" className="h-10 w-10" fill="none" aria-hidden>
+    <path
+      d="M12 28c8-6 16-6 24 0"
+      stroke="currentColor"
+      strokeWidth="1.2"
+      className="text-rjt-gold"
+      strokeLinecap="round"
+    />
+    <path
+      d="M16 20h16M16 24h12"
+      stroke="currentColor"
+      strokeWidth="1"
+      className="text-rjt-gold/60"
+      strokeLinecap="round"
+    />
+  </svg>
+);
+
+const guashaIcon = (
+  <svg viewBox="0 0 48 48" className="h-10 w-10" fill="none" aria-hidden>
+    <path
+      d="M14 18l16 16M18 14l16 16"
+      stroke="currentColor"
+      strokeWidth="1.2"
+      className="text-rjt-gold"
+      strokeLinecap="round"
+    />
+    <path
+      d="M12 32h24"
+      stroke="currentColor"
+      strokeWidth="1"
+      className="text-rjt-gold/60"
+      strokeLinecap="round"
+    />
+  </svg>
+);
+
 function serviceIcon(id: string) {
-  switch (id) {
-    case "Acupunctuur":
-      return (
-        <svg viewBox="0 0 48 48" className="h-10 w-10" fill="none" aria-hidden>
-          <circle cx="24" cy="24" r="20" stroke="currentColor" strokeWidth="1" className="text-rjt-gold/50" />
-          <path d="M24 8v32M14 14l20 20M34 14L14 34" stroke="currentColor" strokeWidth="1.2" className="text-rjt-gold" strokeLinecap="round" />
-        </svg>
-      );
-    case "Cupping":
-      return (
-        <svg viewBox="0 0 48 48" className="h-10 w-10" fill="none" aria-hidden>
-          <ellipse cx="24" cy="26" rx="14" ry="16" stroke="currentColor" strokeWidth="1.2" className="text-rjt-gold" />
-          <path d="M24 10v6" stroke="currentColor" strokeWidth="1" className="text-rjt-gold/70" strokeLinecap="round" />
-        </svg>
-      );
-    case "Tuina":
-      return (
-        <svg viewBox="0 0 48 48" className="h-10 w-10" fill="none" aria-hidden>
-          <path d="M14 30c6-8 14-8 20 0M18 22c4-5 10-5 14 0" stroke="currentColor" strokeWidth="1.2" className="text-rjt-gold" strokeLinecap="round" />
-          <circle cx="24" cy="34" r="3" className="fill-rjt-gold/40" />
-        </svg>
-      );
-    case "Massage":
-      return (
-        <svg viewBox="0 0 48 48" className="h-10 w-10" fill="none" aria-hidden>
-          <path d="M12 28c8-6 16-6 24 0" stroke="currentColor" strokeWidth="1.2" className="text-rjt-gold" strokeLinecap="round" />
-          <path d="M16 20h16M16 24h12" stroke="currentColor" strokeWidth="1" className="text-rjt-gold/60" strokeLinecap="round" />
-        </svg>
-      );
-    default:
-      return <LotusIcon className="h-10 w-10" />;
+  if (
+    id.startsWith("acupunctuur-") ||
+    id === "intake-plus-behandeling"
+  ) {
+    return acupunctuurIcon;
   }
+  if (id.startsWith("tuina-")) return tuinaIcon;
+  if (id === "cupping") return cuppingIcon;
+  if (id === "guasha") return guashaIcon;
+  if (id === "ontspanningsmassage") return massageIcon;
+  return <LotusIcon className="h-10 w-10" />;
 }
 
 const reviews = [
@@ -303,22 +374,21 @@ export function HomePageView() {
             </p>
           </motion.div>
 
-          <ul className="mt-14 grid list-none gap-6 md:grid-cols-2 lg:grid-cols-6">
+          <ul className="mt-14 grid list-none gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {SERVICES.map((s, i) => (
               <motion.li
                 key={s.id}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-40px" }}
-                transition={{ duration: 0.45, delay: i * 0.06 }}
-                className={i < 3 ? "lg:col-span-2" : "lg:col-span-3"}
+                transition={{ duration: 0.45, delay: i * 0.05 }}
               >
                 <div className="group h-full rounded-sm border border-stone-200/90 bg-white p-6 shadow-sm transition duration-300 hover:-translate-y-0.5 hover:border-rjt-red/50 hover:shadow-md dark:border-stone-700 dark:bg-[#1f1b17] dark:hover:border-rjt-red/55">
                   <div className="text-rjt-gold">{serviceIcon(s.id)}</div>
-                  <h3 className="mt-4 font-serif text-xl text-rjt-dark dark:text-rjt-cream">{s.title}</h3>
-                  <p className="mt-2 text-sm text-stone-600 dark:text-stone-400">{s.short}</p>
+                  <h3 className="mt-4 font-serif text-xl text-rjt-dark dark:text-rjt-cream">{s.naam}</h3>
+                  <p className="mt-2 text-sm text-stone-600 dark:text-stone-400">{s.beschrijving}</p>
                   <p className="mt-4 text-sm font-medium text-rjt-red dark:text-[#c45a68]">
-                    €{s.priceEur} · {s.durationMin} min
+                    €{s.prijs} · {s.duur} min
                   </p>
                 </div>
               </motion.li>
@@ -327,8 +397,8 @@ export function HomePageView() {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-40px" }}
-              transition={{ duration: 0.45, delay: 0.24 }}
-              className="lg:col-span-3"
+              transition={{ duration: 0.45, delay: 0.4 }}
+              className="sm:col-span-2 lg:col-span-3"
             >
               <div className="group flex h-full min-h-[200px] flex-col justify-center rounded-sm border border-dashed border-rjt-gold/40 bg-rjt-beige/50 p-6 text-center transition hover:border-rjt-gold hover:bg-rjt-beige dark:border-rjt-gold/30 dark:bg-[#252018] dark:hover:bg-[#2a241c]">
                 <LotusIcon className="mx-auto h-12 w-12 opacity-70" />

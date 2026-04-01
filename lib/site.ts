@@ -10,47 +10,104 @@ export const SITE = {
   phone: "073 211 02 24",
   phoneTel: "+31732110224",
   openingHoursSpecification: [
-    { dayOfWeek: ["Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"], opens: "09:00", closes: "20:00" },
+    {
+      dayOfWeek: [
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+        "Sunday",
+      ],
+      opens: "09:00",
+      closes: "20:00",
+    },
   ],
   /** Interne boekingspagina */
   bookingUrl: "/bookings",
 } as const;
 
-export const SERVICES = [
+export type SiteService = {
+  id: string;
+  naam: string;
+  duur: number;
+  prijs: number;
+  beschrijving: string;
+};
+
+/** Oude site-/exportnamen (lowercase) → huidige service-id */
+export const LEGACY_SERVICE_ID_MAP: Record<string, string> = {
+  acupunctuur: "acupunctuur-vervolg",
+  cupping: "cupping",
+  tuina: "tuina-60",
+  "tuina-massage": "tuina-60",
+  massage: "ontspanningsmassage",
+  ontspanningsmassage: "ontspanningsmassage",
+};
+
+export const SERVICES: SiteService[] = [
   {
-    id: "Acupunctuur",
-    title: "Acupunctuur",
-    short: "Behandeling via meridianen en balans van Qi.",
-    description:
-      "In de acupunctuur wordt uw hele lichaam én geest meegenomen. Klachten worden in TCG-verband gezien, niet geïsoleerd.",
-    priceEur: 65,
-    durationMin: 60,
+    id: "acupunctuur-intake",
+    naam: "Intake Acupunctuur",
+    duur: 15,
+    prijs: 50,
+    beschrijving:
+      "Intake gesprek voor acupunctuur. Kennismaking en analyse van uw klachten.",
   },
   {
-    id: "Cupping",
-    title: "Cupping",
-    short: "Ondersteuning bij afvoer en doorstroming van energie.",
-    description:
-      "Tijdens cupping worden afvalstoffen en stagnatie aangepakt; veel cliënten ervaren verlichting en meer ruimte in het lichaam.",
-    priceEur: 45,
-    durationMin: 30,
+    id: "acupunctuur-vervolg",
+    naam: "Acupunctuur Vervolgbehandeling",
+    duur: 60,
+    prijs: 60,
+    beschrijving:
+      "Vervolgafspraak met naaldzetting en evaluatie van uw traject.",
   },
   {
-    id: "Tuina",
-    title: "Tuina-massage",
-    short: "Therapeutische massage op basis van TCG.",
-    description:
-      "Tuina brengt energie in balans met gerichte technieken die lichaam en geest ondersteunen.",
-    priceEur: 70,
-    durationMin: 60,
+    id: "intake-plus-behandeling",
+    naam: "Intake + Acupunctuur Behandeling",
+    duur: 70,
+    prijs: 80,
+    beschrijving:
+      "Intake gesprek direct gevolgd door eerste acupunctuurbehandeling. 30 min intake + 40 min behandeling.",
   },
   {
-    id: "Massage",
-    title: "Ontspanningsmassage",
-    short: "Zachte, rustige massage voor spieren en geest.",
-    description:
-      "Een ontspanningsmassage helpt spieren los te laten en mentaal tot rust te komen — passend naast medische zorg.",
-    priceEur: 55,
-    durationMin: 60,
+    id: "tuina-30",
+    naam: "Tuina Massage",
+    duur: 30,
+    prijs: 40,
+    beschrijving:
+      "Traditionele Chinese massage gericht op het opheffen van blokkades en verbeteren van de energiestroom.",
   },
-] as const;
+  {
+    id: "tuina-60",
+    naam: "Tuina Massage",
+    duur: 60,
+    prijs: 60,
+    beschrijving:
+      "Uitgebreide Tuina massage voor diepgaande ontspanning en behandeling van klachten.",
+  },
+  {
+    id: "guasha",
+    naam: "Guasha Massage",
+    duur: 30,
+    prijs: 40,
+    beschrijving:
+      "Traditionele Chinese therapie waarbij de huid wordt gestimuleerd met een speciaal instrument voor betere circulatie.",
+  },
+  {
+    id: "cupping",
+    naam: "Cupping Behandeling",
+    duur: 30,
+    prijs: 40,
+    beschrijving:
+      "Cups op de huid stimuleren de doorbloeding, lossen verklevingen op en voeren afvalstoffen af.",
+  },
+  {
+    id: "ontspanningsmassage",
+    naam: "Ontspanningsmassage",
+    duur: 60,
+    prijs: 60,
+    beschrijving:
+      "Zachte massage voor diepe ontspanning van lichaam en geest. Vermindert stress en verbetert de slaapkwaliteit.",
+  },
+];

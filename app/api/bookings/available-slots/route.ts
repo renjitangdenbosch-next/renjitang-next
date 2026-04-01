@@ -9,7 +9,7 @@ export async function GET(req: Request) {
   const behandelingId =
     searchParams.get("behandelingId") ||
     searchParams.get("service") ||
-    "Acupunctuur";
+    "acupunctuur-vervolg";
   const durationStr = searchParams.get("duration") || "60";
 
   if (!date || !/^\d{4}-\d{2}-\d{2}$/.test(date)) {
@@ -20,7 +20,7 @@ export async function GET(req: Request) {
   }
 
   const svc = SERVICES.find((s) => s.id === behandelingId);
-  const duration = svc?.durationMin ?? Math.max(15, parseInt(durationStr, 10) || 60);
+  const duration = svc?.duur ?? Math.max(15, parseInt(durationStr, 10) || 60);
 
   try {
     const slots = await getAvailableSlots(date, duration);

@@ -24,7 +24,7 @@ export async function GET(req: Request) {
   }
 
   try {
-    const slots = await getAvailableSlots(datum, svc.durationMin);
+    const slots = await getAvailableSlots(datum, svc.duur);
     return NextResponse.json({
       slots: slots.map((s) => ({
         label: formatSlotLabel(s),

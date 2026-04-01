@@ -211,13 +211,13 @@ export function BookingWizard() {
                       </span>
                     )}
                     <p className="font-serif text-lg text-stone-900 dark:text-stone-100">
-                      {s.title}
+                      {s.naam}
                     </p>
                     <p className="mt-1 text-sm text-rjt-red">
-                      €{s.priceEur} · {s.durationMin} min
+                      €{s.prijs} · {s.duur} min
                     </p>
                     <p className="mt-2 text-sm text-stone-600 dark:text-stone-400">
-                      {s.short}
+                      {s.beschrijving}
                     </p>
                   </button>
                 );
@@ -375,7 +375,7 @@ export function BookingWizard() {
               </p>
               <ul className="mt-2 space-y-1 text-stone-600 dark:text-stone-400">
                 <li>
-                  <strong>Behandeling:</strong> {service?.title}
+                  <strong>Behandeling:</strong> {service?.naam}
                 </li>
                 <li>
                   <strong>Datum:</strong> {dateStr}
@@ -500,13 +500,13 @@ export function BookingWizard() {
             </div>
             <div className="rounded-2xl border border-stone-200 bg-stone-50 p-5 text-left text-sm dark:border-stone-700 dark:bg-stone-900/60">
               <p className="font-medium text-stone-800 dark:text-stone-100">
-                {service?.title}
+                {service?.naam}
               </p>
               <p className="mt-1 text-stone-600 dark:text-stone-400">
                 {dateStr} om {tijdslot}
               </p>
               <p className="mt-1 text-stone-600 dark:text-stone-400">
-                €{service?.priceEur} · {service?.durationMin} min
+                €{service?.prijs} · {service?.duur} min
               </p>
             </div>
             <p className="text-sm text-stone-600 dark:text-stone-400">
