@@ -26,7 +26,7 @@ export function Header() {
           <span className="hidden text-xs text-stone-400 md:block">仁济堂</span>
         </Link>
         <nav
-          className="hidden items-center gap-8 text-sm font-medium md:flex lg:gap-10"
+          className="hidden items-center gap-2 text-sm font-medium md:flex lg:gap-3"
           aria-label="Hoofdmenu"
         >
           {PRIMARY_NAV.map((item) => {
@@ -36,10 +36,12 @@ export function Header() {
                 <Link
                   key={item.href}
                   href={item.href}
-                  className="shrink-0 rounded-sm border border-transparent bg-rjt-red px-4 py-2 text-center text-sm font-semibold text-white transition hover:bg-[#a02f40]"
+                  className="group shrink-0 rounded-xl bg-rjt-red px-3 py-2 text-center text-white transition-all duration-200 hover:bg-red-900"
                 >
-                  <span className="block">{item.label}</span>
-                  <span className="block text-xs text-white/80">{item.labelZh}</span>
+                  <span className="block text-sm font-medium text-white">{item.label}</span>
+                  <span className="block text-xs text-white/70 transition-colors group-hover:text-white/90">
+                    {item.labelZh}
+                  </span>
                 </Link>
               );
             }
@@ -47,17 +49,21 @@ export function Header() {
               <Link
                 key={item.href}
                 href={item.href}
-                className="text-center text-stone-900 transition hover:text-rjt-red dark:text-stone-900 dark:hover:text-rjt-red"
+                className="group relative rounded-xl px-3 py-2 text-center transition-all duration-200 hover:bg-rjt-red"
               >
-                <span className="block">{item.label}</span>
-                <span className="block text-xs text-stone-400">{item.labelZh}</span>
+                <span className="block text-sm font-medium text-stone-800 transition-colors group-hover:text-white dark:text-stone-200">
+                  {item.label}
+                </span>
+                <span className="block text-xs text-stone-400 transition-colors group-hover:text-white/80 dark:text-stone-500">
+                  {item.labelZh}
+                </span>
               </Link>
             );
           })}
         </nav>
       </div>
       <nav
-        className="flex flex-wrap justify-center gap-x-4 gap-y-2 border-t border-stone-200/60 px-4 py-2 text-xs font-medium text-stone-900 md:hidden dark:border-stone-700"
+        className="flex flex-wrap justify-center gap-x-2 gap-y-2 border-t border-stone-200/60 px-4 py-2 text-xs font-medium md:hidden dark:border-stone-700"
         aria-label="Mobiel menu"
       >
         {PRIMARY_NAV.map((item) => {
@@ -67,15 +73,28 @@ export function Header() {
               key={item.href}
               href={item.href}
               className={cn(
-                "rounded-full px-2 py-1 text-center transition-colors hover:bg-stone-200/60 dark:hover:bg-stone-800",
-                isBooking && "border border-rjt-red bg-rjt-red text-white hover:bg-[#a02f40]",
+                "group rounded-xl px-3 py-2 text-center transition-all duration-200",
+                isBooking
+                  ? "bg-rjt-red text-white hover:bg-red-900"
+                  : "hover:bg-rjt-red",
               )}
             >
-              <span className="block leading-tight">{item.label}</span>
               <span
                 className={cn(
-                  "block text-[10px] leading-tight",
-                  isBooking ? "text-white/80" : "text-stone-500",
+                  "block text-xs font-medium leading-tight transition-colors",
+                  isBooking
+                    ? "text-white"
+                    : "text-stone-800 group-hover:text-white dark:text-stone-200",
+                )}
+              >
+                {item.label}
+              </span>
+              <span
+                className={cn(
+                  "block text-[10px] leading-tight transition-colors",
+                  isBooking
+                    ? "text-white/70 group-hover:text-white/90"
+                    : "text-stone-500 group-hover:text-white/80 dark:text-stone-400",
                 )}
               >
                 {item.labelZh}
