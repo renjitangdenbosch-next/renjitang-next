@@ -136,6 +136,20 @@ export function Footer() {
             KvK-nummer: 94217262
           </p>
         </div>
+        <div className="mt-6 border-t border-stone-800 pt-6 text-center">
+          <p className="flex items-center justify-center gap-2 text-xs text-stone-500">
+            Website gemaakt door{" "}
+            <a
+              href="https://allesis.nl"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-medium text-rjt-gold transition-colors hover:text-white"
+            >
+              allesis.nl
+            </a>
+            <span className="inline-block animate-bounce">😉</span>
+          </p>
+        </div>
         <p className="mt-12 border-t border-white/10 pt-8 text-center text-xs text-rjt-cream/45">
           © {new Date().getFullYear()} renjitang.nl · Traditionele Chinese Geneeskunde
         </p>

@@ -392,7 +392,7 @@ export function HomePageView() {
             className="max-w-[500px] overflow-hidden rounded-2xl ring-2 ring-transparent transition-shadow duration-300 hover:ring-rjt-gold"
           >
             <Image
-              src="/images/PHOTO-2024-11-26-19-19-52-2.jpg"
+              src="/images/DSC_03788-scaled.jpg"
               alt="Behandeling bij Ren Ji Tang"
               width={500}
               height={400}
@@ -405,7 +405,7 @@ export function HomePageView() {
             className="max-w-[500px] overflow-hidden rounded-2xl ring-2 ring-transparent transition-shadow duration-300 hover:ring-rjt-gold"
           >
             <Image
-              src="/images/PHOTO-2024-11-26-19-19-05-6.jpg"
+              src="/images/massage2.jpg"
               alt="Sfeerimpressie praktijk Ren Ji Tang"
               width={500}
               height={400}

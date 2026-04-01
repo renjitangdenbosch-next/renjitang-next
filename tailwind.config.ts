@@ -32,7 +32,7 @@ const config: Config = {
         sans: ["var(--font-sans)", "system-ui", "sans-serif"],
       },
       animation: {
-        marquee: "marquee 30s linear infinite",
+        marquee: "marquee 20s linear infinite",
         gradientShift: "gradientShift 4s ease infinite",
       },
       keyframes: {

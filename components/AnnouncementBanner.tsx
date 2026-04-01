@@ -13,12 +13,12 @@ export function AnnouncementBanner() {
             key={i}
             className="mx-6 flex shrink-0 items-center gap-6 text-sm font-medium text-white"
           >
-            <span>🎉 Welkom op onze nieuwe website! · 欢迎来到我们的新网站！</span>
-            <span className="text-white/50">◆</span>
             <span>
               🌸 Gesloten wegens vakantie 6 t/m 27 april ·
               假期休息：4月6日至4月27日
             </span>
+            <span className="text-white/50">◆</span>
+            <span>🎉 Welkom op onze nieuwe website! · 欢迎来到我们的新网站！</span>
             <span className="text-white/50">◆</span>
           </span>
         ))}
