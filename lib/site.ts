@@ -47,67 +47,59 @@ export const LEGACY_SERVICE_ID_MAP: Record<string, string> = {
 
 export const SERVICES: SiteService[] = [
   {
-    id: "acupunctuur-intake",
+    id: "intake-acupunctuur",
     naam: "Intake Acupunctuur",
     duur: 15,
     prijs: 50,
-    beschrijving:
-      "Intake gesprek voor acupunctuur. Kennismaking en analyse van uw klachten.",
+    beschrijving: "Kennismakingsgesprek voor acupunctuur.",
   },
   {
     id: "acupunctuur-vervolg",
     naam: "Acupunctuur Vervolgbehandeling",
     duur: 60,
     prijs: 60,
-    beschrijving:
-      "Vervolgafspraak met naaldzetting en evaluatie van uw traject.",
+    beschrijving: "Vervolgbehandeling acupunctuur.",
   },
   {
     id: "intake-plus-behandeling",
     naam: "Intake + Acupunctuur Behandeling",
     duur: 70,
     prijs: 80,
-    beschrijving:
-      "Intake gesprek direct gevolgd door eerste acupunctuurbehandeling. 30 min intake + 40 min behandeling.",
+    beschrijving: "30 min intake + 40 min behandeling.",
   },
   {
     id: "tuina-30",
-    naam: "Tuina Massage",
+    naam: "Tuina Massage 30 min",
     duur: 30,
     prijs: 40,
-    beschrijving:
-      "Traditionele Chinese massage gericht op het opheffen van blokkades en verbeteren van de energiestroom.",
+    beschrijving: "Traditionele Chinese massage.",
   },
   {
     id: "tuina-60",
-    naam: "Tuina Massage",
+    naam: "Tuina Massage 60 min",
     duur: 60,
     prijs: 60,
-    beschrijving:
-      "Uitgebreide Tuina massage voor diepgaande ontspanning en behandeling van klachten.",
+    beschrijving: "Uitgebreide Tuina massage.",
   },
   {
     id: "guasha",
     naam: "Guasha Massage",
     duur: 30,
     prijs: 40,
-    beschrijving:
-      "Traditionele Chinese therapie waarbij de huid wordt gestimuleerd met een speciaal instrument voor betere circulatie.",
+    beschrijving: "Traditionele Chinese therapie.",
   },
   {
     id: "cupping",
     naam: "Cupping Behandeling",
     duur: 30,
     prijs: 40,
-    beschrijving:
-      "Cups op de huid stimuleren de doorbloeding, lossen verklevingen op en voeren afvalstoffen af.",
+    beschrijving: "Cups op de huid voor betere doorbloeding.",
   },
   {
     id: "ontspanningsmassage",
     naam: "Ontspanningsmassage",
     duur: 60,
     prijs: 60,
-    beschrijving:
-      "Zachte massage voor diepe ontspanning van lichaam en geest. Vermindert stress en verbetert de slaapkwaliteit.",
+    beschrijving: "Ontspannende massage voor lichaam en geest.",
   },
 ];
