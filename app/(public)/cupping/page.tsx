@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 
 export const metadata: Metadata = {
@@ -10,10 +11,25 @@ export const metadata: Metadata = {
 
 export default function CuppingPage() {
   return (
-    <div className="mx-auto max-w-4xl px-6 py-12">
-      <h1 className="mb-2 font-serif text-4xl text-rjt-dark dark:text-rjt-cream">Cupping</h1>
-      <p className="mb-8 text-sm text-stone-400">拔罐</p>
+    <div className="bg-rjt-beige dark:bg-[#141210]">
+      <div className="relative -mt-20 mb-12 min-h-[300px] h-[45vh] overflow-hidden md:-mt-24">
+        <Image
+          src="/images/cupping.jpg"
+          alt="Cupping Behandeling"
+          fill
+          priority
+          className="object-cover object-center"
+          sizes="100vw"
+        />
+        <div className="absolute inset-0 bg-black/55" />
+        <div className="relative z-10 mx-auto flex h-full w-full max-w-4xl flex-col items-start justify-end px-6 pb-12">
+          <p className="mb-2 text-xs uppercase tracking-widest text-white/60">Ren Ji Tang</p>
+          <h1 className="mb-2 font-serif text-4xl text-white md:text-6xl">Cupping Behandeling</h1>
+          <p className="text-sm text-white/60">拔罐</p>
+        </div>
+      </div>
 
+      <div className="mx-auto max-w-4xl px-6 py-12">
       <div className="mb-6 rounded-2xl bg-white p-8 shadow-sm dark:bg-stone-900/90">
         <h2 className="mb-4 font-serif text-2xl text-rjt-dark dark:text-rjt-cream">Wat is Cupping?</h2>
         <p className="leading-relaxed text-stone-600 dark:text-stone-300">
@@ -97,6 +113,7 @@ export default function CuppingPage() {
         >
           Maak een afspraak
         </Link>
+      </div>
       </div>
     </div>
   );

@@ -13,20 +13,20 @@ const card = "mb-6 rounded-2xl bg-white p-8 shadow-sm dark:bg-stone-900/90";
 export default function MassagePage() {
   return (
     <div className="bg-rjt-beige dark:bg-[#141210]">
-      <div className="relative h-[220px] w-full overflow-hidden sm:h-[280px]">
+      <div className="relative -mt-20 mb-12 min-h-[300px] h-[45vh] overflow-hidden md:-mt-24">
         <Image
-          src="/images/PHOTO-2024-11-26-19-19-52-2.jpg"
-          alt="Massage en behandeling bij Ren Ji Tang"
+          src="/images/massage.jpg"
+          alt="Massage in Den Bosch"
           fill
           priority
           className="object-cover object-center"
           sizes="100vw"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
-        <div className="absolute bottom-6 left-0 right-0 px-6">
-          <h1 className="font-serif text-3xl text-white sm:text-4xl">Massage in Den Bosch</h1>
-          <p className="mt-1 text-sm text-stone-400">按摩治疗</p>
-          <p className="mt-2 text-white/85">Tuina &amp; ontspanningsmassage · Herstel en balans</p>
+        <div className="absolute inset-0 bg-black/55" />
+        <div className="relative z-10 mx-auto flex h-full w-full max-w-4xl flex-col items-start justify-end px-6 pb-12">
+          <p className="mb-2 text-xs uppercase tracking-widest text-white/60">Ren Ji Tang</p>
+          <h1 className="mb-2 font-serif text-4xl text-white md:text-6xl">Massage in Den Bosch</h1>
+          <p className="text-sm text-white/60">按摩治疗</p>
         </div>
       </div>
 

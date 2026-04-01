@@ -89,27 +89,48 @@ export function Footer() {
             Wij zijn aangesloten bij:
           </p>
           <div className="mb-6 flex flex-wrap items-center justify-center gap-6">
-            <Image
-              src="/images/logo-zhong.png"
-              alt="Zhong"
-              width={80}
-              height={40}
-              className="object-contain opacity-80 brightness-0 invert transition-opacity hover:opacity-100"
-            />
-            <Image
-              src="/images/kab-koepel.webp"
-              alt="KAB Koepel"
-              width={80}
-              height={40}
-              className="object-contain opacity-80 brightness-0 invert transition-opacity hover:opacity-100"
-            />
-            <Image
-              src="/images/logo-scag.png"
-              alt="SCAG"
-              width={80}
-              height={40}
-              className="object-contain opacity-80 brightness-0 invert transition-opacity hover:opacity-100"
-            />
+            <a
+              href="https://www.zhong.nl"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block"
+            >
+              <Image
+                src="/images/logo-zhong.png"
+                alt="Zhong"
+                width={100}
+                height={50}
+                className="object-contain opacity-90 transition-opacity hover:opacity-100"
+              />
+            </a>
+            <a
+              href="https://www.kab.nl"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block"
+            >
+              <Image
+                src="/images/kab-koepel.webp"
+                alt="KAB Koepel"
+                width={100}
+                height={50}
+                className="object-contain opacity-90 transition-opacity hover:opacity-100"
+              />
+            </a>
+            <a
+              href="https://www.scag.nl"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block"
+            >
+              <Image
+                src="/images/logo-scag.png"
+                alt="SCAG"
+                width={100}
+                height={50}
+                className="object-contain opacity-90 transition-opacity hover:opacity-100"
+              />
+            </a>
           </div>
           <p className="text-center text-xs text-stone-500">
             KvK-nummer: 94217262
