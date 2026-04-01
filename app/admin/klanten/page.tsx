@@ -32,7 +32,7 @@ export default async function AdminKlantenPage({ searchParams }: Props) {
   return (
     <div className="space-y-6">
       <h1 className="font-serif text-3xl text-stone-900 dark:text-stone-100">
-        Klanten (BookingPress)
+        Klanten 客户
       </h1>
       <Suspense
         fallback={

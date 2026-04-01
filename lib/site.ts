@@ -30,6 +30,7 @@ export const SITE = {
 export type SiteService = {
   id: string;
   naam: string;
+  naamCN: string;
   duur: number;
   prijs: number;
   beschrijving: string;
@@ -49,6 +50,7 @@ export const SERVICES: SiteService[] = [
   {
     id: "intake-acupunctuur",
     naam: "Intake Acupunctuur",
+    naamCN: "针灸初诊",
     duur: 15,
     prijs: 50,
     beschrijving: "Kennismakingsgesprek voor acupunctuur.",
@@ -56,6 +58,7 @@ export const SERVICES: SiteService[] = [
   {
     id: "acupunctuur-vervolg",
     naam: "Acupunctuur Vervolgbehandeling",
+    naamCN: "针灸复诊",
     duur: 60,
     prijs: 60,
     beschrijving: "Vervolgbehandeling acupunctuur.",
@@ -63,6 +66,7 @@ export const SERVICES: SiteService[] = [
   {
     id: "intake-plus-behandeling",
     naam: "Intake + Acupunctuur Behandeling",
+    naamCN: "初诊+针灸治疗",
     duur: 70,
     prijs: 80,
     beschrijving: "30 min intake + 40 min behandeling.",
@@ -70,6 +74,7 @@ export const SERVICES: SiteService[] = [
   {
     id: "tuina-30",
     naam: "Tuina Massage 30 min",
+    naamCN: "推拿按摩 30分钟",
     duur: 30,
     prijs: 40,
     beschrijving: "Traditionele Chinese massage.",
@@ -77,6 +82,7 @@ export const SERVICES: SiteService[] = [
   {
     id: "tuina-60",
     naam: "Tuina Massage 60 min",
+    naamCN: "推拿按摩 60分钟",
     duur: 60,
     prijs: 60,
     beschrijving: "Uitgebreide Tuina massage.",
@@ -84,6 +90,7 @@ export const SERVICES: SiteService[] = [
   {
     id: "guasha",
     naam: "Guasha Massage",
+    naamCN: "刮痧",
     duur: 30,
     prijs: 40,
     beschrijving: "Traditionele Chinese therapie.",
@@ -91,6 +98,7 @@ export const SERVICES: SiteService[] = [
   {
     id: "cupping",
     naam: "Cupping Behandeling",
+    naamCN: "拔罐",
     duur: 30,
     prijs: 40,
     beschrijving: "Cups op de huid voor betere doorbloeding.",
@@ -98,6 +106,7 @@ export const SERVICES: SiteService[] = [
   {
     id: "ontspanningsmassage",
     naam: "Ontspanningsmassage",
+    naamCN: "放松按摩",
     duur: 60,
     prijs: 60,
     beschrijving: "Ontspannende massage voor lichaam en geest.",

@@ -4,9 +4,12 @@ import { ImportBookingsForm } from "@/components/ImportBookingsForm";
 export default function AdminImportPage() {
   return (
     <div className="space-y-10">
-      <h1 className="font-serif text-3xl text-stone-900 dark:text-stone-100">
-        Import
-      </h1>
+      <div>
+        <h1 className="font-serif text-3xl text-stone-900 dark:text-stone-100">
+          Import
+        </h1>
+        <p className="text-stone-400 text-sm">导入</p>
+      </div>
       <BookingPressImportSection />
       <div>
         <h2 className="font-serif text-xl text-stone-900 dark:text-stone-100">

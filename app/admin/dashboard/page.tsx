@@ -8,6 +8,7 @@ import {
   startOfWeek,
 } from "date-fns";
 import { fromZonedTime, toZonedTime } from "date-fns-tz";
+import { adminBookingStatusLabel } from "@/lib/admin-i18n";
 import { prisma } from "@/lib/prisma";
 
 export const dynamic = "force-dynamic";
@@ -111,9 +112,12 @@ export default async function AdminDashboardPage() {
 
   return (
     <div className="space-y-10">
-      <h1 className="font-serif text-3xl text-stone-900 dark:text-stone-100">
-        Dashboard
-      </h1>
+      <div>
+        <h1 className="font-serif text-3xl mb-1 text-stone-900 dark:text-stone-100">
+          Beheer
+        </h1>
+        <p className="text-stone-400 text-sm">管理后台</p>
+      </div>
 
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {[
@@ -137,10 +141,10 @@ export default async function AdminDashboardPage() {
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
         {[
           { label: "Totaal", value: total },
-          { label: "In afwachting", value: pending },
-          { label: "Bevestigd", value: bevestigd },
-          { label: "Geannuleerd", value: geannuleerd },
-          { label: "Voltooid", value: voltooid },
+          { label: "In afwachting / 待确认", value: pending },
+          { label: "Bevestigd / 已确认", value: bevestigd },
+          { label: "Geannuleerd / 已取消", value: geannuleerd },
+          { label: "Voltooid / 已完成", value: voltooid },
         ].map((c) => (
           <div
             key={c.label}
@@ -199,8 +203,8 @@ export default async function AdminDashboardPage() {
               <span className="text-stone-600 dark:text-stone-400">
                 {b.behandeling} · {b.tijdslot}
               </span>
-              <span className="rounded-full bg-stone-100 px-2 py-0.5 text-xs capitalize dark:bg-stone-800">
-                {b.status}
+              <span className="rounded-full bg-stone-100 px-2 py-0.5 text-xs dark:bg-stone-800">
+                {adminBookingStatusLabel(b.status)}
               </span>
             </li>
           ))}

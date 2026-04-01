@@ -1,5 +1,7 @@
 import { BoekingActies } from "@/components/admin/BoekingActies";
+import { adminBookingStatusLabel } from "@/lib/admin-i18n";
 import { prisma } from "@/lib/prisma";
+import { SERVICES } from "@/lib/site";
 
 export const dynamic = "force-dynamic";
 
@@ -14,7 +16,8 @@ export default async function BoekingenPage() {
 
   return (
     <div className="p-6 max-w-5xl mx-auto">
-      <h1 className="font-serif text-3xl mb-2">Boekingen</h1>
+      <h1 className="font-serif text-3xl mb-1">Boekingen</h1>
+      <p className="text-stone-400 text-sm mb-6">预约</p>
 
       {/* Stats */}
       <div className="grid grid-cols-3 gap-4 mb-8">
@@ -25,7 +28,9 @@ export default async function BoekingenPage() {
           <p className="text-2xl font-bold text-amber-700">
             {pending.length}
           </p>
-          <p className="text-sm text-amber-600">In afwachting</p>
+          <p className="text-sm text-amber-600">
+            In afwachting / 待确认
+          </p>
         </div>
         <div
           className="bg-green-50 border border-green-200 
@@ -34,7 +39,7 @@ export default async function BoekingenPage() {
           <p className="text-2xl font-bold text-green-700">
             {bevestigd.length}
           </p>
-          <p className="text-sm text-green-600">Bevestigd</p>
+          <p className="text-sm text-green-600">Bevestigd / 已确认</p>
         </div>
         <div
           className="bg-red-50 border border-red-200 
@@ -43,7 +48,7 @@ export default async function BoekingenPage() {
           <p className="text-2xl font-bold text-red-700">
             {geannuleerd.length}
           </p>
-          <p className="text-sm text-red-600">Geannuleerd</p>
+          <p className="text-sm text-red-600">Geannuleerd / 已取消</p>
         </div>
       </div>
 
@@ -59,6 +64,9 @@ export default async function BoekingenPage() {
               <div>
                 <p className="font-semibold text-lg">{b.naam}</p>
                 <p className="text-stone-500 text-sm">{b.behandeling}</p>
+                <p className="text-stone-400 text-xs">
+                  {SERVICES.find((s) => s.id === b.behandelingId)?.naamCN}
+                </p>
               </div>
               <span
                 className={`px-3 py-1 rounded-full text-xs 
@@ -71,11 +79,7 @@ export default async function BoekingenPage() {
                       : "bg-red-100 text-red-700"
                 }`}
               >
-                {b.status === "pending"
-                  ? "In afwachting"
-                  : b.status === "bevestigd"
-                    ? "Bevestigd"
-                    : "Geannuleerd"}
+                {adminBookingStatusLabel(b.status)}
               </span>
             </div>
 

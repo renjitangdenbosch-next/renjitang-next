@@ -23,7 +23,7 @@ export function KlantenSearch({ initialQuery }: { initialQuery: string }) {
     <div className="flex flex-wrap items-end gap-3">
       <div className="min-w-[200px] flex-1">
         <label htmlFor="klanten-zoek" className="text-sm font-medium text-stone-700 dark:text-stone-300">
-          Zoeken op naam of e-mail
+          Zoeken op naam of e-mail / 按姓名或邮箱搜索
         </label>
         <input
           id="klanten-zoek"
@@ -31,7 +31,7 @@ export function KlantenSearch({ initialQuery }: { initialQuery: string }) {
           value={q}
           onChange={(e) => setQ(e.target.value)}
           onKeyDown={(e) => e.key === "Enter" && (e.preventDefault(), apply())}
-          placeholder="Bijv. Jan of @gmail"
+          placeholder="Zoek op naam of e-mail / 按姓名或邮箱搜索"
           className="mt-1 w-full rounded-lg border border-stone-300 bg-white px-3 py-2 dark:border-stone-600 dark:bg-stone-950"
         />
       </div>

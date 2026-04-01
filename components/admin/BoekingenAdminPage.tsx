@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { format } from "date-fns";
 import { nl } from "date-fns/locale";
+import { adminBookingStatusLabel } from "@/lib/admin-i18n";
 
 type BookingRow = {
   id: string;
@@ -22,9 +23,13 @@ type BookingRow = {
 
 const TABS = [
   { key: "alle", label: "Alle", statusParam: "" },
-  { key: "pending", label: "In afwachting", statusParam: "pending" },
-  { key: "bevestigd", label: "Bevestigd", statusParam: "bevestigd" },
-  { key: "geannuleerd", label: "Geannuleerd", statusParam: "geannuleerd" },
+  { key: "pending", label: "In afwachting / 待确认", statusParam: "pending" },
+  { key: "bevestigd", label: "Bevestigd / 已确认", statusParam: "bevestigd" },
+  {
+    key: "geannuleerd",
+    label: "Geannuleerd / 已取消",
+    statusParam: "geannuleerd",
+  },
 ] as const;
 
 function statusBadgeClass(s: string) {
@@ -97,15 +102,15 @@ export function BoekingenAdminPage() {
   async function patchStatus(id: string, status: "bevestigd" | "geannuleerd") {
     setBusyId(id);
     try {
-      const body: { status: string; annuleringsReden?: string } = { status };
+      let reden: string | undefined;
       if (status === "geannuleerd") {
-        const reden = window.prompt("Reden annulering (optioneel):") ?? "";
-        if (reden) body.annuleringsReden = reden;
+        reden = window.prompt("Reden annulering (optioneel):") ?? "";
+        if (!reden.trim()) reden = undefined;
       }
       const res = await fetch(`/api/admin/boekingen/${id}`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(body),
+        body: JSON.stringify({ status, reden }),
       });
       if (!res.ok) throw new Error(await res.text());
       await load();
@@ -116,9 +121,12 @@ export function BoekingenAdminPage() {
 
   return (
     <div className="space-y-6">
-      <h1 className="font-serif text-3xl text-stone-900 dark:text-stone-100">
-        Boekingen
-      </h1>
+      <div>
+        <h1 className="font-serif text-3xl text-stone-900 dark:text-stone-100">
+          Boekingen
+        </h1>
+        <p className="text-stone-400 text-sm">预约</p>
+      </div>
 
       <div className="flex flex-wrap gap-2 border-b border-stone-200 pb-3 dark:border-stone-700">
         {TABS.map((t) => (
@@ -195,9 +203,9 @@ export function BoekingenAdminPage() {
                   <p className="text-xs text-stone-500">{b.email}</p>
                 </div>
                 <span
-                  className={`rounded-full px-3 py-1 text-xs font-medium capitalize ${statusBadgeClass(b.status)}`}
+                  className={`rounded-full px-3 py-1 text-xs font-medium ${statusBadgeClass(b.status)}`}
                 >
-                  {b.status}
+                  {adminBookingStatusLabel(b.status)}
                 </span>
               </div>
               <div className="mt-4 flex flex-wrap gap-2">

@@ -72,9 +72,12 @@ export default async function AdminAgendaPage() {
 
   return (
     <div className="space-y-6">
-      <h1 className="font-serif text-3xl text-stone-900 dark:text-stone-100">
-        Agenda
-      </h1>
+      <div>
+        <h1 className="font-serif text-3xl text-stone-900 dark:text-stone-100">
+          Agenda
+        </h1>
+        <p className="text-stone-400 text-sm">日程</p>
+      </div>
       <AdminAgendaView events={events} />
     </div>
   );

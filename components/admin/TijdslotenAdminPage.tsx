@@ -110,6 +110,7 @@ export function TijdslotenAdminPage() {
         <h1 className="font-serif text-3xl text-stone-900 dark:text-stone-100">
           Tijdsloten & uitzonderingen
         </h1>
+        <p className="text-stone-400 text-sm">时间段</p>
         <p className="mt-2 max-w-2xl text-sm text-stone-600 dark:text-stone-400">
           Zonder regels hier gelden de standaardtijden: dinsdag t/m vrijdag
           09:00–20:00, zaterdag en zondag 09:00–17:00, maandag gesloten. Zodra u

@@ -7,6 +7,7 @@ import {
   AgendaCalendar,
   type AgendaEvent,
 } from "@/components/AgendaCalendar";
+import { adminBookingStatusLabel } from "@/lib/admin-i18n";
 
 export type SerializedAgendaEvent = {
   id: string;
@@ -181,7 +182,11 @@ export function AdminAgendaView({
               </div>
               <div>
                 <dt className="text-stone-500">Status</dt>
-                <dd className="capitalize">{selected.resource?.status}</dd>
+                <dd>
+                  {selected.resource?.status
+                    ? adminBookingStatusLabel(selected.resource.status)
+                    : "—"}
+                </dd>
               </div>
               {selected.resource?.opmerking && (
                 <div>

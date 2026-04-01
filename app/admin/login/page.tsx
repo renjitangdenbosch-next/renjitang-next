@@ -38,6 +38,7 @@ export default function AdminLoginPage() {
         <h1 className="font-serif text-2xl text-stone-900 dark:text-stone-100">
           Beheerderslogin
         </h1>
+        <p className="text-stone-400 text-sm">管理员登录</p>
         <div>
           <label className="text-sm font-medium">E-mail</label>
           <input

@@ -6,13 +6,14 @@ import type { ReactNode } from "react";
 import { signOut } from "next-auth/react";
 
 const links = [
-  { href: "/admin/dashboard", label: "Dashboard" },
-  { href: "/admin/agenda", label: "Agenda" },
-  { href: "/admin/boekingen", label: "Boekingen" },
-  { href: "/admin/tijdsloten", label: "Tijdsloten" },
-  { href: "/admin/klanten", label: "Klanten" },
-  { href: "/admin/import", label: "Import" },
-];
+  { href: "/admin/dashboard", label: "Dashboard", labelCn: "控制台" },
+  { href: "/admin/agenda", label: "Agenda", labelCn: "日程" },
+  { href: "/admin/boekingen", label: "Boekingen", labelCn: "预约" },
+  { href: "/admin/historie", label: "Historie", labelCn: "历史记录" },
+  { href: "/admin/tijdsloten", label: "Tijdsloten", labelCn: "时间段" },
+  { href: "/admin/klanten", label: "Klanten", labelCn: "客户" },
+  { href: "/admin/import", label: "Import", labelCn: "导入" },
+] as const;
 
 export function AdminChrome({ children }: { children: ReactNode }) {
   const pathname = usePathname();
@@ -37,6 +38,9 @@ export function AdminChrome({ children }: { children: ReactNode }) {
                 }
               >
                 {l.label}
+                <span className="text-xs text-stone-400 block dark:text-stone-500">
+                  {l.labelCn}
+                </span>
               </Link>
             ))}
           </nav>
