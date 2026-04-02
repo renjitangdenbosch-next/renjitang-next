@@ -3,6 +3,7 @@ import { Cormorant_Garamond, Lato } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
 import { Providers } from "@/components/Providers";
+import { CookieBanner } from "@/components/CookieBanner";
 import { JsonLd } from "@/components/JsonLd";
 import { localBusinessJsonLd } from "@/lib/jsonld";
 
@@ -83,6 +84,7 @@ export default function RootLayout({
         ) : null}
         <JsonLd data={localBusinessJsonLd()} />
         <Providers>{children}</Providers>
+        <CookieBanner />
       </body>
     </html>
   );

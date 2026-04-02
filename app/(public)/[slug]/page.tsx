@@ -25,6 +25,8 @@ const RESERVED_SLUGS = new Set([
   "afspraak",
   "bookings",
   "privacy",
+  "cookiebeleid",
+  "disclaimer",
   "blog",
   "tarieven",
 ]);

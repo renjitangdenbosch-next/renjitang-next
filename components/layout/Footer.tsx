@@ -120,9 +120,17 @@ export function Footer() {
           <p className="font-lato text-xs text-white/40">
             © {new Date().getFullYear()} Ren Ji Tang · KvK: 94217262
           </p>
-          <div className="flex gap-4 font-lato text-xs text-white/40">
+          <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-1 font-lato text-xs text-white/40 sm:justify-end">
             <a href="/privacy" className="transition-colors hover:text-white/70">
               Privacybeleid
+            </a>
+            <span aria-hidden>·</span>
+            <a href="/disclaimer" className="transition-colors hover:text-white/70">
+              Disclaimer
+            </a>
+            <span aria-hidden>·</span>
+            <a href="/cookiebeleid" className="transition-colors hover:text-white/70">
+              Cookiebeleid
             </a>
             <span aria-hidden>·</span>
             <a
@@ -135,6 +143,10 @@ export function Footer() {
             </a>
           </div>
         </div>
+        <p className="mx-auto max-w-3xl px-6 pt-4 text-center font-lato text-xs leading-relaxed text-white/40">
+          Ren Ji Tang is aangesloten bij Zhong en valt onder de SCAG klachtenregeling. Acupunctuur en TCG zijn
+          complementaire behandelingen en vervangen geen reguliere medische zorg.
+        </p>
       </div>
     </footer>
   );

@@ -16,12 +16,11 @@ const tarieven = [
   { behandeling: "Guasha", duur: "45 min", prijs: "vanaf €55" },
   { behandeling: "Moxibustie", duur: "45 min", prijs: "vanaf €55" },
   { behandeling: "Kruidengeneeskunde consult", duur: "60 min", prijs: "vanaf €65" },
-  { behandeling: "Kennismakingsgesprek", duur: "15 min", prijs: "Gratis" },
 ];
 
 export default function TarievenPage() {
   return (
-    <main className="min-h-screen bg-[#F9F5EE]">
+    <div className="min-h-screen bg-[#F9F5EE]">
       <div className="mx-auto max-w-3xl px-6 py-20">
         <span className="mb-4 block font-lato text-xs uppercase tracking-[0.2em] text-[#B8860B]">
           Tarieven
@@ -68,6 +67,6 @@ export default function TarievenPage() {
           Maak een afspraak →
         </Link>
       </div>
-    </main>
+    </div>
   );
 }

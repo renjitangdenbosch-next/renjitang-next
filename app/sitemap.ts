@@ -36,6 +36,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.65,
     })),
     { url: `${base}/privacy`, lastModified, changeFrequency: "yearly", priority: 0.5 },
+    { url: `${base}/cookiebeleid`, lastModified, changeFrequency: "yearly", priority: 0.5 },
+    { url: `${base}/disclaimer`, lastModified, changeFrequency: "yearly", priority: 0.5 },
     {
       url: `${base}/bookings`,
       lastModified,
@@ -55,6 +57,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     "afspraak",
     "bookings",
     "privacy",
+    "cookiebeleid",
+    "disclaimer",
     "blog",
     "tarieven",
     ...blogArtikelen.map((a) => a.slug),
