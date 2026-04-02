@@ -54,9 +54,14 @@ export default function TarievenPage() {
         </div>
 
         <div className="mb-10 space-y-2 rounded-sm bg-[#EDE8DC] p-6 font-lato text-sm text-[#5A4E3C]">
-          <p>✓ Veel zorgverzekeraars vergoeden TCM behandelingen (aanvullend pakket)</p>
+          <p>✓ Veel zorgverzekeraars vergoeden TCM behandelingen (aanvullend pakket) *</p>
           <p>✓ Vraag naar onze behandelpakketten voor meerdere sessies</p>
-          <p>✓ Eerste kennismakingsgesprek altijd gratis en vrijblijvend</p>
+          <p className="text-xs text-[#9E8E75] mt-4 italic">
+            * De vergoeding van TCM-behandelingen verschilt per zorgverzekeraar en per aanvullend pakket. Wij
+            adviseren u vooraf uw polisvoorwaarden te raadplegen of contact op te nemen met uw
+            zorgverzekeraar om te bevestigen welke behandelingen vergoed worden en onder welke voorwaarden.
+            Ren Ji Tang is aangesloten bij Zhong, KAB Koepel en SCAG, wat de kans op vergoeding vergroot.
+          </p>
         </div>
 
         <Link href="/bookings" className="btn-primary inline-block">

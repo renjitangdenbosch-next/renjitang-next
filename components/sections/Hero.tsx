@@ -27,12 +27,12 @@ export function Hero() {
   return (
     <section className="relative min-h-[max(640px,100svh)] w-full overflow-hidden">
       <Image
-        src="/images/hero_homepage_new.jpg"
+        src="/images/hero_cupping_ai.png"
         alt="Acupunctuur en warme sfeer — Ren Ji Tang"
         fill
         priority
         sizes="100vw"
-        className="z-0 object-cover object-[75%_40%]"
+        className="z-0 object-cover object-center"
       />
       <div
         className="absolute inset-0 z-10 bg-gradient-to-r from-black/65 via-black/40 to-black/20"

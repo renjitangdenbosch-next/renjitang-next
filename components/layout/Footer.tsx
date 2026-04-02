@@ -6,13 +6,12 @@ export function Footer() {
       {/* === ACHTERGROND === */}
       <div className="absolute inset-0">
         <Image
-          src="/images/hero_cupping_ai.png"
+          src="/images/footer-image.png"
           alt=""
           fill
-          sizes="100vw"
           className="object-cover object-center"
         />
-        <div className="absolute inset-0 bg-[#1A1208]/88" aria-hidden />
+        <div className="absolute inset-0 bg-[#1A1208]/55" />
       </div>
 
       {/* === GOUDEN LIJN BOVENAAN === */}

@@ -29,7 +29,7 @@ export const BEHANDELING_HOME_CARDS: BehandelingHomeCard[] = [
     naam: "Acupunctuur",
     beschrijving:
       "Fijne naaldjes op zorgvuldig gekozen punten ter ondersteuning van herstel en balans.",
-    image: "/images/hero_3_acupunctuur.jpg",
+    image: "/images/hero_acupunctuur_handen.jpg",
   },
   {
     slug: "massage",
@@ -71,6 +71,7 @@ export const BEHANDELING_HOME_CARDS: BehandelingHomeCard[] = [
 export type BehandelingDetail = {
   slug: BehandelingSlug;
   naam: string;
+  karakterCN: string;
   heroImage: string;
   intro: [string, string];
   splitImage: string;
@@ -85,7 +86,8 @@ export const BEHANDELING_DETAILS: Record<BehandelingSlug, BehandelingDetail> = {
   acupunctuur: {
     slug: "acupunctuur",
     naam: "Acupunctuur",
-    heroImage: "/images/hero_3_acupunctuur.jpg",
+    karakterCN: "針",
+    heroImage: "/images/hero_acupunctuur_handen.jpg",
     intro: [
       "Acupunctuur werkt met dunne, steriele naalden op specifieke punten van het lichaam. Zo wordt de natuurlijke balans en energiestroom ondersteund — zacht, gericht en evidence-informed binnen traditionele Chinese geneeskunde.",
       "Tijdens het consult kijken we naar uw klacht, uw algemene conditie en wat u nodig heeft. Geen standaardprotocol, maar een aanpak op maat in een rustige behandelruimte.",
@@ -115,6 +117,7 @@ export const BEHANDELING_DETAILS: Record<BehandelingSlug, BehandelingDetail> = {
   massage: {
     slug: "massage",
     naam: "Tuina massage",
+    karakterCN: "按",
     heroImage: "/images/hero_2_massage.jpg",
     intro: [
       "Tuina is een therapeutische massagevorm uit China. Met gerichte technieken worden spieren, gewrichten en meridianen benaderd om blokkades te verminderen en het lichaam soepeler te maken.",
@@ -142,7 +145,8 @@ export const BEHANDELING_DETAILS: Record<BehandelingSlug, BehandelingDetail> = {
   cupping: {
     slug: "cupping",
     naam: "Cupping",
-    heroImage: "/images/hero_cupping_ai.png",
+    karakterCN: "拔",
+    heroImage: "/images/hero_cupping_real.jpg",
     intro: [
       "Cupping gebruikt zacht vacuüm op de huid om doorbloeding en ontspanning te bevorderen. Het is een klassieke techniek binnen TCM, vaak gecombineerd met massage of acupunctuur.",
       "De typische cirkels verdwijnen na enkele dagen; ze zijn onschuldig en horen bij het proces.",
@@ -168,6 +172,7 @@ export const BEHANDELING_DETAILS: Record<BehandelingSlug, BehandelingDetail> = {
   guasha: {
     slug: "guasha",
     naam: "Guasha",
+    karakterCN: "刮",
     heroImage: "/images/hero_5_guasha.jpg",
     intro: [
       "Guasha betekent schrapen met een glad instrument over de huid, met olie als buffer. Het activeert de microcirculatie en kan verlichting geven bij spanning en stagnatie.",
@@ -194,6 +199,7 @@ export const BEHANDELING_DETAILS: Record<BehandelingSlug, BehandelingDetail> = {
   moxibustie: {
     slug: "moxibustie",
     naam: "Moxibustie",
+    karakterCN: "灸",
     heroImage: "/images/hero_3_acupunctuur.jpg",
     intro: [
       "Moxibustie werkt met gerichte warmte, meestal van verwarmde moxa (Artemisia), nabij acupunctuurpunten. Warmte wordt diep ervaren en ondersteunt energie en circulatie.",
@@ -220,6 +226,7 @@ export const BEHANDELING_DETAILS: Record<BehandelingSlug, BehandelingDetail> = {
   kruiden: {
     slug: "kruiden",
     naam: "Kruidengeneeskunde",
+    karakterCN: "藥",
     heroImage: "/images/hero_kruiden.png",
     intro: [
       "Kruidenformules worden in de TCM zorgvuldig samengesteld — niet één kruid, maar een balanced combinatie die bij uw patroon past.",

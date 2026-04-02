@@ -1,7 +1,6 @@
 "use client";
 
 import { motion, useReducedMotion } from "framer-motion";
-import { SectionHeader } from "@/components/ui/SectionHeader";
 import { StarRating } from "@/components/ui/StarRating";
 
 const reviews = [
@@ -41,16 +40,24 @@ export function Testimonials() {
   return (
     <section className="bg-ink py-24" aria-labelledby="testimonials-heading">
       <div className="mx-auto max-w-[1100px] px-6">
-        <SectionHeader
-          eyebrow="Wat onze patiënten zeggen"
-          title="Ervaringen die spreken"
-          titleId="testimonials-heading"
-          subtitle="5,0 · Beoordeeld op Google"
-          align="center"
-          dark
-          goldRule
-          className="mb-14"
-        />
+        <div className="relative mb-16 text-center">
+          <div className="pointer-events-none absolute inset-0 flex select-none items-center justify-center">
+            <span className="font-cormorant text-[200px] leading-none text-white/[0.06]">信</span>
+          </div>
+          <span className="mb-4 block font-lato text-[11px] uppercase tracking-[0.25em] text-[#B8860B]">
+            Ren Ji Tang
+          </span>
+          <div className="mx-auto mb-4 h-[1px] w-12 bg-[#B8860B]" aria-hidden />
+          <h2
+            id="testimonials-heading"
+            className="mb-4 font-cormorant text-5xl font-normal text-white"
+          >
+            Ervaringen die spreken
+          </h2>
+          <p className="mx-auto max-w-md font-lato text-base text-white/55">
+            5,0 · Beoordeeld op Google
+          </p>
+        </div>
 
         <ul className="grid list-none grid-cols-1 gap-6 lg:grid-cols-2 lg:gap-6">
           {reviews.map((r, index) => (

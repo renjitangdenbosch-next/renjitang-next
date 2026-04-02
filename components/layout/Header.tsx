@@ -168,7 +168,7 @@ export function Header() {
             aria-label="Menu sluiten"
             onClick={closeMobile}
           />
-          <div className="absolute right-0 top-0 flex h-full w-[min(100%,22rem)] flex-col bg-ink shadow-xl">
+          <div className="absolute right-0 top-0 flex h-full w-[min(100%,22rem)] flex-col bg-[#1A1208]/40 backdrop-blur-xl shadow-xl">
             <div className="flex items-center justify-between border-b border-white/10 px-4 py-4">
               <span className="font-lato text-lg font-medium text-white">Menu</span>
               <button

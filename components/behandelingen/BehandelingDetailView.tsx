@@ -21,23 +21,32 @@ export function BehandelingDetailView({ data }: { data: BehandelingDetail }) {
 
   return (
     <div className="bg-paper text-ink">
-      <section className="relative h-[60vh] min-h-[320px] w-full overflow-hidden">
+      <section className="relative h-[60vh] min-h-[420px] overflow-hidden -mt-[80px] pt-[80px]">
         <Image
           src={data.heroImage}
-          alt={`${data.naam} — Ren Ji Tang`}
+          alt={data.naam}
           fill
           priority
-          sizes="100vw"
           className="object-cover object-center"
         />
         <div
-          className="absolute inset-0 bg-gradient-to-r from-black/75 via-black/45 to-black/15"
+          className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/45 to-black/20"
           aria-hidden
         />
-        <div className="relative z-10 flex h-full max-w-6xl items-end px-6 pb-12 pt-28 md:px-10">
-          <h1 className="font-cormorant text-4xl font-normal text-white md:text-6xl">
-            {data.naam}
-          </h1>
+        <div className="pointer-events-none absolute right-6 top-1/2 -translate-y-1/2 select-none font-cormorant text-[120px] leading-none text-white/15 md:text-[180px]">
+          {data.karakterCN}
+        </div>
+        <div className="absolute bottom-10 left-6 z-10 lg:left-16">
+          <span className="mb-3 block font-lato text-[11px] uppercase tracking-[0.25em] text-[#B8860B]">
+            Traditionele Chinese Geneeskunde
+          </span>
+          <h1 className="mb-6 font-cormorant text-5xl font-normal text-white lg:text-7xl">{data.naam}</h1>
+          <Link
+            href="/bookings"
+            className="inline-flex items-center gap-2 rounded-sm bg-[#C0392B] px-6 py-3 font-lato text-xs font-bold uppercase tracking-[0.08em] text-white transition-colors duration-200 hover:bg-[#A93226]"
+          >
+            Maak afspraak →
+          </Link>
         </div>
       </section>
 
