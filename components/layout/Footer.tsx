@@ -6,7 +6,7 @@ export function Footer() {
       {/* === ACHTERGROND === */}
       <div className="absolute inset-0">
         <Image
-          src="/images/footer-image.png"
+          src="/images/footer-3.png"
           alt=""
           fill
           className="object-cover object-center"
