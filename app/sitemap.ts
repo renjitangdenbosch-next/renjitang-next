@@ -1,5 +1,7 @@
 import type { MetadataRoute } from "next";
 import { getAllPages } from "@/lib/wordpress";
+import { BEHANDELING_SLUGS } from "@/lib/behandelingen-data";
+import { blogArtikelen } from "@/lib/blog-data";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const base = (process.env.NEXT_PUBLIC_SITE_URL || "https://www.renjitang.nl").replace(
@@ -8,20 +10,37 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   );
   const lastModified = new Date();
 
+  const behandelingUrls: MetadataRoute.Sitemap = BEHANDELING_SLUGS.map((slug) => ({
+    url: `${base}/behandelingen/${slug}`,
+    lastModified,
+    changeFrequency: "monthly",
+    priority: 0.85,
+  }));
+
   const staticRoutes: MetadataRoute.Sitemap = [
     { url: base, lastModified, changeFrequency: "weekly", priority: 1 },
-    { url: `${base}/acupunctuur`, lastModified, changeFrequency: "monthly", priority: 0.9 },
-    { url: `${base}/massage`, lastModified, changeFrequency: "monthly", priority: 0.9 },
-    { url: `${base}/cupping`, lastModified, changeFrequency: "monthly", priority: 0.8 },
-    { url: `${base}/guasha`, lastModified, changeFrequency: "monthly", priority: 0.8 },
     { url: `${base}/behandelingen`, lastModified, changeFrequency: "monthly", priority: 0.9 },
+    ...behandelingUrls,
+    { url: `${base}/over-ons`, lastModified, changeFrequency: "monthly", priority: 0.8 },
+    { url: `${base}/acupunctuur`, lastModified, changeFrequency: "monthly", priority: 0.75 },
+    { url: `${base}/massage`, lastModified, changeFrequency: "monthly", priority: 0.75 },
+    { url: `${base}/cupping`, lastModified, changeFrequency: "monthly", priority: 0.75 },
+    { url: `${base}/guasha`, lastModified, changeFrequency: "monthly", priority: 0.75 },
     { url: `${base}/contact`, lastModified, changeFrequency: "monthly", priority: 0.85 },
+    { url: `${base}/tarieven`, lastModified, changeFrequency: "monthly", priority: 0.85 },
+    { url: `${base}/blog`, lastModified, changeFrequency: "weekly", priority: 0.75 },
+    ...blogArtikelen.map((a) => ({
+      url: `${base}/blog/${a.slug}`,
+      lastModified,
+      changeFrequency: "monthly" as const,
+      priority: 0.65,
+    })),
     { url: `${base}/privacy`, lastModified, changeFrequency: "yearly", priority: 0.5 },
     {
       url: `${base}/bookings`,
       lastModified,
       changeFrequency: "weekly",
-      priority: 0.9,
+      priority: 0.85,
     },
   ];
 
@@ -32,8 +51,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     "guasha",
     "contact",
     "behandelingen",
+    "over-ons",
+    "afspraak",
     "bookings",
     "privacy",
+    "blog",
+    "tarieven",
+    ...blogArtikelen.map((a) => a.slug),
   ]);
 
   let wpRoutes: MetadataRoute.Sitemap = [];

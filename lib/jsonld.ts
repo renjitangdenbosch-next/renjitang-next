@@ -18,6 +18,8 @@ export function localBusinessJsonLd() {
     telephone: SITE.phoneTel,
     address: {
       "@type": "PostalAddress",
+      streetAddress: SITE.streetAddress,
+      postalCode: SITE.postalCode,
       addressLocality: SITE.city,
       addressRegion: SITE.region,
       addressCountry: SITE.country,

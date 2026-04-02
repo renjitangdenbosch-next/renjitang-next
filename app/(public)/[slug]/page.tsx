@@ -17,11 +17,16 @@ const FIXED_VERGOEDING = "acupunctuur-en-vergoeding-zorgverzekering";
 const RESERVED_SLUGS = new Set([
   "acupunctuur",
   "massage",
+  "cupping",
+  "guasha",
   "contact",
   "behandelingen",
+  "over-ons",
+  "afspraak",
   "bookings",
   "privacy",
   "blog",
+  "tarieven",
 ]);
 
 function stripTags(html: string): string {

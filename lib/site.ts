@@ -6,25 +6,28 @@ export const SITE = {
   city: "'s-Hertogenbosch",
   region: "Noord-Brabant",
   country: "NL",
+  streetAddress: "Hazenburgstede 7",
+  postalCode: "5235 HR",
   email: "info@renjitang.nl",
   phone: "073 211 02 24",
   phoneTel: "+31732110224",
+  /** Schema.org openingstijden — maandag gesloten */
   openingHoursSpecification: [
     {
-      dayOfWeek: [
-        "Tuesday",
-        "Wednesday",
-        "Thursday",
-        "Friday",
-        "Saturday",
-        "Sunday",
-      ],
+      dayOfWeek: ["Tuesday", "Wednesday", "Thursday", "Friday"] as const,
       opens: "09:00",
       closes: "20:00",
     },
+    {
+      dayOfWeek: ["Saturday", "Sunday"] as const,
+      opens: "09:00",
+      closes: "17:00",
+    },
   ],
-  /** Interne boekingspagina */
+  /** Eenvoudige aanvraagpagina */
   bookingUrl: "/bookings",
+  /** Uitgebreide online agenda */
+  bookingWizardUrl: "/bookings",
 } as const;
 
 export type SiteService = {

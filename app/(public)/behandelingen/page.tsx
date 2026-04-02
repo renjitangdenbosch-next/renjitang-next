@@ -1,42 +1,90 @@
 import type { Metadata } from "next";
-import { SERVICES } from "@/lib/site";
+import Image from "next/image";
+import Link from "next/link";
+import { BEHANDELING_HOME_CARDS } from "@/lib/behandelingen-data";
+import { SERVICES, SITE } from "@/lib/site";
+import { Button } from "@/components/ui/Button";
+import { SectionHeader } from "@/components/ui/SectionHeader";
 
 export const metadata: Metadata = {
   title: "Onze behandelingen",
   description:
-    "Prijzen en tijden voor acupunctuur, cupping, Tuina en ontspanningsmassage bij Ren Ji Tang.",
+    "Acupunctuur, Tuina massage, cupping, guasha, moxibustie en kruidengeneeskunde bij Ren Ji Tang in Den Bosch.",
   alternates: { canonical: "/behandelingen" },
 };
 
 export default function BehandelingenPage() {
   return (
-    <div className="mx-auto max-w-5xl px-6 py-12">
-      <h1 className="mb-3 font-serif text-4xl text-rjt-dark dark:text-rjt-cream">Onze behandelingen</h1>
-      <p className="mb-8 text-sm text-stone-400">我们的治疗项目</p>
-      <p className="mb-10 text-lg text-stone-600 dark:text-stone-400">
-        Traditionele Chinese geneeskunde voor lichaam en geest — heldere tijden en tarieven.
-      </p>
+    <div className="bg-paper py-20 text-ink">
+      <div className="mx-auto max-w-6xl px-6">
+        <SectionHeader
+          eyebrow="Behandelingen"
+          title="Wat wij voor u doen"
+          subtitle="Klik voor meer informatie per behandeling. Onderaan vindt u indicatieve tijden en tarieven."
+          align="center"
+          className="mb-16"
+        />
 
-      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {SERVICES.map((service) => (
-          <div key={service.id} className="rounded-2xl bg-white p-8 shadow-sm">
-            <div className="mb-2 flex items-start justify-between">
-              <h2 className="font-serif text-2xl text-rjt-dark">{service.naam}</h2>
-              <span className="rounded-full bg-rjt-beige px-3 py-1 font-semibold text-rjt-dark">
-                €{service.prijs}
-              </span>
-            </div>
-            <p className="mb-3 text-sm text-stone-500">{service.duur} min</p>
-            <p className="mb-6 leading-relaxed text-stone-600">{service.beschrijving}</p>
+        <ul className="grid list-none grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+          {BEHANDELING_HOME_CARDS.map((b) => (
+            <li key={b.slug}>
+              <Link
+                href={`/behandelingen/${b.slug}`}
+                className="group flex h-full flex-col overflow-hidden rounded-sm border border-stone-200/90 bg-white shadow-md transition-shadow hover:shadow-lg"
+              >
+                <div className="relative aspect-[4/3] w-full">
+                  <Image
+                    src={b.image}
+                    alt={`${b.naam} bij Ren Ji Tang`}
+                    fill
+                    className="object-cover transition-transform duration-300 group-hover:scale-[1.02]"
+                    sizes="(max-width:768px) 100vw, 33vw"
+                  />
+                </div>
+                <div className="flex flex-1 flex-col p-6">
+                  <h2 className="font-cormorant text-[1.35rem] text-ink">{b.naam}</h2>
+                  <p className="mt-2 line-clamp-2 font-lato text-sm text-muted">{b.beschrijving}</p>
+                  <span className="mt-auto pt-4 font-lato text-sm font-medium text-jade">
+                    Meer informatie →
+                  </span>
+                </div>
+              </Link>
+            </li>
+          ))}
+        </ul>
 
-            <a
-              href="/bookings"
-              className="block w-full rounded-full bg-rjt-red py-3 text-center font-semibold text-white transition-colors hover:bg-red-900"
+        <section className="mt-24 border-t border-gold/20 pt-16" aria-labelledby="tarieven-heading">
+          <h2 id="tarieven-heading" className="font-cormorant text-3xl text-ink">
+            Tijden en tarieven
+          </h2>
+          <p className="mt-3 font-lato text-sm text-muted">
+            Actuele prijzen en beschikbaarheid bij het boeken van uw afspraak.
+          </p>
+          <ul className="mt-10 space-y-4">
+            {SERVICES.map((s) => (
+              <li
+                key={s.id}
+                className="flex flex-wrap items-baseline justify-between gap-2 border-b border-stone-200/80 py-4 font-lato text-sm"
+              >
+                <span className="text-ink">{s.naam}</span>
+                <span className="text-muted">
+                  {s.duur} min · €{s.prijs}
+                </span>
+              </li>
+            ))}
+          </ul>
+          <div className="mt-10 flex flex-wrap items-center gap-4">
+            <Button variant="primary" href={SITE.bookingUrl}>
+              Maak een afspraak
+            </Button>
+            <Link
+              href={SITE.bookingWizardUrl}
+              className="inline-block rounded-sm border border-ink px-8 py-3 font-lato text-[0.8rem] font-bold uppercase tracking-[0.08em] text-ink transition-colors hover:border-vermilion hover:text-vermilion"
             >
-              Boek nu
-            </a>
+              Online agenda
+            </Link>
           </div>
-        ))}
+        </section>
       </div>
     </div>
   );

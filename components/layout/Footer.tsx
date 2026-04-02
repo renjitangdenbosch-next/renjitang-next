@@ -1,0 +1,142 @@
+import Image from "next/image";
+
+export function Footer() {
+  return (
+    <footer className="relative overflow-hidden">
+      {/* === ACHTERGROND === */}
+      <div className="absolute inset-0">
+        <Image
+          src="/images/hero_cupping_ai.png"
+          alt=""
+          fill
+          sizes="100vw"
+          className="object-cover object-center"
+        />
+        <div className="absolute inset-0 bg-[#1A1208]/88" aria-hidden />
+      </div>
+
+      {/* === GOUDEN LIJN BOVENAAN === */}
+      <div className="relative z-10 border-t border-[#B8860B]/30" />
+
+      {/* === HOOFD FOOTER INHOUD === */}
+      <div className="relative z-10 mx-auto max-w-6xl px-6 py-16">
+        <div className="grid grid-cols-1 gap-12 md:grid-cols-3">
+          {/* KOLOM 1 — Merk + contact */}
+          <div>
+            <Image
+              src="/images/cropped-logorenjitang-3.png"
+              alt="Ren Ji Tang"
+              width={120}
+              height={60}
+              className="mb-4 h-14 w-auto object-contain"
+            />
+            <p className="mb-4 font-lato text-sm text-white/60">Traditionele Chinese Geneeskunde</p>
+            <div className="space-y-1 font-lato text-sm text-white/70">
+              <p>Hazenburgstede 7</p>
+              <p>5235 HR &apos;s-Hertogenbosch</p>
+              <a href="tel:0732110224" className="block transition-colors hover:text-white">
+                073 211 02 24
+              </a>
+              <a href="mailto:info@renjitang.nl" className="block transition-colors hover:text-white">
+                info@renjitang.nl
+              </a>
+            </div>
+          </div>
+
+          {/* KOLOM 2 — Behandelingen links */}
+          <div>
+            <h3 className="mb-5 font-lato text-xs uppercase tracking-[0.2em] text-[#B8860B]">
+              Behandelingen
+            </h3>
+            <ul className="space-y-2 font-lato text-sm text-white/70">
+              <li>
+                <a href="/behandelingen/acupunctuur" className="transition-colors hover:text-white">
+                  Acupunctuur
+                </a>
+              </li>
+              <li>
+                <a href="/behandelingen/massage" className="transition-colors hover:text-white">
+                  Tuina Massage
+                </a>
+              </li>
+              <li>
+                <a href="/behandelingen/cupping" className="transition-colors hover:text-white">
+                  Cupping
+                </a>
+              </li>
+              <li>
+                <a href="/behandelingen/guasha" className="transition-colors hover:text-white">
+                  Guasha
+                </a>
+              </li>
+              <li>
+                <a href="/behandelingen/moxibustie" className="transition-colors hover:text-white">
+                  Moxibustie
+                </a>
+              </li>
+              <li>
+                <a href="/behandelingen/kruiden" className="transition-colors hover:text-white">
+                  Kruidengeneeskunde
+                </a>
+              </li>
+              <li>
+                <a href="/blog" className="transition-colors hover:text-white">
+                  Blog
+                </a>
+              </li>
+              <li>
+                <a href="/tarieven" className="transition-colors hover:text-white">
+                  Tarieven
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          {/* KOLOM 3 — Openingstijden */}
+          <div>
+            <h3 className="mb-5 font-lato text-xs uppercase tracking-[0.2em] text-[#B8860B]">
+              Openingstijden
+            </h3>
+            <div className="space-y-2 font-lato text-sm text-white/70">
+              <div className="flex justify-between gap-8">
+                <span>Dinsdag t/m vrijdag</span>
+                <span className="text-white/90">09:00 – 20:00</span>
+              </div>
+              <div className="flex justify-between gap-8">
+                <span>Zaterdag &amp; zondag</span>
+                <span className="text-white/90">09:00 – 17:00</span>
+              </div>
+              <div className="flex justify-between gap-8">
+                <span>Maandag</span>
+                <span className="text-white/50">Gesloten</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* === ONDERSTE BALK === */}
+      <div className="relative z-10 border-t border-white/10 py-5">
+        <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-2 px-6 sm:flex-row">
+          <p className="font-lato text-xs text-white/40">
+            © {new Date().getFullYear()} Ren Ji Tang · KvK: 94217262
+          </p>
+          <div className="flex gap-4 font-lato text-xs text-white/40">
+            <a href="/privacy" className="transition-colors hover:text-white/70">
+              Privacybeleid
+            </a>
+            <span aria-hidden>·</span>
+            <a
+              href="https://allesis.nl"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="transition-colors hover:text-white/70"
+            >
+              Website door allesis.nl
+            </a>
+          </div>
+        </div>
+      </div>
+    </footer>
+  );
+}

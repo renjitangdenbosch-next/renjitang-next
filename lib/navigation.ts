@@ -1,24 +1,33 @@
 import type { WpPage } from "@/types/wordpress";
 import { SITE } from "@/lib/site";
 
-/** Submenu onder “Behandelingen” in de header */
-export const BEHANDELING_SUBNAV = [
-  { href: "/acupunctuur", label: "Acupunctuur", labelZh: "针灸" },
-  { href: "/massage", label: "Massage", labelZh: "按摩" },
-  { href: "/cupping", label: "Cupping", labelZh: "拔罐" },
-  { href: "/guasha", label: "Guasha", labelZh: "刮痧" },
-  { href: "/behandelingen", label: "Behandelingen", labelZh: "治疗项目" },
+/** Links naar detailpagina's — alleen Nederlands in UI */
+export const BEHANDELING_NAV_ITEMS = [
+  { href: "/behandelingen/acupunctuur", label: "Acupunctuur" },
+  { href: "/behandelingen/massage", label: "Tuina massage" },
+  { href: "/behandelingen/cupping", label: "Cupping" },
+  { href: "/behandelingen/guasha", label: "Guasha" },
+  { href: "/behandelingen/moxibustie", label: "Moxibustie" },
+  { href: "/behandelingen/kruiden", label: "Kruidengeneeskunde" },
 ] as const;
 
-/** Vaste hoofdnavigatie — platte lijst voor o.a. footer (prioriteit boven WP-pagina’s) */
+export const HEADER_LINKS = [
+  { href: "/over-ons", label: "Over ons" },
+  { href: "/contact", label: "Contact" },
+] as const;
+
+/** Platte lijst voor mobiel menu (zonder dropdown) */
 export const PRIMARY_NAV = [
-  { href: "/", label: "Home", labelZh: "首页" },
-  ...BEHANDELING_SUBNAV,
-  { href: "/contact", label: "Contact", labelZh: "联系我们" },
-  { href: SITE.bookingUrl, label: "Boek een afspraak", labelZh: "预约挂号" },
+  { href: "/", label: "Home" },
+  { href: "/behandelingen", label: "Behandelingen" },
+  ...BEHANDELING_NAV_ITEMS.map((i) => ({ href: i.href, label: i.label })),
+  ...HEADER_LINKS,
+  { href: SITE.bookingUrl, label: "Maak afspraak" },
 ] as const;
 
-/** Secundaire links in footer — subset van WP-routes */
+/** @deprecated Gebruik BEHANDELING_NAV_ITEMS */
+export const BEHANDELING_SUBNAV = BEHANDELING_NAV_ITEMS;
+
 export function footerLinksFromPages(pages: WpPage[]) {
   const want = new Set([
     "route",

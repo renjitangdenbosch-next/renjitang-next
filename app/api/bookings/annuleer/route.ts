@@ -153,7 +153,7 @@ export async function GET(req: Request) {
     }
   }
 
-  const boekUrl = `${publicBaseUrl()}${SITE.bookingUrl}`;
+  const boekUrl = `${publicBaseUrl()}${SITE.bookingWizardUrl}`;
 
   return htmlPage(
     "Afspraak geannuleerd",

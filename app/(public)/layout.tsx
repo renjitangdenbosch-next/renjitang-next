@@ -1,5 +1,7 @@
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
+import { PublicMain } from "@/components/layout/PublicMain";
+import { FloatingCTA } from "@/components/ui/FloatingCTA";
 
 export default function PublicLayout({
   children,
@@ -9,8 +11,9 @@ export default function PublicLayout({
   return (
     <>
       <Header />
-      <main className="min-w-0">{children}</main>
+      <PublicMain>{children}</PublicMain>
       <Footer />
+      <FloatingCTA />
     </>
   );
 }

@@ -3,18 +3,61 @@
 @tailwind utilities;
 
 :root {
-  --background: #f5efe6;
-  --foreground: #1a1a1a;
-  --rjt-beige: #f5efe6;
-  --rjt-red: #8b2635;
-  --rjt-gold: #c9a84c;
-  --rjt-dark: #1a1a1a;
+  --ink: #1a1208;
+  --ink-light: #241a0e;
+  --paper: #f9f5ee;
+  --cream: #ede8dc;
+  --vermilion: #c0392b;
+  --vermilion-hover: #a93226;
+  --gold: #b8860b;
+  --gold-muted: rgba(184, 134, 11, 0.25);
+  --jade: #3d6b4f;
+  --muted: #9e8e75;
+
+  --color-ink: var(--ink);
+  --color-paper: var(--paper);
+  --color-cream: var(--cream);
+  --color-vermilion: var(--vermilion);
+  --color-vermilion-light: #d9534f;
+  --color-gold: var(--gold);
+  --color-jade: var(--jade);
+  --color-text-primary: var(--ink);
+  --color-text-secondary: #5a4e3c;
+  --color-text-muted: var(--muted);
+  --color-bg: var(--paper);
+  --color-surface: var(--cream);
+  --color-cta: var(--vermilion);
+
+  --background: var(--paper);
+  --foreground: var(--ink);
+  --rjt-beige: var(--paper);
+  --rjt-red: var(--vermilion);
+  --rjt-gold: var(--gold);
+  --rjt-dark: var(--ink);
   --rjt-cream: #fafaf8;
 }
 
 .dark {
   --background: #141210;
   --foreground: #fafaf8;
+}
+
+@layer base {
+  h1,
+  h2,
+  h3,
+  blockquote {
+    font-family: var(--font-serif), Georgia, serif;
+    font-weight: 400;
+  }
+
+  body,
+  p,
+  nav,
+  button,
+  a {
+    font-family: var(--font-sans), sans-serif;
+  }
 }
 
 body {
@@ -26,7 +69,7 @@ body {
 .wp-content h2 {
   font-family: var(--font-serif), Georgia, serif;
   font-size: 1.8rem;
-  color: #1a1a1a;
+  color: var(--ink);
   margin-bottom: 1rem;
 }
 
@@ -37,7 +80,7 @@ body {
 }
 
 .wp-content a {
-  color: #8b2635;
+  color: var(--vermilion);
   text-decoration: underline;
 }
 
@@ -53,12 +96,68 @@ body {
   color: #c45a68;
 }
 
+@layer components {
+  .btn-primary {
+    background: var(--vermilion);
+    color: white;
+    padding: 14px 32px;
+    border-radius: 4px;
+    font-family: var(--font-sans), sans-serif;
+    font-weight: 700;
+    font-size: 0.8rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    transition: background 0.2s ease;
+    display: inline-block;
+    text-align: center;
+  }
+  .btn-primary:hover {
+    background: var(--vermilion-hover);
+  }
+
+  .btn-outline {
+    border: 1.5px solid rgba(255, 255, 255, 0.7);
+    color: white;
+    padding: 13px 32px;
+    border-radius: 4px;
+    font-family: var(--font-sans), sans-serif;
+    font-weight: 400;
+    font-size: 0.8rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    background: transparent;
+    transition: border-color 0.2s;
+    display: inline-block;
+    text-align: center;
+  }
+  .btn-outline:hover {
+    border-color: white;
+  }
+
+  .btn-white {
+    background: white;
+    color: var(--vermilion);
+    padding: 14px 40px;
+    border-radius: 4px;
+    font-family: var(--font-sans), sans-serif;
+    font-weight: 700;
+    font-size: 0.8rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    display: inline-block;
+    text-align: center;
+    transition: background 0.2s ease, color 0.2s ease;
+  }
+  .btn-white:hover {
+    background: rgba(255, 255, 255, 0.92);
+  }
+}
+
 @layer utilities {
   .text-balance {
     text-wrap: balance;
   }
 
-  /** Breekt uit de parent container voor volle viewportbreedte */
   .full-bleed {
     position: relative;
     width: 100vw;

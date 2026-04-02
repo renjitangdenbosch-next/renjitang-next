@@ -3,6 +3,7 @@
 import type { ReactNode } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
+import { SITE } from "@/lib/site";
 
 export function PageLayout({
   title,
@@ -117,7 +118,7 @@ export function CTACard() {
       <h3 className="mb-3 font-serif text-2xl">Klaar om een afspraak te maken?</h3>
       <p className="mb-6 text-white/80">Neem contact op of boek direct online</p>
       <a
-        href="/bookings"
+        href={SITE.bookingWizardUrl}
         className="inline-block rounded-full bg-white px-8 py-3 font-semibold text-rjt-red transition-colors hover:bg-rjt-beige"
       >
         Maak een afspraak

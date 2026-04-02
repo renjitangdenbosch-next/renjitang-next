@@ -1,4 +1,5 @@
 import { HomePageView } from "@/components/home/HomePageView";
+import { PartnerLogos } from "@/components/sections/PartnerLogos";
 import { WpContent } from "@/components/WpContent";
 import { GoldDivider, WaveLine } from "@/components/ChineseDecor";
 import { getHomePageContent } from "@/lib/wordpress";
@@ -11,6 +12,7 @@ export default async function HomePage() {
   return (
     <>
       <HomePageView />
+      <PartnerLogos />
 
       {wp?.content?.rendered && (
         <section
