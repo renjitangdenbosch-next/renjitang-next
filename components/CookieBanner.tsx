@@ -79,7 +79,7 @@ export function CookieBanner() {
           <h2 className="relative font-serif text-[1.1rem] font-normal text-[#c8a040]">
             Wij gebruiken cookies
           </h2>
-          <AnimatedLine width={60} className="relative mt-2" noMargin />
+          <AnimatedLine width={100} className="relative mt-2" noMargin />
 
           <p className="relative mt-4 max-w-xl font-sans text-[0.85rem] leading-[1.6] text-white/75">
             Ren Ji Tang gebruikt functionele cookies om de website goed te laten werken. Met uw

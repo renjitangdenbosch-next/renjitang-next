@@ -41,7 +41,7 @@ export function SectionHeader({
         {eyebrow}
       </span>
       {goldRule ? (
-        <AnimatedLine width={60} className="mx-auto mb-4" noMargin />
+        <AnimatedLine width={120} className="mx-auto mb-4" noMargin />
       ) : null}
       <h2
         id={titleId}

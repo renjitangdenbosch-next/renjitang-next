@@ -23,11 +23,11 @@ export function Footer() {
           {/* KOLOM 1 — Merk + contact */}
           <div>
             <Image
-              src="/images/cropped-logorenjitang-3.png"
+              src="/images/logo-transparent.png"
               alt="Ren Ji Tang"
-              width={120}
-              height={60}
-              className="mb-4 h-14 w-auto object-contain"
+              width={240}
+              height={80}
+              className="mb-4 block h-[80px] w-auto bg-transparent object-contain outline-none ring-0 [filter:drop-shadow(0_0_8px_rgba(255,255,255,0.12))_brightness(0)_invert(1)_opacity(0.9)]"
             />
             <p className="mb-4 font-lato text-sm text-white/60">Traditionele Chinese Geneeskunde</p>
             <div className="space-y-1 font-lato text-sm text-white/70">

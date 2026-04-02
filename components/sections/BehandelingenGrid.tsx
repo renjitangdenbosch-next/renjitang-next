@@ -33,7 +33,7 @@ export function BehandelingenGrid() {
           <span className="mb-4 block font-lato text-[11px] uppercase tracking-[0.25em] text-[#B8860B]">
             Ren Ji Tang
           </span>
-          <AnimatedLine width={100} color="#B8860B" className="mx-auto mb-4" noMargin />
+          <AnimatedLine width={160} color="#B8860B" className="mx-auto mb-4" noMargin />
           <h2
             id="behandelingen-grid-heading"
             className="mb-4 font-cormorant text-5xl font-normal text-[#1A1208]"

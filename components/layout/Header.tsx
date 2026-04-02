@@ -10,7 +10,7 @@ import { cn } from "@/lib/cn";
 import { BEHANDELING_NAV_ITEMS, HEADER_LINKS } from "@/lib/navigation";
 import { SITE } from "@/lib/site";
 
-const LOGO = "/images/cropped-logorenjitang-3.png";
+const LOGO = "/images/logo-transparent.png";
 
 export function Header() {
   const pathname = usePathname();
@@ -51,15 +51,24 @@ export function Header() {
               : "border-transparent bg-transparent"
           )}
         >
-          <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-4 px-4 sm:px-6">
-            <Link href="/" className="flex shrink-0 items-center" onClick={closeMobile}>
+          <div className="mx-auto flex min-h-[85px] max-w-6xl items-center justify-between gap-4 px-4 py-1 sm:px-6">
+            <Link
+              href="/"
+              className="flex shrink-0 items-center bg-transparent outline-none ring-0"
+              onClick={closeMobile}
+            >
               <Image
                 src={LOGO}
                 alt="Ren Ji Tang"
-                width={160}
-                height={48}
+                width={260}
+                height={85}
                 priority
-                className="h-12 w-auto object-contain"
+                className={cn(
+                  "h-[85px] w-auto bg-transparent object-contain transition-[filter] duration-300",
+                  solid
+                    ? "filter-none"
+                    : "[filter:drop-shadow(0_0_8px_rgba(255,255,255,0.12))_brightness(0)_invert(1)_opacity(0.9)]"
+                )}
               />
             </Link>
 
