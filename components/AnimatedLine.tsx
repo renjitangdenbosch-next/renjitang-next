@@ -6,7 +6,7 @@ import { cn } from "@/lib/cn";
 export function AnimatedLine({
   width = 80,
   color = "#c8a040",
-  duration = 1500,
+  duration = 400,
   strokeWidth = 2,
   strokeOpacity = 1,
   className,

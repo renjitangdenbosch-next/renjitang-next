@@ -75,8 +75,6 @@ export function PageLayout({
           width={100}
           color="#B8860B"
           strokeOpacity={0.4}
-          strokeWidth={1}
-          duration={800}
           noMargin
         />
         <div className="h-2 w-2 shrink-0 rotate-45 bg-rjt-gold" aria-hidden />
@@ -84,8 +82,6 @@ export function PageLayout({
           width={100}
           color="#B8860B"
           strokeOpacity={0.4}
-          strokeWidth={1}
-          duration={800}
           noMargin
         />
       </div>

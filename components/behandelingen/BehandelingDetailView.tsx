@@ -44,11 +44,9 @@ export function BehandelingDetailView({ data }: { data: BehandelingDetail }) {
           </span>
           <h1 className="font-cormorant text-5xl font-normal text-white lg:text-7xl">{data.naam}</h1>
           <AnimatedLine
-            width={100}
+            width={120}
             color="#B8860B"
             strokeOpacity={0.4}
-            strokeWidth={1}
-            duration={800}
             className="mt-3 mb-6"
             noMargin
           />
