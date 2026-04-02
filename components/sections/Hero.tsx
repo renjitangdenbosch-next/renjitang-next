@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
 import { Button } from "@/components/ui/Button";
+import { PARALLAX_SPEED_DEFAULT, useParallax } from "@/hooks/useParallax";
 
 const heroContainer = {
   hidden: {},
@@ -23,17 +24,24 @@ const heroItem = {
 
 export function Hero() {
   const reduceMotion = useReducedMotion();
+  const parallaxRef = useParallax(PARALLAX_SPEED_DEFAULT, reduceMotion !== true);
 
   return (
-    <section className="relative min-h-[max(640px,100svh)] w-full overflow-hidden">
-      <Image
-        src="/images/hero_cupping_ai.png"
-        alt="Acupunctuur en warme sfeer — Ren Ji Tang"
-        fill
-        priority
-        sizes="100vw"
-        className="z-0 object-cover object-center"
-      />
+    <div
+      ref={parallaxRef}
+      role="banner"
+      className="relative min-h-[max(640px,100svh)] w-full overflow-hidden bg-[#1a0f08]"
+    >
+      <div className="parallax-img pointer-events-none absolute inset-x-0 top-[-20%] z-0 h-[140%] w-full will-change-transform" aria-hidden>
+        <Image
+          src="/images/hero_cupping_ai.png"
+          alt="Acupunctuur en warme sfeer — Ren Ji Tang"
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover object-center"
+        />
+      </div>
       <div
         className="absolute inset-0 z-10 bg-gradient-to-r from-black/65 via-black/40 to-black/20"
         aria-hidden
@@ -99,6 +107,6 @@ export function Hero() {
           </svg>
         </div>
       </div>
-    </section>
+    </div>
   );
 }

@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { motion, useReducedMotion } from "framer-motion";
 import { useRouter } from "next/navigation";
+import { AnimatedLine } from "@/components/AnimatedLine";
 import { BEHANDELING_DETAILS, BEHANDELING_HOME_CARDS } from "@/lib/behandelingen-data";
 
 const cardVariants = {
@@ -32,7 +33,7 @@ export function BehandelingenGrid() {
           <span className="mb-4 block font-lato text-[11px] uppercase tracking-[0.25em] text-[#B8860B]">
             Ren Ji Tang
           </span>
-          <div className="mx-auto mb-4 h-[1px] w-12 bg-[#B8860B]" aria-hidden />
+          <AnimatedLine width={100} color="#B8860B" className="mx-auto mb-4" noMargin />
           <h2
             id="behandelingen-grid-heading"
             className="mb-4 font-cormorant text-5xl font-normal text-[#1A1208]"
@@ -72,7 +73,7 @@ export function BehandelingenGrid() {
                     {BEHANDELING_DETAILS[b.slug].karakterCN}
                   </div>
                   <div className="absolute bottom-0 left-0 right-0 p-5">
-                    <div className="mb-3 h-[1px] w-8 bg-[#B8860B]" />
+                    <AnimatedLine width={60} color="#B8860B" className="mb-3" noMargin />
                     <span className="mb-1 block font-lato text-[10px] uppercase tracking-[0.2em] text-[#B8860B]">
                       Traditionele Chinese Geneeskunde
                     </span>

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { ParallaxHeroBackground } from "@/components/ParallaxHeroBackground";
 
 export const metadata: Metadata = {
   title: "Tarieven — Ren Ji Tang",
@@ -21,13 +22,27 @@ const tarieven = [
 export default function TarievenPage() {
   return (
     <div className="min-h-screen bg-[#F9F5EE]">
-      <div className="mx-auto max-w-3xl px-6 py-20">
-        <span className="mb-4 block font-lato text-xs uppercase tracking-[0.2em] text-[#B8860B]">
-          Tarieven
-        </span>
-        <h1 className="mb-4 font-cormorant text-5xl text-[#1A1208]">Onze tarieven</h1>
-        <p className="mb-12 font-lato text-lg text-[#9E8E75]">Transparante prijzen — geen verrassingen.</p>
+      <ParallaxHeroBackground
+        className="relative h-[42vh] min-h-[300px] w-full overflow-hidden"
+        src="/images/hero_2_massage.jpg"
+        alt="Tarieven Ren Ji Tang"
+        priority
+        sizes="100vw"
+        imageClassName="object-cover object-[50%_40%]"
+      >
+        <div className="absolute inset-0 z-10 bg-gradient-to-r from-black/70 via-black/45 to-black/25" aria-hidden />
+        <div className="absolute inset-0 z-20 flex items-end pb-12">
+          <div className="mx-auto w-full max-w-3xl px-6">
+            <span className="mb-4 block font-lato text-xs uppercase tracking-[0.2em] text-[#B8860B]">
+              Tarieven
+            </span>
+            <h1 className="mb-4 font-cormorant text-5xl text-white">Onze tarieven</h1>
+            <p className="font-lato text-lg text-white/85">Transparante prijzen — geen verrassingen.</p>
+          </div>
+        </div>
+      </ParallaxHeroBackground>
 
+      <div className="mx-auto max-w-3xl px-6 py-12">
         <div className="mb-8 overflow-hidden rounded-sm border border-stone-200/80 bg-white">
           <div className="grid grid-cols-3 bg-[#1A1208] px-6 py-3">
             <span className="font-lato text-xs uppercase tracking-widest text-[#B8860B]">Behandeling</span>
@@ -55,7 +70,7 @@ export default function TarievenPage() {
         <div className="mb-10 space-y-2 rounded-sm bg-[#EDE8DC] p-6 font-lato text-sm text-[#5A4E3C]">
           <p>✓ Veel zorgverzekeraars vergoeden TCM behandelingen (aanvullend pakket) *</p>
           <p>✓ Vraag naar onze behandelpakketten voor meerdere sessies</p>
-          <p className="text-xs text-[#9E8E75] mt-4 italic">
+          <p className="mt-4 text-xs italic text-[#9E8E75]">
             * De vergoeding van TCM-behandelingen verschilt per zorgverzekeraar en per aanvullend pakket. Wij
             adviseren u vooraf uw polisvoorwaarden te raadplegen of contact op te nemen met uw
             zorgverzekeraar om te bevestigen welke behandelingen vergoed worden en onder welke voorwaarden.

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
+import { ParallaxHeroBackground } from "@/components/ParallaxHeroBackground";
 import { SITE } from "@/lib/site";
 import { Button } from "@/components/ui/Button";
 
@@ -12,20 +13,19 @@ export const metadata: Metadata = {
 export default function OverOnsPage() {
   return (
     <div className="-mt-[7rem] bg-paper text-ink">
-      <section className="relative h-[60vh] min-h-[400px] w-full overflow-hidden">
-        <Image
-          src="/images/hero_over_ons.jpg"
-          alt="Het team van Ren Ji Tang"
-          fill
-          priority
-          className="object-cover object-[50%_25%]"
-          sizes="100vw"
-        />
+      <ParallaxHeroBackground
+        className="relative h-[60vh] min-h-[400px] w-full overflow-hidden"
+        src="/images/hero_over_ons.jpg"
+        alt="Het team van Ren Ji Tang"
+        priority
+        sizes="100vw"
+        imageClassName="object-cover object-[50%_25%]"
+      >
         <div
-          className="absolute inset-0 bg-gradient-to-r from-black/55 via-black/30 to-black/10"
+          className="absolute inset-0 z-10 bg-gradient-to-r from-black/55 via-black/30 to-black/10"
           aria-hidden
         />
-        <div className="absolute inset-0 z-10 flex items-end pb-16">
+        <div className="absolute inset-0 z-20 flex items-end pb-16">
           <div className="mx-auto w-full max-w-5xl px-6 lg:px-16">
             <span className="mb-3 block font-lato text-xs uppercase tracking-[0.2em] text-[#B8860B]">
               Over ons
@@ -33,7 +33,7 @@ export default function OverOnsPage() {
             <h1 className="font-cormorant text-5xl font-normal text-white lg:text-6xl">Ren Ji Tang</h1>
           </div>
         </div>
-      </section>
+      </ParallaxHeroBackground>
 
       <div className="mx-auto max-w-3xl px-6 py-16">
         <p className="font-lato text-lg leading-relaxed text-ink/90">

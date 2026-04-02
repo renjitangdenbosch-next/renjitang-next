@@ -1,3 +1,4 @@
+import { AnimatedLine } from "@/components/AnimatedLine";
 import { cn } from "@/lib/cn";
 
 type SvgProps = React.SVGProps<SVGSVGElement> & { className?: string };
@@ -135,7 +136,13 @@ export function GoldDivider({
       )}
       role="presentation"
     >
-      <span className="h-px w-12 bg-current opacity-60 sm:w-20" />
+      <AnimatedLine
+        width={60}
+        color="currentColor"
+        strokeOpacity={0.6}
+        noMargin
+        className="text-rjt-gold"
+      />
       <svg width="28" height="12" viewBox="0 0 28 12" fill="none" aria-hidden>
         <path
           d="M14 1 L17 6 L14 11 L11 6 Z"
@@ -145,7 +152,13 @@ export function GoldDivider({
           fillOpacity="0.2"
         />
       </svg>
-      <span className="h-px w-12 bg-current opacity-60 sm:w-20" />
+      <AnimatedLine
+        width={60}
+        color="currentColor"
+        strokeOpacity={0.6}
+        noMargin
+        className="text-rjt-gold"
+      />
     </div>
   );
 }

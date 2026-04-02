@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { BlogArtikelHero } from "@/components/blog/BlogArtikelHero";
 import { blogArtikelen } from "@/lib/blog-data";
 import { BlogInhoudBody } from "@/lib/blog-render";
 
@@ -29,25 +29,11 @@ export default async function BlogArtikelPage({ params }: Props) {
 
   return (
     <main className="min-h-screen bg-[#F9F5EE]">
-      <div className="relative min-h-[300px] h-[45vh] overflow-hidden">
-        <Image
-          src={artikel.afbeelding}
-          alt={artikel.titel}
-          fill
-          priority
-          sizes="100vw"
-          className="object-cover"
-        />
-        <div className="absolute inset-0 bg-black/55" aria-hidden />
-        <div className="absolute inset-0 flex items-end pb-12">
-          <div className="mx-auto w-full max-w-3xl px-6">
-            <span className="mb-3 block font-lato text-xs uppercase tracking-widest text-[#B8860B]">
-              {artikel.categorie}
-            </span>
-            <h1 className="font-cormorant text-4xl text-white lg:text-5xl">{artikel.titel}</h1>
-          </div>
-        </div>
-      </div>
+      <BlogArtikelHero
+        afbeelding={artikel.afbeelding}
+        titel={artikel.titel}
+        categorie={artikel.categorie}
+      />
 
       <div className="mx-auto max-w-3xl px-6 py-16">
         <p className="mb-10 font-lato text-lg leading-relaxed text-[#5A4E3C]">{artikel.intro}</p>

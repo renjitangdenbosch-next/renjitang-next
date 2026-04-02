@@ -1,6 +1,7 @@
 "use client";
 
 import { motion, useReducedMotion } from "framer-motion";
+import { AnimatedLine } from "@/components/AnimatedLine";
 import { StarRating } from "@/components/ui/StarRating";
 
 const reviews = [
@@ -47,7 +48,7 @@ export function Testimonials() {
           <span className="mb-4 block font-lato text-[11px] uppercase tracking-[0.25em] text-[#B8860B]">
             Ren Ji Tang
           </span>
-          <div className="mx-auto mb-4 h-[1px] w-12 bg-[#B8860B]" aria-hidden />
+          <AnimatedLine width={100} color="#B8860B" className="mx-auto mb-4" noMargin />
           <h2
             id="testimonials-heading"
             className="mb-4 font-cormorant text-5xl font-normal text-white"

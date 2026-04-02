@@ -1,8 +1,9 @@
 "use client";
 
 import type { ReactNode } from "react";
-import Image from "next/image";
 import { motion } from "framer-motion";
+import { AnimatedLine } from "@/components/AnimatedLine";
+import { ParallaxHeroBackground } from "@/components/ParallaxHeroBackground";
 import { SITE } from "@/lib/site";
 
 export function PageLayout({
@@ -21,17 +22,16 @@ export function PageLayout({
 }) {
   return (
     <div className="min-h-screen bg-rjt-beige dark:bg-[#141210]">
-      <div className="relative flex h-[40vh] min-h-[280px] items-end overflow-hidden">
-        <Image
-          src={heroImage}
-          alt={title}
-          fill
-          priority
-          sizes="100vw"
-          className="object-cover object-center"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/20" />
-        <div className="relative z-10 mx-auto w-full max-w-5xl px-6 pb-12">
+      <ParallaxHeroBackground
+        className="relative flex h-[40vh] min-h-[280px] items-end overflow-hidden"
+        src={heroImage}
+        alt={title}
+        priority
+        sizes="100vw"
+        imageClassName="object-cover object-center"
+      >
+        <div className="absolute inset-0 z-10 bg-gradient-to-t from-black/80 via-black/40 to-black/20" />
+        <div className="relative z-20 mx-auto w-full max-w-5xl px-6 pb-12">
           <motion.p
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
@@ -68,12 +68,12 @@ export function PageLayout({
             </motion.p>
           ) : null}
         </div>
-      </div>
+      </ParallaxHeroBackground>
 
       <div className="flex items-center justify-center gap-4 bg-white py-6 dark:bg-[#1a1714]">
-        <div className="h-px w-24 bg-rjt-gold/40" />
-        <div className="h-2 w-2 rotate-45 bg-rjt-gold" />
-        <div className="h-px w-24 bg-rjt-gold/40" />
+        <AnimatedLine width={100} color="#B8860B" strokeOpacity={0.4} noMargin />
+        <div className="h-2 w-2 shrink-0 rotate-45 bg-rjt-gold" aria-hidden />
+        <AnimatedLine width={100} color="#B8860B" strokeOpacity={0.4} noMargin />
       </div>
 
       <motion.div

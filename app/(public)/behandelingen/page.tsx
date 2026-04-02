@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import { ParallaxHeroBackground } from "@/components/ParallaxHeroBackground";
 import { BEHANDELING_HOME_CARDS } from "@/lib/behandelingen-data";
 import { SERVICES, SITE } from "@/lib/site";
 import { Button } from "@/components/ui/Button";
@@ -15,19 +16,19 @@ export const metadata: Metadata = {
 export default function BehandelingenPage() {
   return (
     <>
-      <section className="relative h-[50vh] min-h-[380px] overflow-hidden -mt-[80px]">
-        <Image
-          src="/images/hero_cupping_real.jpg"
-          alt="Behandelingen Ren Ji Tang"
-          fill
-          priority
-          className="object-cover object-[30%_center]"
-        />
-        <div className="absolute inset-0 bg-gradient-to-r from-black/75 via-black/50 to-black/20" />
-        <div className="pointer-events-none absolute right-6 top-1/2 -translate-y-1/2 font-cormorant text-[140px] leading-none text-white/15 select-none">
+      <ParallaxHeroBackground
+        className="relative h-[50vh] min-h-[380px] overflow-hidden -mt-[80px]"
+        src="/images/hero_cupping_real.jpg"
+        alt="Behandelingen Ren Ji Tang"
+        priority
+        sizes="100vw"
+        imageClassName="object-cover object-[30%_center]"
+      >
+        <div className="absolute inset-0 z-10 bg-gradient-to-r from-black/75 via-black/50 to-black/20" />
+        <div className="pointer-events-none absolute right-6 top-1/2 z-10 -translate-y-1/2 font-cormorant text-[140px] leading-none text-white/15 select-none">
           療
         </div>
-        <div className="absolute bottom-10 left-6 z-10 lg:left-16">
+        <div className="absolute bottom-10 left-6 z-20 lg:left-16">
           <span className="mb-3 block font-lato text-[11px] uppercase tracking-[0.25em] text-[#B8860B]">
             Ren Ji Tang
           </span>
@@ -41,7 +42,7 @@ export default function BehandelingenPage() {
             Maak afspraak →
           </Link>
         </div>
-      </section>
+      </ParallaxHeroBackground>
 
       <div className="bg-paper py-20 text-ink">
         <div className="mx-auto max-w-6xl px-6">

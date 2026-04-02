@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { MapPin, Phone, Mail, Clock } from "lucide-react";
+import { ContactPageHero } from "@/components/contact/ContactPageHero";
 import { ContactForm } from "@/components/forms/ContactForm";
 import { SITE } from "@/lib/site";
 import { Button } from "@/components/ui/Button";
@@ -15,12 +16,11 @@ const MAP_EMBED_SRC =
 
 export default function ContactPage() {
   return (
-    <div className="bg-paper py-16 text-ink">
-      <div className="mx-auto max-w-6xl px-6">
-        <h1 className="font-cormorant text-4xl font-normal md:text-5xl">Contact</h1>
-        <p className="mt-3 font-lato text-muted">Wij helpen u graag verder.</p>
+    <div className="bg-paper text-ink">
+      <ContactPageHero />
 
-        <div className="mt-12 grid gap-12 lg:grid-cols-2 lg:gap-16">
+      <div className="mx-auto max-w-6xl px-6 py-16">
+        <div className="grid gap-12 lg:grid-cols-2 lg:gap-16">
           <div className="space-y-8">
             <div className="flex gap-4">
               <MapPin className="mt-1 h-5 w-5 shrink-0 text-gold" aria-hidden />

@@ -1,3 +1,4 @@
+import { AnimatedLine } from "@/components/AnimatedLine";
 import { cn } from "@/lib/cn";
 
 type Props = {
@@ -40,7 +41,7 @@ export function SectionHeader({
         {eyebrow}
       </span>
       {goldRule ? (
-        <div className="mx-auto mb-4 h-px w-10 bg-gold/80" aria-hidden />
+        <AnimatedLine width={60} className="mx-auto mb-4" noMargin />
       ) : null}
       <h2
         id={titleId}

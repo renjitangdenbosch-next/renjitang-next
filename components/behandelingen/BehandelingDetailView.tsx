@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
 import { Check } from "lucide-react";
+import { ParallaxHeroBackground } from "@/components/ParallaxHeroBackground";
 import type { BehandelingDetail } from "@/lib/behandelingen-data";
 import { CTABanner } from "@/components/sections/CTABanner";
 
@@ -21,22 +22,21 @@ export function BehandelingDetailView({ data }: { data: BehandelingDetail }) {
 
   return (
     <div className="bg-paper text-ink">
-      <section className="relative h-[60vh] min-h-[420px] overflow-hidden -mt-[80px] pt-[80px]">
-        <Image
-          src={data.heroImage}
-          alt={data.naam}
-          fill
-          priority
-          className="object-cover object-center"
-        />
+      <ParallaxHeroBackground
+        className="relative h-[60vh] min-h-[420px] overflow-hidden -mt-[80px] pt-[80px]"
+        src={data.heroImage}
+        alt={data.naam}
+        priority
+        imageClassName="object-cover object-center"
+      >
         <div
-          className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/45 to-black/20"
+          className="absolute inset-0 z-10 bg-gradient-to-r from-black/70 via-black/45 to-black/20"
           aria-hidden
         />
-        <div className="pointer-events-none absolute right-6 top-1/2 -translate-y-1/2 select-none font-cormorant text-[120px] leading-none text-white/15 md:text-[180px]">
+        <div className="pointer-events-none absolute right-6 top-1/2 z-10 -translate-y-1/2 select-none font-cormorant text-[120px] leading-none text-white/15 md:text-[180px]">
           {data.karakterCN}
         </div>
-        <div className="absolute bottom-10 left-6 z-10 lg:left-16">
+        <div className="absolute bottom-10 left-6 z-20 lg:left-16">
           <span className="mb-3 block font-lato text-[11px] uppercase tracking-[0.25em] text-[#B8860B]">
             Traditionele Chinese Geneeskunde
           </span>
@@ -48,7 +48,7 @@ export function BehandelingDetailView({ data }: { data: BehandelingDetail }) {
             Maak afspraak →
           </Link>
         </div>
-      </section>
+      </ParallaxHeroBackground>
 
       <motion.section
         variants={reduceMotion ? undefined : fadeInUp}
