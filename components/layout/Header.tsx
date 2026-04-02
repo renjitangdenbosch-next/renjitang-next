@@ -8,6 +8,7 @@ import { ChevronDown } from "lucide-react";
 import { AnnouncementBar } from "./AnnouncementBar";
 import { cn } from "@/lib/cn";
 import { BEHANDELING_NAV_ITEMS, HEADER_LINKS } from "@/lib/navigation";
+import { SITE } from "@/lib/site";
 
 const LOGO = "/images/cropped-logorenjitang-3.png";
 
@@ -126,7 +127,7 @@ export function Header() {
               ))}
 
               <Link
-                href="/bookings"
+                href={SITE.bookingUrl}
                 className="btn-primary ml-2 !py-3 !text-[0.7rem]"
               >
                 Maak afspraak
@@ -209,7 +210,7 @@ export function Header() {
                 </Link>
               ))}
               <Link
-                href="/bookings"
+                href={SITE.bookingUrl}
                 onClick={closeMobile}
                 className="btn-primary mx-6 mt-6 text-center"
               >

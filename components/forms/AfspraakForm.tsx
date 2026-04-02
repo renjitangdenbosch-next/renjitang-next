@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { AFSPRAAK_BEHANDEL_OPTIES } from "@/lib/behandelingen-data";
+import { SITE } from "@/lib/site";
 import { Button } from "@/components/ui/Button";
 
 export function AfspraakForm() {
@@ -155,7 +156,7 @@ export function AfspraakForm() {
       </Button>
       <p className="text-xs text-muted">
         Liever direct een tijdslot kiezen?{" "}
-        <a href="/bookings" className="text-jade underline-offset-2 hover:underline">
+        <a href={SITE.bookingUrl} className="text-jade underline-offset-2 hover:underline">
           Online agenda
         </a>
       </p>

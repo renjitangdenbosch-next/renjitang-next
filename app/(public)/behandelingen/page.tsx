@@ -36,7 +36,7 @@ export default function BehandelingenPage() {
             Onze behandelingen
           </h1>
           <Link
-            href="/bookings"
+            href={SITE.bookingUrl}
             className="inline-flex items-center gap-2 rounded-sm bg-[#C0392B] px-6 py-3 font-lato text-xs font-bold uppercase tracking-[0.08em] text-white transition-colors duration-200 hover:bg-[#A93226]"
           >
             Maak afspraak →

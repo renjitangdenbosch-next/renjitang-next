@@ -2,6 +2,27 @@
 @tailwind components;
 @tailwind utilities;
 
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+[id] {
+  scroll-margin-top: 90px;
+}
+
+#stap-behandeling,
+#stap-datum,
+#stap-gegevens,
+#stap-bevestiging {
+  scroll-margin-top: 100px;
+}
+
 :root {
   --ink: #1a1208;
   --ink-light: #241a0e;

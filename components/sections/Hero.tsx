@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
 import { Button } from "@/components/ui/Button";
+import { SITE } from "@/lib/site";
 import { PARALLAX_SPEED_DEFAULT, useParallax } from "@/hooks/useParallax";
 
 const heroContainer = {
@@ -79,7 +80,7 @@ export function Hero() {
             variants={reduceMotion ? undefined : heroItem}
             className="mt-10 flex flex-col gap-3 sm:flex-row sm:items-center"
           >
-            <Button variant="primary" href="/bookings">
+            <Button variant="primary" href={SITE.bookingUrl}>
               Maak een afspraak →
             </Button>
             <Link href="/behandelingen" className="btn-outline sm:min-w-[12rem]">

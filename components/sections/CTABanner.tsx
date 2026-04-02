@@ -2,6 +2,7 @@
 
 import { motion, useReducedMotion } from "framer-motion";
 import { Button } from "@/components/ui/Button";
+import { SITE } from "@/lib/site";
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 28 },
@@ -31,7 +32,7 @@ export function CTABanner() {
           Plan uw eerste kennismakingsgesprek — vrijblijvend en persoonlijk.
         </p>
         <div className="mt-10">
-          <Button variant="white" href="/bookings">
+          <Button variant="white" href={SITE.bookingUrl}>
             Maak een afspraak
           </Button>
         </div>

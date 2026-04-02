@@ -71,9 +71,23 @@ export function PageLayout({
       </ParallaxHeroBackground>
 
       <div className="flex items-center justify-center gap-4 bg-white py-6 dark:bg-[#1a1714]">
-        <AnimatedLine width={100} color="#B8860B" strokeOpacity={0.4} noMargin />
+        <AnimatedLine
+          width={100}
+          color="#B8860B"
+          strokeOpacity={0.4}
+          strokeWidth={1}
+          duration={800}
+          noMargin
+        />
         <div className="h-2 w-2 shrink-0 rotate-45 bg-rjt-gold" aria-hidden />
-        <AnimatedLine width={100} color="#B8860B" strokeOpacity={0.4} noMargin />
+        <AnimatedLine
+          width={100}
+          color="#B8860B"
+          strokeOpacity={0.4}
+          strokeWidth={1}
+          duration={800}
+          noMargin
+        />
       </div>
 
       <motion.div

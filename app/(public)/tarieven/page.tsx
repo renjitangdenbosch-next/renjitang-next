@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ParallaxHeroBackground } from "@/components/ParallaxHeroBackground";
+import { SITE } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Tarieven — Ren Ji Tang",
@@ -78,7 +79,7 @@ export default function TarievenPage() {
           </p>
         </div>
 
-        <Link href="/bookings" className="btn-primary inline-block">
+        <Link href={SITE.bookingUrl} className="btn-primary inline-block">
           Maak een afspraak →
         </Link>
       </div>

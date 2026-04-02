@@ -13,7 +13,7 @@ export const BEHANDELING_NAV_ITEMS = [
 
 export const HEADER_LINKS = [
   { href: "/over-ons", label: "Over ons" },
-  { href: "/contact", label: "Contact" },
+  { href: SITE.contactFormUrl, label: "Contact" },
 ] as const;
 
 /** Platte lijst voor mobiel menu (zonder dropdown) */

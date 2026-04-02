@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { BlogArtikelHero } from "@/components/blog/BlogArtikelHero";
 import { blogArtikelen } from "@/lib/blog-data";
+import { SITE } from "@/lib/site";
 import { BlogInhoudBody } from "@/lib/blog-render";
 
 type Props = { params: Promise<{ slug: string }> };
@@ -42,7 +43,7 @@ export default async function BlogArtikelPage({ params }: Props) {
         <div className="mt-16 rounded-sm bg-[#EDE8DC] p-8 text-center">
           <h2 className="mb-3 font-cormorant text-3xl text-[#1A1208]">Interesse gewekt?</h2>
           <p className="mb-6 font-lato text-[#9E8E75]">Maak een vrijblijvende afspraak bij Ren Ji Tang.</p>
-          <Link href="/bookings" className="btn-primary inline-block">
+          <Link href={SITE.bookingUrl} className="btn-primary inline-block">
             Maak een afspraak →
           </Link>
         </div>

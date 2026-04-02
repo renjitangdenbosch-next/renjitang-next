@@ -4,8 +4,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
 import { Check } from "lucide-react";
+import { AnimatedLine } from "@/components/AnimatedLine";
 import { ParallaxHeroBackground } from "@/components/ParallaxHeroBackground";
 import type { BehandelingDetail } from "@/lib/behandelingen-data";
+import { SITE } from "@/lib/site";
 import { CTABanner } from "@/components/sections/CTABanner";
 
 const fadeInUp = {
@@ -40,9 +42,18 @@ export function BehandelingDetailView({ data }: { data: BehandelingDetail }) {
           <span className="mb-3 block font-lato text-[11px] uppercase tracking-[0.25em] text-[#B8860B]">
             Traditionele Chinese Geneeskunde
           </span>
-          <h1 className="mb-6 font-cormorant text-5xl font-normal text-white lg:text-7xl">{data.naam}</h1>
+          <h1 className="font-cormorant text-5xl font-normal text-white lg:text-7xl">{data.naam}</h1>
+          <AnimatedLine
+            width={100}
+            color="#B8860B"
+            strokeOpacity={0.4}
+            strokeWidth={1}
+            duration={800}
+            className="mt-3 mb-6"
+            noMargin
+          />
           <Link
-            href="/bookings"
+            href={SITE.bookingUrl}
             className="inline-flex items-center gap-2 rounded-sm bg-[#C0392B] px-6 py-3 font-lato text-xs font-bold uppercase tracking-[0.08em] text-white transition-colors duration-200 hover:bg-[#A93226]"
           >
             Maak afspraak →

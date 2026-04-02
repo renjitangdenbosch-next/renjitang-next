@@ -140,6 +140,8 @@ export function GoldDivider({
         width={60}
         color="currentColor"
         strokeOpacity={0.6}
+        strokeWidth={1}
+        duration={800}
         noMargin
         className="text-rjt-gold"
       />
@@ -156,6 +158,8 @@ export function GoldDivider({
         width={60}
         color="currentColor"
         strokeOpacity={0.6}
+        strokeWidth={1}
+        duration={800}
         noMargin
         className="text-rjt-gold"
       />

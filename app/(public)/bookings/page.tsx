@@ -1,11 +1,19 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { SERVICES } from "@/lib/site";
+
+const STAP_ANKERS = [
+  "stap-behandeling",
+  "stap-datum",
+  "stap-gegevens",
+  "stap-bevestiging",
+] as const;
 
 type Stap = 1 | 2 | 3 | 4;
 
 export default function BookingsPage() {
+  const skipStapScroll = useRef(true);
   const [stap, setStap] = useState<Stap>(1);
   const [geselecteerd, setGeselecteerd] = useState<string>("");
   const [datum, setDatum] = useState<string>("");
@@ -24,6 +32,20 @@ export default function BookingsPage() {
   });
 
   const service = SERVICES.find((s) => s.id === geselecteerd);
+
+  useEffect(() => {
+    if (skipStapScroll.current) {
+      skipStapScroll.current = false;
+      return;
+    }
+    const id = STAP_ANKERS[stap - 1];
+    requestAnimationFrame(() => {
+      document.getElementById(id)?.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    });
+  }, [stap]);
 
   // Genereer kalender voor huidige + volgende maand
   const vandaag = new Date();
@@ -181,7 +203,7 @@ export default function BookingsPage() {
 
           {/* STAP 1: Behandeling */}
           {stap === 1 && (
-            <div>
+            <div id="stap-behandeling">
               <h2 className="font-serif text-xl mb-6">
                 Kies een behandeling
               </h2>
@@ -235,7 +257,7 @@ export default function BookingsPage() {
 
           {/* STAP 2: Datum & Tijd */}
           {stap === 2 && (
-            <div>
+            <div id="stap-datum">
               <h2 className="font-serif text-xl mb-6">
                 Kies datum en tijd
               </h2>
@@ -373,7 +395,7 @@ export default function BookingsPage() {
 
           {/* STAP 3: Gegevens */}
           {stap === 3 && (
-            <div>
+            <div id="stap-gegevens">
               <h2 className="font-serif text-xl mb-6">Uw gegevens</h2>
 
               {/* Samenvatting */}
@@ -499,7 +521,7 @@ export default function BookingsPage() {
 
           {/* STAP 4: Bevestiging */}
           {stap === 4 && (
-            <div className="text-center py-8">
+            <div id="stap-bevestiging" className="text-center py-8">
               <div className="text-6xl mb-4">✅</div>
               <h2 className="font-serif text-2xl text-rjt-dark mb-3">
                 Aanvraag ontvangen!

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/Button";
 
 export function ContactForm() {
@@ -39,16 +39,30 @@ export function ContactForm() {
     }
   }
 
+  useEffect(() => {
+    if (status !== "ok") return;
+    requestAnimationFrame(() => {
+      document.getElementById("bevestiging-bericht")?.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    });
+  }, [status]);
+
   if (status === "ok") {
     return (
-      <p className="rounded-sm border border-jade/30 bg-paper p-6 font-lato text-ink" role="status">
+      <p
+        id="bevestiging-bericht"
+        className="rounded-sm border border-jade/30 bg-paper p-6 font-lato text-ink"
+        role="status"
+      >
         {msg}
       </p>
     );
   }
 
   return (
-    <form onSubmit={onSubmit} className="space-y-5 font-lato">
+    <form id="contactformulier" onSubmit={onSubmit} className="space-y-5 font-lato">
       <div>
         <label htmlFor="contact-naam" className="mb-1 block text-sm font-medium text-ink">
           Naam *

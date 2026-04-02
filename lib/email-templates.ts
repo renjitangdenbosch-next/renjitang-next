@@ -80,7 +80,7 @@ function absBookingsUrl(): string {
     process.env.NEXT_PUBLIC_SITE_URL ??
     "https://renjitang.nl"
   ).replace(/\/$/, "");
-  return `${base}/bookings`;
+  return `${base}/bookings#stap-behandeling`;
 }
 
 function prijsEuro(b: BookingEmailData): string {

@@ -66,7 +66,7 @@ export default function CookiebeleidPage() {
             <h2 className="mb-4 font-serif text-2xl text-rjt-dark dark:text-rjt-cream">Cookies van derden</h2>
             <p className="leading-relaxed text-stone-600 dark:text-stone-300">
               Onze website bevat een Google Maps integratie op de{" "}
-              <Link href="/contact" className="text-rjt-red underline hover:no-underline">
+              <Link href={SITE.contactFormUrl} className="text-rjt-red underline hover:no-underline">
                 contactpagina
               </Link>
               . Google kan hierbij cookies plaatsen. Zie het privacybeleid van Google voor meer informatie:{" "}

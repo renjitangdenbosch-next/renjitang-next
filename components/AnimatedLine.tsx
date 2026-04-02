@@ -6,7 +6,8 @@ import { cn } from "@/lib/cn";
 export function AnimatedLine({
   width = 80,
   color = "#c8a040",
-  duration = 800,
+  duration = 1500,
+  strokeWidth = 2,
   strokeOpacity = 1,
   className,
   noMargin,
@@ -14,6 +15,7 @@ export function AnimatedLine({
   width?: number;
   color?: string;
   duration?: number;
+  strokeWidth?: number;
   /** 0–1, voor zachtere goudtinten (zoals /40 in PageLayout) */
   strokeOpacity?: number;
   className?: string;
@@ -32,38 +34,49 @@ export function AnimatedLine({
     const el = svgRef.current;
     if (!el) return;
 
+    let timeoutId: ReturnType<typeof setTimeout> | undefined;
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          setVisible(true);
+          timeoutId = setTimeout(() => {
+            setVisible(true);
+          }, 50);
           observer.disconnect();
         }
       },
-      { threshold: 0.15, rootMargin: "0px 0px -8% 0px" }
+      { threshold: 0, rootMargin: "0px 0px -50px 0px" }
     );
 
     observer.observe(el);
-    return () => observer.disconnect();
+    return () => {
+      observer.disconnect();
+      if (timeoutId !== undefined) clearTimeout(timeoutId);
+    };
   }, []);
+
+  const cy = strokeWidth >= 2 ? 3 : 2;
+  const svgH = strokeWidth >= 2 ? 6 : 4;
 
   return (
     <svg
       ref={svgRef}
       width={width}
-      height={4}
+      height={svgH}
       className={cn("block shrink-0", !noMargin && "mt-3 mb-6", className)}
       aria-hidden
     >
       <line
         x1="0"
-        y1="2"
+        y1={cy}
         x2={width}
-        y2="2"
+        y2={cy}
         stroke={color}
         strokeOpacity={strokeOpacity}
-        strokeWidth={1}
+        strokeWidth={strokeWidth}
         strokeDasharray={width}
         strokeDashoffset={visible ? 0 : width}
+        strokeLinecap="round"
         style={{
           transition: visible ? `stroke-dashoffset ${duration}ms ease-out` : "none",
         }}

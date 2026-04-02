@@ -25,9 +25,11 @@ export const SITE = {
     },
   ],
   /** Eenvoudige aanvraagpagina */
-  bookingUrl: "/bookings",
+  bookingUrl: "/bookings#stap-behandeling",
   /** Uitgebreide online agenda */
-  bookingWizardUrl: "/bookings",
+  bookingWizardUrl: "/bookings#stap-behandeling",
+  /** Contactformulier (anker voor navigatie) */
+  contactFormUrl: "/contact#contactformulier",
 } as const;
 
 export type SiteService = {
