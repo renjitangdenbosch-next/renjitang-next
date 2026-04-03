@@ -14,6 +14,15 @@ const TZ = "Europe/Amsterdam";
 export const SLOT_BUFFER_MIN = 15;
 const SLOT_STEP_MIN = 30;
 
+/** Vakantie 2026: Amsterdam-kalenderdatum als `yyyy-MM-dd` (zelfde als `dayStr` in deze module). */
+const VACATION_2026_START = "2026-04-06";
+const VACATION_2026_END = "2026-04-27";
+
+function isVacationClosedDay(dayStr: string): boolean {
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(dayStr)) return false;
+  return dayStr >= VACATION_2026_START && dayStr <= VACATION_2026_END;
+}
+
 /** JS getDay: 0=zo, 1=ma, … 6=za. Maandag gesloten. Di–vr 09:00–20:00, za–zo 09:00–17:00 */
 function defaultDayWindowMinutes(dow: number): { startMin: number; endMin: number } | null {
   if (dow === 1) return null;
@@ -157,6 +166,7 @@ export async function getAvailableSlots(
   dayStr: string,
   durationMin: number
 ): Promise<Date[]> {
+  if (isVacationClosedDay(dayStr)) return [];
   if (await isDayFullyBlocked(dayStr)) return [];
 
   const windows = await dayWindowsMinutes(dayStr);
@@ -205,4 +215,13 @@ export async function getAvailableSlots(
 export function formatSlotLabel(d: Date): string {
   const z = toZonedTime(d, TZ);
   return `${pad(z.getHours())}:${pad(z.getMinutes())}`;
+}
+
+/** Client-tijd naar hetzelfde HH:mm-formaat als `formatSlotLabel` (leading zeros). */
+export function normalizeTijdslotLabel(t: string): string | null {
+  const mins = parseTimeToMinutes(t);
+  if (mins == null) return null;
+  const hh = Math.floor(mins / 60);
+  const mm = mins % 60;
+  return `${pad(hh)}:${pad(mm)}`;
 }
