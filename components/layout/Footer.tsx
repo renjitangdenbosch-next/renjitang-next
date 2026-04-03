@@ -125,6 +125,10 @@ export function Footer() {
               Privacybeleid
             </a>
             <span aria-hidden>·</span>
+            <a href="/algemene-voorwaarden" className="transition-colors hover:text-white/70">
+              Algemene voorwaarden
+            </a>
+            <span aria-hidden>·</span>
             <a href="/disclaimer" className="transition-colors hover:text-white/70">
               Disclaimer
             </a>

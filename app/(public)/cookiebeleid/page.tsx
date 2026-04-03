@@ -41,22 +41,81 @@ export default function CookiebeleidPage() {
 
           <div className="rounded-2xl bg-white p-8 shadow-sm dark:bg-stone-900/90">
             <h2 className="mb-4 font-serif text-2xl text-rjt-dark dark:text-rjt-cream">
+              Overzicht: cookies, opslag en partijen
+            </h2>
+            <p className="mb-4 leading-relaxed text-stone-600 dark:text-stone-300">
+              Onderstaand overzicht noemt de belangrijkste technieken die wij of geïntegreerde diensten kunnen
+              gebruiken. Exacte cookienamen kunnen door updates bij een aanbieder wijzigen; het doel blijft
+              gelijk.
+            </p>
+            <div className="overflow-x-auto">
+              <table className="w-full min-w-[32rem] border-collapse text-left text-sm text-stone-600 dark:text-stone-300">
+                <thead>
+                  <tr className="border-b border-stone-200 dark:border-stone-600">
+                    <th className="py-2 pr-4 font-serif font-medium text-rjt-dark dark:text-rjt-cream">Naam / type</th>
+                    <th className="py-2 pr-4 font-serif font-medium text-rjt-dark dark:text-rjt-cream">Partij</th>
+                    <th className="py-2 pr-4 font-serif font-medium text-rjt-dark dark:text-rjt-cream">Doel</th>
+                    <th className="py-2 font-serif font-medium text-rjt-dark dark:text-rjt-cream">Bewaartermijn</th>
+                  </tr>
+                </thead>
+                <tbody className="align-top">
+                  <tr className="border-b border-stone-100 dark:border-stone-700">
+                    <td className="py-3 pr-4">cookie-consent (localStorage)</td>
+                    <td className="py-3 pr-4">Ren Ji Tang / uw browser</td>
+                    <td className="py-3 pr-4">
+                      Onthoudt of u analytische cookies heeft geaccepteerd of geweigerd (geen HTTP-cookie).
+                    </td>
+                    <td className="py-3">Tot u de gegevens wist of opnieuw kiest via cookie-instellingen</td>
+                  </tr>
+                  <tr className="border-b border-stone-100 dark:border-stone-700">
+                    <td className="py-3 pr-4">Sessie- / beveiligingscookies (indien nodig)</td>
+                    <td className="py-3 pr-4">Ren Ji Tang / Vercel</td>
+                    <td className="py-3 pr-4">Technische werking, beveiliging en prestaties van de site.</td>
+                    <td className="py-3">Sessie of zoals door het platform ingesteld</td>
+                  </tr>
+                  <tr className="border-b border-stone-100 dark:border-stone-700">
+                    <td className="py-3 pr-4">o.a. _ga, _ga_*</td>
+                    <td className="py-3 pr-4">Google (Analytics)</td>
+                    <td className="py-3 pr-4">
+                      Meten van bezoek en gebruik van de website. Alleen na toestemming via de banner; wij laden
+                      Analytics pas na &apos;Accepteren&apos;.
+                    </td>
+                    <td className="py-3">Doorgaans tot 2 jaar (instelbaar door Google)</td>
+                  </tr>
+                  <tr className="border-b border-stone-100 dark:border-stone-700">
+                    <td className="py-3 pr-4">o.a. NID, 1P_JAR (voorbeeld)</td>
+                    <td className="py-3 pr-4">Google (Maps)</td>
+                    <td className="py-3 pr-4">
+                      Kaartweergave en functionaliteit op de contactpagina. Google kan hierbij cookies plaatsen.
+                    </td>
+                    <td className="py-3">Zie het cookie- en privacybeleid van Google</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div className="rounded-2xl bg-white p-8 shadow-sm dark:bg-stone-900/90">
+            <h2 className="mb-4 font-serif text-2xl text-rjt-dark dark:text-rjt-cream">
               Welke cookies gebruiken wij?
             </h2>
             <ul className="space-y-6 text-stone-600 dark:text-stone-300">
               <li>
-                <p className="font-medium text-rjt-dark dark:text-rjt-cream">Functionele cookies (altijd actief)</p>
+                <p className="font-medium text-rjt-dark dark:text-rjt-cream">Strikt noodzakelijk</p>
                 <p className="mt-2 leading-relaxed">
-                  Noodzakelijk voor het correct functioneren van de website. Bewaartermijn: sessie tot max. 1 jaar.
+                  Nodig voor technische werking en beveiliging van de website. Voor deze categorie vragen wij geen
+                  aparte toestemming, conform de AVG-gedragslijnen.
                 </p>
               </li>
               <li>
                 <p className="font-medium text-rjt-dark dark:text-rjt-cream">
-                  Analytische cookies (alleen met toestemming)
+                  Analytisch (alleen na &apos;Accepteren&apos;)
                 </p>
                 <p className="mt-2 leading-relaxed">
-                  Wij gebruiken Google Analytics om bij te houden hoe bezoekers de website gebruiken. De gegevens
-                  zijn geanonimiseerd en worden niet gedeeld met derden. Bewaartermijn: max. 2 jaar.
+                  Google Analytics meet hoe de website wordt gebruikt. Kiest u &apos;Weigeren&apos;, dan wordt het
+                  Analytics-script niet geladen en worden er geen analytische cookies voor dit doel geplaatst. Wij
+                  zetten Google Consent Mode v2 in met standaard geweigerde analytische opslag tot u toestemming
+                  geeft.
                 </p>
               </li>
             </ul>
@@ -85,9 +144,10 @@ export default function CookiebeleidPage() {
           <div className="rounded-2xl bg-white p-8 shadow-sm dark:bg-stone-900/90">
             <h2 className="mb-4 font-serif text-2xl text-rjt-dark dark:text-rjt-cream">Cookies beheren</h2>
             <p className="leading-relaxed text-stone-600 dark:text-stone-300">
-              U kunt cookies weigeren of verwijderen via uw browserinstellingen. Houd er rekening mee dat het
-              uitschakelen van cookies de functionaliteit van de website kan beperken. U kunt uw toestemming ook
-              altijd intrekken via de cookiebanner onderaan de pagina.
+              Bij uw eerste bezoek kunt u in de banner &apos;Accepteren&apos; of &apos;Weigeren&apos; kiezen; beide
+              opties zijn gelijk zichtbaar. U kunt cookies en vergelijkbare gegevens ook beheren of verwijderen via
+              uw browserinstellingen. Uw eerdere keuze kunt u wijzigen met onderstaande knop; daarna verschijnt de
+              banner opnieuw bij een volgende pagina.
             </p>
           </div>
 

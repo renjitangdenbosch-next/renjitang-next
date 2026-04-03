@@ -64,7 +64,10 @@ export default function PrivacyPage() {
               </li>
               <li className="flex gap-2">
                 <span className="shrink-0 text-rjt-gold">◆</span>
-                <span>Bezoekersgegevens via Google Analytics (geanonimiseerd IP-adres, paginabezoeken)</span>
+                <span>
+                  Bezoekersgegevens via Google Analytics (o.a. geanonimiseerd IP-adres, paginabezoeken) — alleen
+                  als u analytische cookies accepteert
+                </span>
               </li>
             </ul>
           </div>
@@ -72,18 +75,25 @@ export default function PrivacyPage() {
           <div className="rounded-2xl bg-white p-8 shadow-sm dark:bg-stone-900/90">
             <h2 className="mb-4 font-serif text-2xl text-rjt-dark dark:text-rjt-cream">Google Analytics</h2>
             <p className="leading-relaxed text-stone-600 dark:text-stone-300">
-              Wij maken gebruik van Google Analytics om bij te houden hoe bezoekers onze website gebruiken.
-              Google Analytics plaatst een cookie op uw computer. De informatie die wordt verzameld wordt zo
-              veel mogelijk geanonimiseerd. Uw IP-adres wordt nadrukkelijk niet meegegeven. De informatie wordt
-              overgebracht naar en opgeslagen op servers van Google in de Verenigde Staten.
+              Wij kunnen Google Analytics gebruiken om bij te houden hoe bezoekers onze website gebruiken.
+              Dit gebeurt alleen nadat u in de cookiebanner op &apos;Accepteren&apos; heeft geklikt. Wij
+              gebruiken Google Consent Mode: zonder toestemming worden er geen analytische cookies geplaatst en
+              wordt het meetscript niet geladen. Als u toestemming geeft, kan Google Analytics cookies plaatsen.
+              De informatie wordt zo veel mogelijk geanonimiseerd (o.a. IP-anonimisering). Gegevens kunnen
+              worden verwerkt door Google, ook buiten de Europese Economische Ruimte.
             </p>
           </div>
 
           <div className="rounded-2xl bg-white p-8 shadow-sm dark:bg-stone-900/90">
             <h2 className="mb-4 font-serif text-2xl text-rjt-dark dark:text-rjt-cream">Cookies</h2>
             <p className="leading-relaxed text-stone-600 dark:text-stone-300">
-              Onze website maakt gebruik van functionele cookies voor het bijhouden van uw sessie en analytische
-              cookies via Google Analytics. U kunt cookies uitschakelen via uw browserinstellingen.
+              Zie ons{" "}
+              <a href="/cookiebeleid" className="text-rjt-red underline hover:no-underline">
+                cookiebeleid
+              </a>{" "}
+              voor een overzicht van cookies en vergelijkbare technieken. Uw keuze voor analytische cookies
+              slaan wij op in de browser (localStorage). U kunt uw keuze wijzigen via de knop op de
+              cookiebeleidpagina.
             </p>
           </div>
 
@@ -107,11 +117,67 @@ export default function PrivacyPage() {
             <ul className="mt-4 space-y-2 text-stone-600 dark:text-stone-300">
               <li className="flex gap-2">
                 <span className="shrink-0 text-rjt-gold">◆</span>
-                <span>Google Analytics (geanonimiseerd, voor websitestatistieken)</span>
+                <span>
+                  <strong className="font-medium text-rjt-dark dark:text-rjt-cream">Brevo</strong> (Sendinblue)
+                  — voor het verzenden van transactionele e-mails, zoals bevestigingen van afspraken. Zie{" "}
+                  <a
+                    href="https://www.brevo.com/legal/privacypolicy/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-rjt-red underline hover:no-underline"
+                  >
+                    het privacybeleid van Brevo
+                  </a>
+                  .
+                </span>
               </li>
               <li className="flex gap-2">
                 <span className="shrink-0 text-rjt-gold">◆</span>
-                <span>Resend (voor het versturen van bevestigingsmails)</span>
+                <span>
+                  <strong className="font-medium text-rjt-dark dark:text-rjt-cream">Supabase</strong> — voor
+                  opslag en beveiligde verwerking van gegevens in onze applicatie (database/backend). Zie{" "}
+                  <a
+                    href="https://supabase.com/privacy"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-rjt-red underline hover:no-underline"
+                  >
+                    het privacybeleid van Supabase
+                  </a>
+                  .
+                </span>
+              </li>
+              <li className="flex gap-2">
+                <span className="shrink-0 text-rjt-gold">◆</span>
+                <span>
+                  <strong className="font-medium text-rjt-dark dark:text-rjt-cream">Vercel</strong> — voor
+                  hosting en uitvoering van deze website. Zie{" "}
+                  <a
+                    href="https://vercel.com/legal/privacy-policy"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-rjt-red underline hover:no-underline"
+                  >
+                    het privacybeleid van Vercel
+                  </a>
+                  .
+                </span>
+              </li>
+              <li className="flex gap-2">
+                <span className="shrink-0 text-rjt-gold">◆</span>
+                <span>
+                  <strong className="font-medium text-rjt-dark dark:text-rjt-cream">Google Analytics</strong>{" "}
+                  — alleen als u analytische cookies accepteert; voor geanonimiseerde websitestatistieken. Zie{" "}
+                  <a
+                    href="https://policies.google.com/privacy"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-rjt-red underline hover:no-underline"
+                  >
+                    het privacybeleid van Google
+                  </a>
+                  .
+                </span>
               </li>
             </ul>
           </div>

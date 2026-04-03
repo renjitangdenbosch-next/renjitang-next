@@ -26,6 +26,7 @@ const RESERVED_SLUGS = new Set([
   "bookings",
   "privacy",
   "cookiebeleid",
+  "algemene-voorwaarden",
   "disclaimer",
   "blog",
   "tarieven",

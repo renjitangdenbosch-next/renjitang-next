@@ -37,6 +37,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     })),
     { url: `${base}/privacy`, lastModified, changeFrequency: "yearly", priority: 0.5 },
     { url: `${base}/cookiebeleid`, lastModified, changeFrequency: "yearly", priority: 0.5 },
+    { url: `${base}/algemene-voorwaarden`, lastModified, changeFrequency: "yearly", priority: 0.5 },
     { url: `${base}/disclaimer`, lastModified, changeFrequency: "yearly", priority: 0.5 },
     {
       url: `${base}/bookings`,
@@ -58,6 +59,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     "bookings",
     "privacy",
     "cookiebeleid",
+    "algemene-voorwaarden",
     "disclaimer",
     "blog",
     "tarieven",

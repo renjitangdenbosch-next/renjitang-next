@@ -4,8 +4,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { AnimatedLine } from "@/components/AnimatedLine";
 import { useCallback, useEffect, useState } from "react";
-
-const STORAGE_KEY = "cookie-consent";
+import {
+  COOKIE_CONSENT_CHANGED_EVENT,
+  COOKIE_CONSENT_STORAGE_KEY,
+} from "@/lib/cookie-consent";
 
 export function CookieBanner() {
   const [render, setRender] = useState(false);
@@ -13,7 +15,7 @@ export function CookieBanner() {
 
   useEffect(() => {
     try {
-      const v = localStorage.getItem(STORAGE_KEY);
+      const v = localStorage.getItem(COOKIE_CONSENT_STORAGE_KEY);
       if (v === "accepted" || v === "rejected") return;
     } catch {
       return;
@@ -27,9 +29,12 @@ export function CookieBanner() {
 
   const choose = useCallback((value: "accepted" | "rejected") => {
     try {
-      localStorage.setItem(STORAGE_KEY, value);
+      localStorage.setItem(COOKIE_CONSENT_STORAGE_KEY, value);
     } catch {
       /* ignore */
+    }
+    if (typeof window !== "undefined") {
+      window.dispatchEvent(new Event(COOKIE_CONSENT_CHANGED_EVENT));
     }
     setSlideVisible(false);
   }, []);
@@ -82,9 +87,9 @@ export function CookieBanner() {
           <AnimatedLine width={100} className="relative mt-2" noMargin />
 
           <p className="relative mt-4 max-w-xl font-sans text-[0.85rem] leading-[1.6] text-white/75">
-            Ren Ji Tang gebruikt functionele cookies om de website goed te laten werken. Met uw
-            toestemming plaatsen wij ook analytische cookies om het gebruik te meten. Wij delen geen
-            gegevens met adverteerders.
+            Ren Ji Tang gebruikt strikt noodzakelijke technieken om de website te laten werken. Met uw
+            toestemming laden wij Google Analytics om bezoekstatistieken te meten. U kunt dit weigeren;
+            de site blijft dan gewoon bruikbaar.
           </p>
 
           <Link
@@ -94,20 +99,20 @@ export function CookieBanner() {
             Lees ons cookiebeleid →
           </Link>
 
-          <div className="relative mt-6 flex flex-wrap gap-3">
+          <div className="relative mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2">
             <button
               type="button"
-              className="rounded-sm bg-[#c8a040] px-6 py-[0.6rem] font-sans text-sm font-medium text-black transition-opacity hover:opacity-90"
+              className="rounded-sm bg-[#c8a040] px-6 py-3 font-sans text-sm font-semibold text-black transition-opacity hover:opacity-90"
               onClick={() => choose("accepted")}
             >
               Accepteren
             </button>
             <button
               type="button"
-              className="rounded-sm border border-solid border-[#c8a040] bg-transparent px-6 py-[0.6rem] font-sans text-sm font-medium text-[#c8a040] transition-opacity hover:opacity-90"
+              className="rounded-sm border-2 border-[#c8a040] bg-[#2a1810] px-6 py-3 font-sans text-sm font-semibold text-[#f5e6c8] transition-opacity hover:bg-[#3d2418]"
               onClick={() => choose("rejected")}
             >
-              Alleen noodzakelijk
+              Weigeren
             </button>
           </div>
         </div>
