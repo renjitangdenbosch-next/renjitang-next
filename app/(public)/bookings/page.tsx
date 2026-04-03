@@ -429,22 +429,23 @@ export default function BookingsPage() {
                     </p>
                   ) : (
                     <div className="flex flex-wrap gap-2">
-                      {slots.map((slot) => (
-                        <button
-                          type="button"
-                          key={slot}
-                          onClick={() => setTijdslot(slot)}
-                          className={`px-4 py-2 rounded-full text-sm 
-                            font-medium border transition-all
-                            ${
-                              tijdslot === slot
-                                ? "bg-rjt-red text-white border-rjt-red"
-                                : "border-stone-200 hover:border-rjt-red"
-                            }`}
-                        >
-                          {slot}
-                        </button>
-                      ))}
+                      {slots.map((slot) => {
+                        const selected = tijdslot === slot;
+                        return (
+                          <button
+                            type="button"
+                            key={slot}
+                            onClick={() => setTijdslot(slot)}
+                            className={
+                              selected
+                                ? "rounded-full border border-[#c8a040] bg-[#c8a040] px-4 py-2 text-sm font-medium text-white transition-colors"
+                                : "rounded-full border border-[#d4c5a0] bg-white px-4 py-2 text-sm font-medium text-[#1a0f08] transition-colors hover:border-[#c8a040] hover:bg-[#f5f0e8] hover:text-[#1a0f08]"
+                            }
+                          >
+                            {slot}
+                          </button>
+                        );
+                      })}
                     </div>
                   )}
                 </div>
@@ -508,8 +509,9 @@ export default function BookingsPage() {
                   onChange={(e) =>
                     setForm({ ...form, naam: e.target.value })
                   }
-                  className="w-full border border-stone-200 rounded-xl 
-                    px-4 py-3 focus:outline-none focus:border-rjt-red"
+                  style={{ color: "#1a0f08", background: "white" }}
+                  className="w-full rounded-xl border border-stone-200 px-4 py-3
+                    placeholder:text-[#9ca3af] focus:border-rjt-red focus:outline-none"
                 />
                 <input
                   type="email"
@@ -518,8 +520,9 @@ export default function BookingsPage() {
                   onChange={(e) =>
                     setForm({ ...form, email: e.target.value })
                   }
-                  className="w-full border border-stone-200 rounded-xl 
-                    px-4 py-3 focus:outline-none focus:border-rjt-red"
+                  style={{ color: "#1a0f08", background: "white" }}
+                  className="w-full rounded-xl border border-stone-200 px-4 py-3
+                    placeholder:text-[#9ca3af] focus:border-rjt-red focus:outline-none"
                 />
                 <input
                   type="tel"
@@ -528,8 +531,9 @@ export default function BookingsPage() {
                   onChange={(e) =>
                     setForm({ ...form, telefoon: e.target.value })
                   }
-                  className="w-full border border-stone-200 rounded-xl 
-                    px-4 py-3 focus:outline-none focus:border-rjt-red"
+                  style={{ color: "#1a0f08", background: "white" }}
+                  className="w-full rounded-xl border border-stone-200 px-4 py-3
+                    placeholder:text-[#9ca3af] focus:border-rjt-red focus:outline-none"
                 />
                 <textarea
                   placeholder="Opmerkingen (optioneel)"
@@ -538,9 +542,10 @@ export default function BookingsPage() {
                     setForm({ ...form, opmerking: e.target.value })
                   }
                   rows={3}
-                  className="w-full border border-stone-200 rounded-xl 
-                    px-4 py-3 focus:outline-none focus:border-rjt-red 
-                    resize-none"
+                  style={{ color: "#1a0f08", background: "white" }}
+                  className="w-full resize-none rounded-xl border border-stone-200 
+                    px-4 py-3 placeholder:text-[#9ca3af] focus:border-rjt-red 
+                    focus:outline-none"
                 />
                 <label className="flex items-start gap-3 cursor-pointer">
                   <input
