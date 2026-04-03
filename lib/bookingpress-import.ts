@@ -409,6 +409,269 @@ export function parseBoekingen(data: unknown): ParsedWPBoeking[] {
   return Array.from(byId.values());
 }
 
+const IMPORT_BATCH_SIZE = 10;
+
+export type BookingPressBatchCursor = {
+  phase: "klanten" | "wpBoekingen" | "siteBoekingen";
+  offset: number;
+  siteUpsertsSoFar: number;
+};
+
+export type BookingPressBatchResult = {
+  done: boolean;
+  cursor: BookingPressBatchCursor | null;
+  progress: {
+    phase: BookingPressBatchCursor["phase"];
+    processedInPhase: number;
+    totalInPhase: number;
+    batchProcessed: number;
+    totals: { klanten: number; boekingen: number };
+  };
+  stats?: {
+    klanten: number;
+    boekingen: number;
+    siteBoekingen: { upserted: number };
+  };
+};
+
+export async function importeerBookingPressBatch(
+  jsonString: string,
+  cursor: BookingPressBatchCursor | null
+): Promise<BookingPressBatchResult> {
+  let data: unknown;
+  try {
+    data = JSON.parse(jsonString) as unknown;
+  } catch {
+    throw new Error("Ongeldige JSON");
+  }
+
+  const klantenRows = parseKlanten(data);
+  const boekingenRows = parseBoekingen(data);
+  const now = new Date();
+
+  const phase = cursor?.phase ?? "klanten";
+  const offset = cursor?.offset ?? 0;
+  let siteUpsertsSoFar = cursor?.siteUpsertsSoFar ?? 0;
+
+  const baseProgress = (
+    p: BookingPressBatchCursor["phase"],
+    processedInPhase: number,
+    totalInPhase: number,
+    batchProcessed: number
+  ): BookingPressBatchResult["progress"] => ({
+    phase: p,
+    processedInPhase,
+    totalInPhase,
+    batchProcessed,
+    totals: { klanten: klantenRows.length, boekingen: boekingenRows.length },
+  });
+
+  if (phase === "klanten") {
+    const slice = klantenRows.slice(offset, offset + IMPORT_BATCH_SIZE);
+    for (const k of slice) {
+      await prisma.wPKlant.upsert({
+        where: { wpId: k.wpId },
+        create: {
+          wpId: k.wpId,
+          voornaam: k.voornaam,
+          achternaam: k.achternaam,
+          email: k.email,
+          telefoon: k.telefoon,
+          aangemaakt: k.aangemaakt,
+          syncedAt: now,
+        },
+        update: {
+          voornaam: k.voornaam,
+          achternaam: k.achternaam,
+          email: k.email,
+          telefoon: k.telefoon,
+          aangemaakt: k.aangemaakt,
+          syncedAt: now,
+        },
+      });
+    }
+    const nextOff = offset + slice.length;
+    if (nextOff >= klantenRows.length) {
+      return {
+        done: false,
+        cursor: {
+          phase: "wpBoekingen",
+          offset: 0,
+          siteUpsertsSoFar: 0,
+        },
+        progress: baseProgress(
+          "klanten",
+          klantenRows.length,
+          klantenRows.length,
+          slice.length
+        ),
+      };
+    }
+    return {
+      done: false,
+      cursor: {
+        phase: "klanten",
+        offset: nextOff,
+        siteUpsertsSoFar: 0,
+      },
+      progress: baseProgress("klanten", nextOff, klantenRows.length, slice.length),
+    };
+  }
+
+  if (phase === "wpBoekingen") {
+    const slice = boekingenRows.slice(offset, offset + IMPORT_BATCH_SIZE);
+    for (const b of slice) {
+      await prisma.wPBoeking.upsert({
+        where: { wpId: b.wpId },
+        create: {
+          wpId: b.wpId,
+          klantNaam: b.klantNaam,
+          klantEmail: b.klantEmail,
+          klantTelefoon: b.klantTelefoon,
+          dienst: b.dienst,
+          datum: b.datum,
+          tijd: b.tijd,
+          status: b.status,
+          notities: b.notities,
+          syncedAt: now,
+        },
+        update: {
+          klantNaam: b.klantNaam,
+          klantEmail: b.klantEmail,
+          klantTelefoon: b.klantTelefoon,
+          dienst: b.dienst,
+          datum: b.datum,
+          tijd: b.tijd,
+          status: b.status,
+          notities: b.notities,
+          syncedAt: now,
+        },
+      });
+    }
+    const nextOff = offset + slice.length;
+    if (nextOff >= boekingenRows.length) {
+      return {
+        done: false,
+        cursor: {
+          phase: "siteBoekingen",
+          offset: 0,
+          siteUpsertsSoFar: 0,
+        },
+        progress: baseProgress(
+          "wpBoekingen",
+          boekingenRows.length,
+          boekingenRows.length,
+          slice.length
+        ),
+      };
+    }
+    return {
+      done: false,
+      cursor: {
+        phase: "wpBoekingen",
+        offset: nextOff,
+        siteUpsertsSoFar: 0,
+      },
+      progress: baseProgress(
+        "wpBoekingen",
+        nextOff,
+        boekingenRows.length,
+        slice.length
+      ),
+    };
+  }
+
+  const slice = boekingenRows.slice(offset, offset + IMPORT_BATCH_SIZE);
+  for (const b of slice) {
+    const svc = vindServiceVoorDienst(b.dienst);
+    const duur = b.duurMin ?? svc?.duur ?? 60;
+    const prijsEur = b.prijsEur ?? svc?.prijs ?? 60;
+    const status = b.status;
+    const tijdslot = normaliseerTijd(b.tijd);
+    const datum = alleenDatumAmsterdam(b.datum);
+    const email = b.klantEmail.trim().toLowerCase();
+    const telefoon = b.klantTelefoon ?? "";
+    const naam = b.klantNaam.trim() || "Onbekend";
+    const stamp = b.createdAt ?? now;
+    const bevestigdOp = status === "bevestigd" ? stamp : null;
+    const geannuleerdOp = status === "geannuleerd" ? stamp : null;
+
+    await prisma.booking.upsert({
+      where: { wpId: b.wpId },
+      create: {
+        wpId: b.wpId,
+        naam,
+        email,
+        telefoon,
+        opmerking: b.notities,
+        behandeling: b.dienst.trim() || (svc?.naam ?? SERVICES[0].naam),
+        behandelingId: svc?.id ?? SERVICES[0].id,
+        duur,
+        prijs: new Prisma.Decimal(prijsEur),
+        datum,
+        tijdslot,
+        status,
+        bron: "wordpress",
+        bevestigdOp,
+        geannuleerdOp,
+        ...(b.createdAt != null ? { createdAt: b.createdAt } : {}),
+      },
+      update: {
+        naam,
+        email,
+        telefoon,
+        opmerking: b.notities,
+        behandeling: b.dienst.trim() || (svc?.naam ?? SERVICES[0].naam),
+        behandelingId: svc?.id ?? SERVICES[0].id,
+        duur,
+        prijs: new Prisma.Decimal(prijsEur),
+        datum,
+        tijdslot,
+        status,
+        bron: "wordpress",
+        bevestigdOp,
+        geannuleerdOp,
+        ...(b.createdAt != null ? { createdAt: b.createdAt } : {}),
+      },
+    });
+    siteUpsertsSoFar += 1;
+  }
+
+  const nextOff = offset + slice.length;
+  if (nextOff >= boekingenRows.length) {
+    return {
+      done: true,
+      cursor: null,
+      progress: baseProgress(
+        "siteBoekingen",
+        boekingenRows.length,
+        boekingenRows.length,
+        slice.length
+      ),
+      stats: {
+        klanten: klantenRows.length,
+        boekingen: boekingenRows.length,
+        siteBoekingen: { upserted: siteUpsertsSoFar },
+      },
+    };
+  }
+
+  return {
+    done: false,
+    cursor: {
+      phase: "siteBoekingen",
+      offset: nextOff,
+      siteUpsertsSoFar,
+    },
+    progress: baseProgress(
+      "siteBoekingen",
+      nextOff,
+      boekingenRows.length,
+      slice.length
+    ),
+  };
+}
+
 export async function importeerAlles(
   jsonString: string
 ): Promise<{

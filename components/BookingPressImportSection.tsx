@@ -2,9 +2,30 @@
 
 import { useState } from "react";
 
+type Progress = {
+  phase: "klanten" | "wpBoekingen" | "siteBoekingen";
+  processedInPhase: number;
+  totalInPhase: number;
+  batchProcessed: number;
+  totals: { klanten: number; boekingen: number };
+};
+
+type BatchCursor = {
+  phase: "klanten" | "wpBoekingen" | "siteBoekingen";
+  offset: number;
+  siteUpsertsSoFar: number;
+};
+
+const phaseLabel: Record<Progress["phase"], string> = {
+  klanten: "Klanten",
+  wpBoekingen: "WP-boekingen",
+  siteBoekingen: "Site-boekingen (Booking)",
+};
+
 export function BookingPressImportSection() {
   const [file, setFile] = useState<File | null>(null);
   const [busy, setBusy] = useState(false);
+  const [progress, setProgress] = useState<Progress | null>(null);
   const [result, setResult] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
 
@@ -13,6 +34,7 @@ export function BookingPressImportSection() {
     setFile(picked);
     setResult(null);
     setError(null);
+    setProgress(null);
   }
 
   async function onImport() {
@@ -21,23 +43,43 @@ export function BookingPressImportSection() {
     setBusy(true);
     setResult(null);
     setError(null);
+    setProgress(null);
 
     try {
       const text = await file.text();
-      JSON.parse(text);
+      const payload = JSON.parse(text) as unknown;
 
-      const res = await fetch("/api/admin/import-bookingpress", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: text,
-      });
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.error || "Import mislukt");
+      let cursor: BatchCursor | undefined;
 
-      setResult(
-        `${data.klanten} klanten, ${data.boekingen} WP-boekingen. ` +
-          `Site-model (Booking): ${data.siteBoekingen?.upserted ?? 0} upserts.`
-      );
+      for (;;) {
+        const res = await fetch("/api/admin/import-bookingpress", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            payload,
+            cursor: cursor ?? null,
+          }),
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || "Import mislukt");
+
+        if (data.progress) {
+          setProgress(data.progress as Progress);
+        }
+
+        if (data.done) {
+          setResult(
+            `${data.klanten} klanten, ${data.boekingen} WP-boekingen. ` +
+              `Site-model (Booking): ${data.siteBoekingen?.upserted ?? 0} upserts.`
+          );
+          break;
+        }
+
+        if (!data.cursor) {
+          throw new Error("Onverwacht antwoord van de server");
+        }
+        cursor = data.cursor as BatchCursor;
+      }
     } catch (err) {
       setError(
         err instanceof Error ? err.message : "Kon bestand niet verwerken"
@@ -46,6 +88,14 @@ export function BookingPressImportSection() {
       setBusy(false);
     }
   }
+
+  const pct =
+    progress && progress.totalInPhase > 0
+      ? Math.min(
+          100,
+          Math.round((progress.processedInPhase / progress.totalInPhase) * 100)
+        )
+      : 0;
 
   return (
     <section className="rounded-2xl border border-stone-200 bg-white p-6 dark:border-stone-700 dark:bg-stone-900/60">
@@ -98,12 +148,42 @@ export function BookingPressImportSection() {
         </button>
       </div>
 
-      {busy && (
+      {busy && progress && (
+        <div className="mt-4 space-y-2">
+          <p className="text-sm text-stone-700 dark:text-stone-300" aria-live="polite">
+            {phaseLabel[progress.phase]}: {progress.processedInPhase} /{" "}
+            {progress.totalInPhase}
+            {progress.totals.klanten + progress.totals.boekingen > 0 && (
+              <span className="text-stone-500 dark:text-stone-400">
+                {" "}
+                (totaal export: {progress.totals.klanten} klanten,{" "}
+                {progress.totals.boekingen} boekingen)
+              </span>
+            )}
+          </p>
+          <div
+            className="h-2 w-full overflow-hidden rounded-full bg-stone-200 dark:bg-stone-700"
+            role="progressbar"
+            aria-valuenow={pct}
+            aria-valuemin={0}
+            aria-valuemax={100}
+            aria-busy="true"
+            aria-label="Importvoortgang huidige stap"
+          >
+            <div
+              className="h-full rounded-full bg-green-600 transition-[width] duration-300 dark:bg-green-500"
+              style={{ width: `${pct}%` }}
+            />
+          </div>
+        </div>
+      )}
+
+      {busy && !progress && (
         <div
           className="mt-4 h-1.5 w-full overflow-hidden rounded-full bg-stone-200 dark:bg-stone-700"
           role="progressbar"
           aria-busy="true"
-          aria-label="Import bezig"
+          aria-label="Import start"
         >
           <div className="h-full w-1/3 animate-pulse rounded-full bg-green-600 dark:bg-green-500" />
         </div>
