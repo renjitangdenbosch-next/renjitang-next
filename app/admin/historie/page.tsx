@@ -1,27 +1,47 @@
 import { adminWpBookingStatusLabel } from "@/lib/admin-i18n";
 import { prisma } from "@/lib/prisma";
+import Link from "next/link";
 
 export const dynamic = "force-dynamic";
+
+const PAGE_SIZE = 25;
+
+function historieQueryHref(page: number, q: string) {
+  const p = new URLSearchParams();
+  if (q) p.set("q", q);
+  if (page > 1) p.set("page", String(page));
+  const qs = p.toString();
+  return qs ? `/admin/historie?${qs}` : "/admin/historie";
+}
 
 export default async function HistoriePage({
   searchParams,
 }: {
-  searchParams: { q?: string };
+  searchParams: { q?: string; page?: string };
 }) {
   const zoek = searchParams.q || "";
 
+  const where = zoek
+    ? {
+        OR: [
+          { klantNaam: { contains: zoek, mode: "insensitive" as const } },
+          { klantEmail: { contains: zoek, mode: "insensitive" as const } },
+          { dienst: { contains: zoek, mode: "insensitive" as const } },
+        ],
+      }
+    : {};
+
+  const totalCount = await prisma.wPBoeking.count({ where });
+  const totalPages = Math.max(1, Math.ceil(totalCount / PAGE_SIZE));
+  let currentPage = parseInt(String(searchParams.page ?? "1"), 10);
+  if (!Number.isFinite(currentPage) || currentPage < 1) currentPage = 1;
+  if (currentPage > totalPages) currentPage = totalPages;
+
   const boekingen = await prisma.wPBoeking.findMany({
-    where: zoek
-      ? {
-          OR: [
-            { klantNaam: { contains: zoek, mode: "insensitive" } },
-            { klantEmail: { contains: zoek, mode: "insensitive" } },
-            { dienst: { contains: zoek, mode: "insensitive" } },
-          ],
-        }
-      : {},
+    where,
     orderBy: { datum: "desc" },
-    take: 100,
+    skip: (currentPage - 1) * PAGE_SIZE,
+    take: PAGE_SIZE,
   });
 
   return (
@@ -30,7 +50,7 @@ export default async function HistoriePage({
         WordPress Historie 历史预约记录
       </h1>
       <p className="text-stone-500 mb-6">
-        {boekingen.length} afspraken uit het oude systeem
+        {totalCount} afspraken uit het oude systeem
       </p>
 
       {/* Zoekbalk */}
@@ -123,6 +143,55 @@ export default async function HistoriePage({
           </p>
         )}
       </div>
+
+      {totalCount > 0 && (
+        <div
+          className="mt-6 flex flex-col gap-4 sm:flex-row 
+          sm:items-center sm:justify-between"
+        >
+          <p className="text-sm text-stone-600">
+            Pagina {currentPage} van {totalPages}
+            <span className="mx-2 text-stone-400">·</span>
+            第{currentPage}页，共{totalPages}页
+          </p>
+          <div className="flex gap-2">
+            {currentPage > 1 ? (
+              <Link
+                href={historieQueryHref(currentPage - 1, zoek)}
+                className="rounded-xl border border-stone-200 bg-white px-4 py-2 
+                  text-sm font-medium text-stone-700 shadow-sm 
+                  hover:border-rjt-red hover:text-rjt-red"
+              >
+                Vorige
+              </Link>
+            ) : (
+              <span
+                className="rounded-xl border border-stone-100 bg-stone-50 px-4 
+                  py-2 text-sm font-medium text-stone-400"
+              >
+                Vorige
+              </span>
+            )}
+            {currentPage < totalPages ? (
+              <Link
+                href={historieQueryHref(currentPage + 1, zoek)}
+                className="rounded-xl border border-stone-200 bg-white px-4 py-2 
+                  text-sm font-medium text-stone-700 shadow-sm 
+                  hover:border-rjt-red hover:text-rjt-red"
+              >
+                Volgende
+              </Link>
+            ) : (
+              <span
+                className="rounded-xl border border-stone-100 bg-stone-50 px-4 
+                  py-2 text-sm font-medium text-stone-400"
+              >
+                Volgende
+              </span>
+            )}
+          </div>
+        </div>
+      )}
     </div>
   );
 }
