@@ -4,7 +4,7 @@ import Script from "next/script";
 import { useCallback, useEffect, useState } from "react";
 import {
   COOKIE_CONSENT_CHANGED_EVENT,
-  COOKIE_CONSENT_STORAGE_KEY,
+  isAnalyticsGranted,
 } from "@/lib/cookie-consent";
 
 declare global {
@@ -14,19 +14,11 @@ declare global {
   }
 }
 
-function readAccepted(): boolean {
-  try {
-    return localStorage.getItem(COOKIE_CONSENT_STORAGE_KEY) === "accepted";
-  } catch {
-    return false;
-  }
-}
-
 export function GoogleAnalyticsWithConsent({ measurementId }: { measurementId: string }) {
   const [loadGa, setLoadGa] = useState(false);
 
   const sync = useCallback(() => {
-    setLoadGa(readAccepted());
+    setLoadGa(isAnalyticsGranted());
   }, []);
 
   useEffect(() => {

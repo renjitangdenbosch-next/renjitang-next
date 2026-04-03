@@ -87,17 +87,26 @@ export default function AlgemeneVoorwaardenPage() {
 
           <div className="rounded-2xl bg-white p-8 shadow-sm dark:bg-stone-900/90">
             <h2 className="mb-4 font-serif text-2xl text-rjt-dark dark:text-rjt-cream">
-              5. Annulering en niet verschijnen
+              5. Annulering en niet verschijnen / 取消预约与未到
             </h2>
-            <p className="mb-4 leading-relaxed text-stone-600 dark:text-stone-300">
-              Wij verzoeken u een afspraak tijdig te verzetten of te annuleren als u niet kunt komen, zodat de tijd
-              voor andere cliënten beschikbaar blijft.               Hanteert de praktijk een concrete annuleringstermijn of
-              no-showvergoeding, dan wordt die op de website, bij de boeking of mondeling meegedeeld en maakt daar
-              onderdeel van de overeenkomst uit.
-            </p>
             <p className="leading-relaxed text-stone-600 dark:text-stone-300">
+              Annulering moet minimaal 24 uur van tevoren worden doorgegeven.
+            </p>
+            <p lang="zh-Hans" className="mt-2 leading-relaxed text-stone-600 dark:text-stone-300">
+              取消预约须至少提前24小时通知。
+            </p>
+            <p className="mt-4 leading-relaxed text-stone-600 dark:text-stone-300">
+              Bij annulering binnen 24 uur of no-show wordt 50% van de behandelprijs in rekening gebracht.
+            </p>
+            <p lang="zh-Hans" className="mt-2 leading-relaxed text-stone-600 dark:text-stone-300">
+              在预约开始前24小时内取消或未到（缺席）的，收取该次治疗费用的50%。
+            </p>
+            <p className="mt-4 leading-relaxed text-stone-600 dark:text-stone-300">
               Bij herhaald niet verschijnen zonder bericht kan de praktijk aanvullende voorwaarden stellen aan
               nieuwe boekingen.
+            </p>
+            <p lang="zh-Hans" className="mt-2 leading-relaxed text-stone-600 dark:text-stone-300">
+              屡次无故缺席者，诊所可对新预约附加条件。
             </p>
           </div>
 
