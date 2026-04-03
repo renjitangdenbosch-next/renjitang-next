@@ -64,13 +64,36 @@ export function generateAnnuleringsToken(email: string, id: string): string {
   return Buffer.from(email + id).toString("base64").slice(0, 16);
 }
 
-/** Publieke app-URL (productie: zet NEXTAUTH_URL of NEXT_PUBLIC_SITE_URL op de Next.js-site). */
+function isLocalhostBaseUrl(url: string): boolean {
+  try {
+    const host = new URL(url).hostname.toLowerCase();
+    return (
+      host === "localhost" ||
+      host === "127.0.0.1" ||
+      host === "[::1]" ||
+      host.endsWith(".local")
+    );
+  } catch {
+    return false;
+  }
+}
+
+/**
+ * Basis-URL voor absolute links in e-mail (admin-knop, annuleren, enz.).
+ * Gebruikt `NEXT_PUBLIC_SITE_URL` eerst (canonieke publieke site), daarna `NEXTAUTH_URL`.
+ * Localhost wordt overgeslagen zodat verstuurde mails niet naar dev wijzen.
+ */
 function publicSiteBaseUrl(): string {
-  return (
-    process.env.NEXTAUTH_URL ??
-    process.env.NEXT_PUBLIC_SITE_URL ??
-    "https://renjitang.nl"
-  ).replace(/\/$/, "");
+  const strip = (u: string) => u.trim().replace(/\/$/, "");
+  for (const raw of [
+    process.env.NEXT_PUBLIC_SITE_URL,
+    process.env.NEXTAUTH_URL,
+  ]) {
+    if (!raw) continue;
+    const base = strip(raw);
+    if (base && !isLocalhostBaseUrl(base)) return base;
+  }
+  return "https://renjitang.nl";
 }
 
 export function generateAnnuleringsLink(email: string, id: string): string {
