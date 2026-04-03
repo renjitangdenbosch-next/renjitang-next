@@ -22,7 +22,11 @@ export default function OverOnsPage() {
         imageClassName="object-cover object-[50%_25%]"
       >
         <div
-          className="absolute inset-0 z-10 bg-gradient-to-r from-black/55 via-black/30 to-black/10"
+          className="absolute inset-0 z-10"
+          style={{
+            background:
+              "linear-gradient(to right, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.5) 55%, rgba(0,0,0,0.4) 100%)",
+          }}
           aria-hidden
         />
         <div className="absolute inset-0 z-20 flex items-end pb-16">

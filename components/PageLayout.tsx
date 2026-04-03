@@ -30,7 +30,14 @@ export function PageLayout({
         sizes="100vw"
         imageClassName="object-cover object-center"
       >
-        <div className="absolute inset-0 z-10 bg-gradient-to-t from-black/80 via-black/40 to-black/20" />
+        <div
+          className="absolute inset-0 z-10"
+          style={{
+            background:
+              "linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.55) 45%, rgba(0,0,0,0.4) 100%)",
+          }}
+          aria-hidden
+        />
         <div className="relative z-20 mx-auto w-full max-w-5xl px-6 pb-12">
           <motion.p
             initial={{ opacity: 0, y: 10 }}

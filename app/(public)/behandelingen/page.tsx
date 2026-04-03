@@ -24,7 +24,11 @@ export default function BehandelingenPage() {
         sizes="100vw"
         imageClassName="object-cover object-[30%_center]"
       >
-        <div className="absolute inset-0 z-10 bg-gradient-to-r from-black/75 via-black/50 to-black/20" />
+        <div
+          className="absolute inset-0 z-10"
+          style={{ background: "rgba(0,0,0,0.5)" }}
+          aria-hidden
+        />
         <div className="pointer-events-none absolute right-6 top-1/2 z-10 -translate-y-1/2 font-cormorant text-[140px] leading-none text-white/15 select-none">
           療
         </div>

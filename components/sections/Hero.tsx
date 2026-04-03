@@ -35,7 +35,7 @@ export function Hero() {
     >
       <div className="parallax-img pointer-events-none absolute inset-x-0 top-[-20%] z-0 h-[140%] w-full will-change-transform" aria-hidden>
         <Image
-          src="/images/hero_cupping_ai.png"
+          src="/images/hero-behandelaar.jpg"
           alt="Acupunctuur en warme sfeer — Ren Ji Tang"
           fill
           priority
@@ -45,7 +45,10 @@ export function Hero() {
       </div>
       <div
         className="absolute inset-0 z-10"
-        style={{ background: "rgba(0,0,0,0.35)" }}
+        style={{
+          background:
+            "linear-gradient(to right, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.3) 60%, rgba(0,0,0,0.1) 100%)",
+        }}
         aria-hidden
       />
 

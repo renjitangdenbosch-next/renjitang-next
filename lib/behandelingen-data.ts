@@ -36,7 +36,7 @@ export const BEHANDELING_HOME_CARDS: BehandelingHomeCard[] = [
     naam: "Tuina massage",
     beschrijving:
       "Traditionele Chinese therapeutische massage: spanning loslaten en doorstroming verbeteren.",
-    image: "/images/hero_2_massage.jpg",
+    image: "/images/hero-massage-new.jpg",
   },
   {
     slug: "cupping",
@@ -73,6 +73,8 @@ export type BehandelingDetail = {
   naam: string;
   karakterCN: string;
   heroImage: string;
+  /** Optionele hero-overlay (CSS background), bv. vlak rgba voor cupping/massage */
+  heroOverlay?: string;
   intro: [string, string];
   splitImage: string;
   splitTitle: string;
@@ -118,7 +120,8 @@ export const BEHANDELING_DETAILS: Record<BehandelingSlug, BehandelingDetail> = {
     slug: "massage",
     naam: "Tuina massage",
     karakterCN: "按",
-    heroImage: "/images/hero_2_massage.jpg",
+    heroImage: "/images/hero-massage-new.jpg",
+    heroOverlay: "rgba(0,0,0,0.45)",
     intro: [
       "Tuina is een therapeutische massagevorm uit China. Met gerichte technieken worden spieren, gewrichten en meridianen benaderd om blokkades te verminderen en het lichaam soepeler te maken.",
       "De druk wordt afgestemd op uw wensen — van stevig tot zacht — zodat u zich veilig en gehoord voelt.",
@@ -146,7 +149,8 @@ export const BEHANDELING_DETAILS: Record<BehandelingSlug, BehandelingDetail> = {
     slug: "cupping",
     naam: "Cupping",
     karakterCN: "拔",
-    heroImage: "/images/hero_cupping_real.jpg",
+    heroImage: "/images/hero-cupping-vlam.jpg",
+    heroOverlay: "rgba(0,0,0,0.45)",
     intro: [
       "Cupping gebruikt zacht vacuüm op de huid om doorbloeding en ontspanning te bevorderen. Het is een klassieke techniek binnen TCM, vaak gecombineerd met massage of acupunctuur.",
       "De typische cirkels verdwijnen na enkele dagen; ze zijn onschuldig en horen bij het proces.",

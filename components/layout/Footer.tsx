@@ -11,7 +11,7 @@ export function Footer() {
           fill
           className="object-cover object-center"
         />
-        <div className="absolute inset-0 bg-[#1A1208]/55" />
+        <div className="absolute inset-0" style={{ backgroundColor: "rgba(0,0,0,0.75)" }} />
       </div>
 
       {/* === GOUDEN LIJN BOVENAAN === */}

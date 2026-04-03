@@ -10,6 +10,9 @@ import type { BehandelingDetail } from "@/lib/behandelingen-data";
 import { SITE } from "@/lib/site";
 import { CTABanner } from "@/components/sections/CTABanner";
 
+const DEFAULT_HERO_OVERLAY =
+  "linear-gradient(to right, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.5) 50%, rgba(0,0,0,0.4) 100%)";
+
 const fadeInUp = {
   hidden: { opacity: 0, y: 36 },
   show: {
@@ -32,7 +35,8 @@ export function BehandelingDetailView({ data }: { data: BehandelingDetail }) {
         imageClassName="object-cover object-center"
       >
         <div
-          className="absolute inset-0 z-10 bg-gradient-to-r from-black/70 via-black/45 to-black/20"
+          className="absolute inset-0 z-10"
+          style={{ background: data.heroOverlay ?? DEFAULT_HERO_OVERLAY }}
           aria-hidden
         />
         <div className="pointer-events-none absolute right-6 top-1/2 z-10 -translate-y-1/2 select-none font-cormorant text-[120px] leading-none text-white/15 md:text-[180px]">

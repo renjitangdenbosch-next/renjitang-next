@@ -25,13 +25,17 @@ export default function TarievenPage() {
     <div className="min-h-screen bg-[#F9F5EE]">
       <ParallaxHeroBackground
         className="relative h-[42vh] min-h-[300px] w-full overflow-hidden"
-        src="/images/hero_2_massage.jpg"
+        src="/images/hero-behandelaar.jpg"
         alt="Tarieven Ren Ji Tang"
         priority
         sizes="100vw"
         imageClassName="object-cover object-[50%_40%]"
       >
-        <div className="absolute inset-0 z-10 bg-gradient-to-r from-black/70 via-black/45 to-black/25" aria-hidden />
+        <div
+          className="absolute inset-0 z-10"
+          style={{ background: "rgba(0,0,0,0.5)" }}
+          aria-hidden
+        />
         <div className="absolute inset-0 z-20 flex items-end pb-12">
           <div className="mx-auto w-full max-w-3xl px-6">
             <span className="mb-4 block font-lato text-xs uppercase tracking-[0.2em] text-[#B8860B]">
