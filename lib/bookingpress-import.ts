@@ -16,8 +16,12 @@ function alleenDatumAmsterdam(d: Date): Date {
   return fromZonedTime(`${ds}T00:00:00`, TZ);
 }
 
-function mapWpNaarBookingStatus(raw: string): string {
-  const s = (raw || "").toLowerCase();
+/** BookingPress `bookingpress_appointment_status`: 1 bevestigd, 0 pending, 2 geannuleerd */
+function mapBookingPressAppointmentStatus(raw: unknown): string {
+  const s = String(raw ?? "").trim().toLowerCase();
+  if (s === "1") return "bevestigd";
+  if (s === "2") return "geannuleerd";
+  if (s === "0") return "pending";
   if (s.includes("cancel")) return "geannuleerd";
   if (s.includes("approv") || s.includes("confirm")) return "bevestigd";
   if (s === "pending") return "pending";
@@ -66,8 +70,12 @@ export type ParsedWPBoeking = {
   dienst: string;
   datum: Date;
   tijd: string;
+  /** Gemapt voor site + WPBoeking */
   status: string;
   notities: string | null;
+  duurMin: number | null;
+  prijsEur: number | null;
+  createdAt: Date | null;
 };
 
 function str(v: unknown): string | undefined {
@@ -92,6 +100,36 @@ function parseMaybeDate(v: unknown): Date | null {
   if (!s) return null;
   const d = new Date(s);
   return Number.isNaN(d.getTime()) ? null : d;
+}
+
+function pickIntMinuten(v: unknown): number | null {
+  if (v == null || v === "") return null;
+  const n = typeof v === "number" ? Math.round(v) : parseInt(String(v).trim(), 10);
+  return Number.isFinite(n) && n > 0 ? n : null;
+}
+
+function pickPrijsEuro(v: unknown): number | null {
+  if (v == null || v === "") return null;
+  const s = String(v).trim().replace(",", ".");
+  const n = typeof v === "number" ? v : parseFloat(s);
+  return Number.isFinite(n) && n >= 0 ? n : null;
+}
+
+/** `bookingpress_appointment_time`: eerste 5 tekens zoals `11:40` (uit `11:40:00`) */
+function appointmentTimeNaarTijdslot(raw: unknown): string {
+  const s = String(raw ?? "").replace(/\s/g, "");
+  if (!s) return "00:00";
+  const head = s.slice(0, 5);
+  if (/^\d{2}:\d{2}$/.test(head)) return head;
+  const m = s.match(/^(\d{1,2}):(\d{2})/);
+  if (m) return `${m[1].padStart(2, "0")}:${m[2]}`;
+  return normaliseerTijd(s);
+}
+
+function telefoonZonderSpaties(raw: unknown): string | null {
+  if (raw == null) return null;
+  const t = String(raw).replace(/\s/g, "").trim();
+  return t === "" ? null : t;
 }
 
 /** Verzamel objecten die aan predicate voldoen (diep door arrays/nested objects) */
@@ -128,14 +166,20 @@ function isKlantRow(o: Record<string, unknown>): boolean {
 }
 
 function isBoekingRow(o: Record<string, unknown>): boolean {
-  return (
+  if (
     pick(
       o,
       "bookingpress_appointment_id",
       "bookingpress_appointment_ID",
-      "appointment_id"
+      "appointment_id",
+      /** phpMyAdmin-export van `wp_bookingpress_appointment_bookings` */
+      "bookingpress_appointment_booking_id",
+      "bookingpress_appointment_booking_ID"
     ) !== undefined
-  );
+  ) {
+    return true;
+  }
+  return false;
 }
 
 export function parseKlanten(data: unknown): ParsedWPKlant[] {
@@ -151,6 +195,8 @@ export function parseKlanten(data: unknown): ParsedWPKlant[] {
         o,
         "bookingpress_user_firstname",
         "bookingpress_user_first_name",
+        "bookingpress_customer_firstname",
+        "bookingpress_customer_first_name",
         "firstname",
         "first_name"
       ) ?? "";
@@ -159,6 +205,8 @@ export function parseKlanten(data: unknown): ParsedWPKlant[] {
         o,
         "bookingpress_user_lastname",
         "bookingpress_user_last_name",
+        "bookingpress_customer_lastname",
+        "bookingpress_customer_last_name",
         "lastname",
         "last_name"
       ) ?? "";
@@ -188,10 +236,40 @@ function parseDatumTijd(
   dateStr: string | undefined,
   timeStr: string | undefined
 ): { datum: Date; tijd: string } | null {
-  const dPart = dateStr?.trim() ?? "";
+  let dPart = dateStr?.trim() ?? "";
+  let tFromField = timeStr?.trim();
+
+  /** `Y-m-d H:i:s` of vergelijkbaar in één kolom (phpMyAdmin) */
+  if (dPart && !dPart.includes("T") && /^\d{4}-\d{2}-\d{2}\s+\S/.test(dPart)) {
+    const sp = dPart.indexOf(" ");
+    const timeChunk = dPart.slice(sp + 1).trim();
+    dPart = dPart.slice(0, 10);
+    if (!tFromField) tFromField = timeChunk;
+  }
+
+  if (dPart.includes("T")) {
+    const [da, rest] = dPart.split("T");
+    dPart = da;
+    if (!tFromField && rest) tFromField = rest.replace(/Z$/i, "");
+  }
+
   if (!dPart) return null;
 
-  const rawTime = (timeStr?.trim() || "00:00").replace(/\s/g, "");
+  let rawTime = (tFromField || "00:00").replace(/\s/g, "");
+  /** Tijdveld soms volledige datetime of `HH:mm:ss` */
+  if (rawTime.includes("T") || /^\d{4}-\d{2}-\d{2}/.test(rawTime)) {
+    const td = new Date(rawTime);
+    if (!Number.isNaN(td.getTime())) {
+      rawTime = `${String(td.getHours()).padStart(2, "0")}:${String(
+        td.getMinutes()
+      ).padStart(2, "0")}`;
+    }
+  } else {
+    const timeMatch = rawTime.match(/^(\d{1,2}):(\d{2})(?::\d{2})?$/);
+    if (timeMatch) {
+      rawTime = `${timeMatch[1].padStart(2, "0")}:${timeMatch[2]}`;
+    }
+  }
   let hh = 0;
   let mm = 0;
   const parts = rawTime.split(":");
@@ -200,13 +278,6 @@ function parseDatumTijd(
     mm = parseInt(parts[1], 10) || 0;
   }
   const tijd = `${String(hh).padStart(2, "0")}:${String(mm).padStart(2, "0")}`;
-
-  if (dPart.includes("T")) {
-    const datum = new Date(dPart);
-    if (!Number.isNaN(datum.getTime())) {
-      return { datum, tijd: rawTime || tijd };
-    }
-  }
 
   const isoGuess = `${dPart}T${tijd}:00`;
   let datum = new Date(isoGuess);
@@ -224,28 +295,32 @@ export function parseBoekingen(data: unknown): ParsedWPBoeking[] {
   for (const o of rows) {
     const wpId = pick(
       o,
+      "bookingpress_appointment_booking_id",
+      "bookingpress_appointment_booking_ID",
       "bookingpress_appointment_id",
       "bookingpress_appointment_ID",
       "appointment_id"
     );
     if (!wpId) continue;
 
-    const naamFromParts = [
-      pick(o, "bookingpress_user_firstname", "customer_firstname"),
-      pick(o, "bookingpress_user_lastname", "customer_lastname"),
-    ]
-      .filter(Boolean)
-      .join(" ")
-      .trim();
+    const fn =
+      pick(o, "bookingpress_customer_firstname", "bookingpress_customer_first_name") ??
+      "";
+    const ln =
+      pick(o, "bookingpress_customer_lastname", "bookingpress_customer_last_name") ??
+      "";
+    const naamFromParts = [fn, ln].filter(Boolean).join(" ").trim();
     const klantNaam =
+      naamFromParts ||
       pick(
         o,
         "bookingpress_customer_name",
         "bookingpress_client_name",
         "customer_name",
-        "client_name"
+        "client_name",
+        "bookingpress_user_firstname"
       ) ||
-      naamFromParts ||
+      pick(o, "bookingpress_user_lastname") ||
       "";
 
     const klantEmail =
@@ -255,13 +330,10 @@ export function parseBoekingen(data: unknown): ParsedWPBoeking[] {
         "customer_email",
         "bookingpress_user_email"
       ) ?? "";
-    const klantTelefoon =
-      pick(
-        o,
-        "bookingpress_customer_phone",
-        "customer_phone",
-        "bookingpress_user_phone"
-      ) ?? null;
+
+    const klantTelefoon = telefoonZonderSpaties(
+      pick(o, "bookingpress_customer_phone", "customer_phone", "bookingpress_user_phone")
+    );
 
     const dienst =
       pick(
@@ -274,39 +346,49 @@ export function parseBoekingen(data: unknown): ParsedWPBoeking[] {
     const dateRaw = pick(
       o,
       "bookingpress_appointment_date",
+      "bookingpress_appointed_date",
       "appointment_date",
       "booking_date",
       "bookingpress_date"
     );
-    const timeRaw = pick(
+    const timeField = pick(
       o,
       "bookingpress_appointment_time",
+      "bookingpress_appointment_slot_start_time",
       "appointment_time",
       "booking_time",
       "bookingpress_time",
       "bookingpress_appointment_start_time"
     );
+    const tijdslot = appointmentTimeNaarTijdslot(timeField);
 
-    const parsed = parseDatumTijd(dateRaw, timeRaw);
+    const parsed = parseDatumTijd(dateRaw, tijdslot);
     if (!parsed) continue;
 
-    const status =
-      pick(
-        o,
-        "bookingpress_appointment_status",
-        "appointment_status",
-        "status"
-      ) ?? "unknown";
+    const statusRaw = pick(
+      o,
+      "bookingpress_appointment_status",
+      "bookingpress_booking_status",
+      "appointment_status",
+      "status"
+    );
+    const status = mapBookingPressAppointmentStatus(statusRaw ?? "0");
 
     const notities =
       pick(
         o,
-        "bookingpress_appointment_note",
         "bookingpress_appointment_internal_note",
+        "bookingpress_appointment_note",
         "appointment_note",
         "notes",
         "note"
       ) ?? null;
+
+    const duurMin = pickIntMinuten(o.bookingpress_service_duration_val);
+    const prijsEur = pickPrijsEuro(o.bookingpress_service_price);
+    const createdAt = parseMaybeDate(
+      pick(o, "bookingpress_created_at", "created_at")
+    );
 
     byId.set(wpId, {
       wpId,
@@ -315,9 +397,12 @@ export function parseBoekingen(data: unknown): ParsedWPBoeking[] {
       klantTelefoon,
       dienst,
       datum: parsed.datum,
-      tijd: parsed.tijd,
+      tijd: tijdslot,
       status,
       notities,
+      duurMin,
+      prijsEur,
+      createdAt,
     });
   }
 
@@ -397,46 +482,54 @@ export async function importeerAlles(
   let siteUpserted = 0;
   for (const b of boekingenRows) {
     const svc = vindServiceVoorDienst(b.dienst);
-    const duur = svc?.duur ?? 60;
-    const prijsEur = svc?.prijs ?? 60;
-    const status = mapWpNaarBookingStatus(b.status);
+    const duur = b.duurMin ?? svc?.duur ?? 60;
+    const prijsEur = b.prijsEur ?? svc?.prijs ?? 60;
+    const status = b.status;
     const tijdslot = normaliseerTijd(b.tijd);
     const datum = alleenDatumAmsterdam(b.datum);
+    const email = b.klantEmail.trim().toLowerCase();
+    const telefoon = b.klantTelefoon ?? "";
+    const naam = b.klantNaam.trim() || "Onbekend";
+    const stamp = b.createdAt ?? now;
+    const bevestigdOp = status === "bevestigd" ? stamp : null;
+    const geannuleerdOp = status === "geannuleerd" ? stamp : null;
 
     await prisma.booking.upsert({
       where: { wpId: b.wpId },
       create: {
         wpId: b.wpId,
-        naam: b.klantNaam.trim() || "Onbekend",
-        email: b.klantEmail,
-        telefoon: (b.klantTelefoon || "").trim(),
+        naam,
+        email,
+        telefoon,
         opmerking: b.notities,
-        behandeling: svc?.naam ?? b.dienst,
+        behandeling: b.dienst.trim() || (svc?.naam ?? SERVICES[0].naam),
         behandelingId: svc?.id ?? SERVICES[0].id,
         duur,
         prijs: new Prisma.Decimal(prijsEur),
         datum,
         tijdslot,
         status,
-        bron: "import",
-        bevestigdOp: status === "bevestigd" ? now : null,
-        geannuleerdOp: status === "geannuleerd" ? now : null,
+        bron: "wordpress",
+        bevestigdOp,
+        geannuleerdOp,
+        ...(b.createdAt != null ? { createdAt: b.createdAt } : {}),
       },
       update: {
-        naam: b.klantNaam.trim() || "Onbekend",
-        email: b.klantEmail,
-        telefoon: (b.klantTelefoon || "").trim(),
+        naam,
+        email,
+        telefoon,
         opmerking: b.notities,
-        behandeling: svc?.naam ?? b.dienst,
+        behandeling: b.dienst.trim() || (svc?.naam ?? SERVICES[0].naam),
         behandelingId: svc?.id ?? SERVICES[0].id,
         duur,
         prijs: new Prisma.Decimal(prijsEur),
         datum,
         tijdslot,
         status,
-        bron: "import",
-        bevestigdOp: status === "bevestigd" ? now : null,
-        geannuleerdOp: status === "geannuleerd" ? now : null,
+        bron: "wordpress",
+        bevestigdOp,
+        geannuleerdOp,
+        ...(b.createdAt != null ? { createdAt: b.createdAt } : {}),
       },
     });
     siteUpserted += 1;
