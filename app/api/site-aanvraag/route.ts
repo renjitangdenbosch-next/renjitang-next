@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { Resend } from "resend";
+import { sendTransactionalHtml } from "@/lib/email";
 import { SITE } from "@/lib/site";
 
 function esc(s: string) {
@@ -35,8 +35,6 @@ export async function POST(req: Request) {
   const voorkeurstijd =
     formType === "afspraak" ? String(body.voorkeurstijd ?? "").trim() : "";
 
-  const key = process.env.RESEND_API_KEY;
-  const from = process.env.RESEND_FROM || "Ren Ji Tang <onboarding@resend.dev>";
   const adminTo = process.env.ADMIN_EMAIL || SITE.email;
 
   const rows =
@@ -59,24 +57,21 @@ export async function POST(req: Request) {
     </table>
   `;
 
-  if (!key) {
-    console.warn("[site-aanvraag] RESEND_API_KEY ontbreekt");
+  if (!process.env.BREVO_API_KEY || !process.env.BREVO_FROM) {
+    console.warn("[site-aanvraag] BREVO_API_KEY of BREVO_FROM ontbreekt");
     return NextResponse.json({ ok: true, warning: "E-mail niet verstuurd (geen API key)." });
   }
 
-  const resend = new Resend(key);
-  const { error } = await resend.emails.send({
-    from,
-    to: adminTo,
-    replyTo: email,
-    subject:
-      formType === "afspraak"
-        ? `Afspraakaanvraag website — ${naam}`
-        : `Contactformulier website — ${naam}`,
+  const { ok, error } = await sendTransactionalHtml(
+    adminTo,
+    formType === "afspraak"
+      ? `Afspraakaanvraag website — ${naam}`
+      : `Contactformulier website — ${naam}`,
     html,
-  });
+    { replyTo: email }
+  );
 
-  if (error) {
+  if (!ok) {
     console.error("[site-aanvraag]", error);
     return NextResponse.json({ ok: false, error: "Versturen mislukt." }, { status: 500 });
   }

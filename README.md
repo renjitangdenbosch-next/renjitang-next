@@ -34,8 +34,8 @@ npm start
 | `ADMIN_PASSWORD` | Wachtwoord voor het adminpaneel. |
 | `TELEGRAM_BOT_TOKEN` | Bot token van @BotFather (optioneel). |
 | `TELEGRAM_CHAT_ID` | Chat-ID voor notificaties (optioneel). |
-| `RESEND_API_KEY` | API key van [Resend](https://resend.com) voor bevestigingsmails (optioneel). |
-| `RESEND_FROM` | Optioneel: afzender, bv. `Ren Ji Tang <noreply@domein.nl>`. |
+| `BREVO_API_KEY` | API key van [Brevo](https://www.brevo.com) (SMTP API) voor transactionele e-mail (optioneel). |
+| `BREVO_FROM` | Geverifieerd afzender-e-mailadres in Brevo (zelfde domein als in het dashboard). |
 
 Kopieer `.env.local` en vul waarden in. **Commit geen geheimen.**
 
@@ -44,7 +44,7 @@ Kopieer `.env.local` en vul waarden in. **Commit geen geheimen.**
 - Next.js 14 (App Router), TypeScript, Tailwind CSS  
 - Prisma + PostgreSQL  
 - NextAuth.js (credentials) voor `/admin`  
-- Resend voor e-mail, Telegram voor push bij nieuwe boeking  
+- Brevo (REST) voor e-mail, Telegram voor push bij nieuwe boeking  
 - ISR op WordPress-pagina’s: `revalidate` 3600 s  
 - `public/llms.txt`, `app/sitemap.ts`, `app/robots.ts`, JSON-LD in `app/layout.tsx` en selectief op pagina’s  
 

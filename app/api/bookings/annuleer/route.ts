@@ -1,5 +1,4 @@
-import { Resend } from "resend";
-import { stuurAnnulering } from "@/lib/email";
+import { sendTransactionalHtml, stuurAnnulering } from "@/lib/email";
 import { generateAnnuleringsToken } from "@/lib/email-templates";
 import { SITE } from "@/lib/site";
 import { prisma } from "@/lib/prisma";
@@ -123,19 +122,14 @@ export async function GET(req: Request) {
     console.error("Email fout:", e);
   }
 
-  const key = process.env.RESEND_API_KEY;
-  const from =
-    process.env.RESEND_FROM || "Ren Ji Tang <onboarding@resend.dev>";
   const adminTo = process.env.ADMIN_EMAIL || "info@renjitang.nl";
 
-  if (key) {
+  if (process.env.BREVO_API_KEY && process.env.BREVO_FROM) {
     try {
-      const resend = new Resend(key);
-      await resend.emails.send({
-        from,
-        to: adminTo,
-        subject: `❌ Klant heeft geannuleerd: ${booking.naam}`,
-        html: `
+      const { ok, error } = await sendTransactionalHtml(
+        adminTo,
+        `❌ Klant heeft geannuleerd: ${booking.naam}`,
+        `
       <p>De klant heeft zelf geannuleerd via de email link.</p>
       <p><strong>Naam:</strong> ${esc(booking.naam)}</p>
       <p><strong>Behandeling:</strong> ${esc(booking.behandeling)}</p>
@@ -146,8 +140,11 @@ export async function GET(req: Request) {
           month: "long",
         })
       )} om ${esc(booking.tijdslot)}</p>
-    `,
-      });
+    `
+      );
+      if (!ok) {
+        console.error("Admin mail fout:", error);
+      }
     } catch (e) {
       console.error("Admin mail fout:", e);
     }
