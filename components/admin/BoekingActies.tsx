@@ -273,8 +273,15 @@ export function BoekingActies({
                     setDatumKeuze(v);
                     setModalFout(null);
                   }}
-                  className="mt-1 w-full border border-stone-200 rounded-lg 
-                    px-3 py-2 text-sm text-stone-900"
+                  className="mt-1 w-full rounded-lg"
+                  style={{
+                    color: "#1a0f08",
+                    background: "white",
+                    border: "1px solid #d4b87a",
+                    padding: "0.6rem 1rem",
+                    width: "100%",
+                    fontSize: "1rem",
+                  }}
                 />
               </label>
               <label className="block text-sm">
@@ -289,14 +296,28 @@ export function BoekingActies({
                   <select
                     value={tijdKeuze}
                     onChange={(e) => setTijdKeuze(e.target.value)}
-                    className="mt-1 w-full border border-stone-200 rounded-lg 
-                      px-3 py-2 text-sm bg-white"
+                    className="mt-1 w-full rounded-lg"
+                    style={{
+                      color: tijdKeuze ? "#1a0f08" : "#888",
+                      background: "white",
+                      border: "1px solid #d4b87a",
+                      padding: "0.6rem 1rem",
+                      width: "100%",
+                      fontSize: "1rem",
+                    }}
                   >
-                    <option value="">
+                    <option
+                      value=""
+                      style={{ color: "#888", background: "white" }}
+                    >
                       — Kies tijd / 选择时间 —
                     </option>
                     {slots.map((s) => (
-                      <option key={s} value={s}>
+                      <option
+                        key={s}
+                        value={s}
+                        style={{ color: "#1a0f08", background: "white" }}
+                      >
                         {s}
                       </option>
                     ))}

@@ -63,6 +63,35 @@ export default function BookingsPage() {
     timeZone: "Europe/Amsterdam",
   }).format(huidigeMaand);
 
+  const minJaar = vandaag.getFullYear();
+  const minMaand = vandaag.getMonth();
+  const vorigeMaandDisabled =
+    jaar < minJaar || (jaar === minJaar && maand <= minMaand);
+
+  const kalenderNavBtnStyle: React.CSSProperties = {
+    background: "transparent",
+    color: "#c8a040",
+    fontSize: "1.2rem",
+    padding: "0.5rem 1rem",
+    cursor: "pointer",
+    border: "none",
+  };
+
+  function vorigeMaand() {
+    if (vorigeMaandDisabled) return;
+    if (maand === 0) {
+      setMaand(11);
+      setJaar((j) => j - 1);
+    } else setMaand((m) => m - 1);
+  }
+
+  function volgendeMaand() {
+    if (maand === 11) {
+      setMaand(0);
+      setJaar((j) => j + 1);
+    } else setMaand((m) => m + 1);
+  }
+
   const dagNamen = ["Zo", "Ma", "Di", "Wo", "Do", "Vr", "Za"];
 
   function getDagenInMaand(): (Date | null)[] {
@@ -273,39 +302,47 @@ export default function BookingsPage() {
                 🌴 Gesloten van 6 t/m 27 april wegens vakantie
               </div>
 
-              {/* Kalender navigatie */}
-              <div className="flex items-center justify-between mb-4 gap-2">
+              {/* Kalender navigatie: ‹ maand jaar › */}
+              <div
+                className="mb-4 flex w-full items-center justify-between gap-2"
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                }}
+              >
                 <button
                   type="button"
-                  onClick={() => {
-                    if (maand === 0) {
-                      setMaand(11);
-                      setJaar((j) => j - 1);
-                    } else setMaand((m) => m - 1);
-                  }}
-                  className="p-2 hover:bg-stone-100 rounded-lg shrink-0"
+                  onClick={vorigeMaand}
+                  disabled={vorigeMaandDisabled}
                   aria-label="Vorige maand"
+                  style={{
+                    ...kalenderNavBtnStyle,
+                    cursor: vorigeMaandDisabled ? "not-allowed" : "pointer",
+                    opacity: vorigeMaandDisabled ? 0.3 : 1,
+                  }}
+                  className={
+                    vorigeMaandDisabled
+                      ? "shrink-0"
+                      : "shrink-0 transition-opacity hover:opacity-70"
+                  }
                 >
-                  ←
+                  ‹
                 </button>
                 <span
-                  className="font-semibold text-rjt-dark text-center min-h-[1.5rem] 
-                    flex-1 px-1 capitalize"
+                  className="min-h-[1.5rem] flex-1 px-2 text-center font-semibold 
+                    capitalize text-rjt-dark"
                 >
                   {maandNaamNl}
                 </span>
                 <button
                   type="button"
-                  onClick={() => {
-                    if (maand === 11) {
-                      setMaand(0);
-                      setJaar((j) => j + 1);
-                    } else setMaand((m) => m + 1);
-                  }}
-                  className="p-2 hover:bg-stone-100 rounded-lg shrink-0"
+                  onClick={volgendeMaand}
                   aria-label="Volgende maand"
+                  style={kalenderNavBtnStyle}
+                  className="shrink-0 transition-opacity hover:opacity-70"
                 >
-                  →
+                  ›
                 </button>
               </div>
 
