@@ -1,4 +1,3 @@
-import type { WpPage } from "@/types/wordpress";
 import { SITE } from "@/lib/site";
 
 /** Links naar detailpagina's — alleen Nederlands in UI */
@@ -27,13 +26,3 @@ export const PRIMARY_NAV = [
 
 /** @deprecated Gebruik BEHANDELING_NAV_ITEMS */
 export const BEHANDELING_SUBNAV = BEHANDELING_NAV_ITEMS;
-
-export function footerLinksFromPages(pages: WpPage[]) {
-  const want = new Set([
-    "route",
-    "algemene-voorwaarden-en-privacy-beleid",
-    "disclaimer",
-    "privacy-policy",
-  ]);
-  return pages.filter((p) => want.has(p.slug));
-}

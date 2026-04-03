@@ -44,7 +44,8 @@ export function Hero() {
         />
       </div>
       <div
-        className="absolute inset-0 z-10 bg-gradient-to-r from-black/65 via-black/40 to-black/20"
+        className="absolute inset-0 z-10"
+        style={{ background: "rgba(0,0,0,0.35)" }}
         aria-hidden
       />
 

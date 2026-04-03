@@ -1,7 +1,24 @@
 import type { MetadataRoute } from "next";
-import { getAllPages } from "@/lib/wordpress";
-import { BEHANDELING_SLUGS } from "@/lib/behandelingen-data";
 import { blogArtikelen } from "@/lib/blog-data";
+
+const staticPaths = [
+  "/",
+  "/behandelingen",
+  "/behandelingen/acupunctuur",
+  "/behandelingen/massage",
+  "/behandelingen/cupping",
+  "/behandelingen/guasha",
+  "/behandelingen/moxibustie",
+  "/behandelingen/kruiden",
+  "/over-ons",
+  "/tarieven",
+  "/blog",
+  "/contact",
+  "/bookings",
+  "/privacy",
+  "/disclaimer",
+  "/cookiebeleid",
+] as const;
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const base = (process.env.NEXT_PUBLIC_SITE_URL || "https://www.renjitang.nl").replace(
@@ -10,86 +27,44 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   );
   const lastModified = new Date();
 
-  const behandelingUrls: MetadataRoute.Sitemap = BEHANDELING_SLUGS.map((slug) => ({
-    url: `${base}/behandelingen/${slug}`,
-    lastModified,
-    changeFrequency: "monthly",
-    priority: 0.85,
-  }));
+  function entryForPath(path: (typeof staticPaths)[number]): MetadataRoute.Sitemap[number] {
+    const url = path === "/" ? base : `${base}${path}`;
 
-  const staticRoutes: MetadataRoute.Sitemap = [
-    { url: base, lastModified, changeFrequency: "weekly", priority: 1 },
-    { url: `${base}/behandelingen`, lastModified, changeFrequency: "monthly", priority: 0.9 },
-    ...behandelingUrls,
-    { url: `${base}/over-ons`, lastModified, changeFrequency: "monthly", priority: 0.8 },
-    { url: `${base}/acupunctuur`, lastModified, changeFrequency: "monthly", priority: 0.75 },
-    { url: `${base}/massage`, lastModified, changeFrequency: "monthly", priority: 0.75 },
-    { url: `${base}/cupping`, lastModified, changeFrequency: "monthly", priority: 0.75 },
-    { url: `${base}/guasha`, lastModified, changeFrequency: "monthly", priority: 0.75 },
-    { url: `${base}/contact`, lastModified, changeFrequency: "monthly", priority: 0.85 },
-    { url: `${base}/tarieven`, lastModified, changeFrequency: "monthly", priority: 0.85 },
-    { url: `${base}/blog`, lastModified, changeFrequency: "weekly", priority: 0.75 },
-    ...blogArtikelen.map((a) => ({
-      url: `${base}/blog/${a.slug}`,
-      lastModified,
-      changeFrequency: "monthly" as const,
-      priority: 0.65,
-    })),
-    { url: `${base}/privacy`, lastModified, changeFrequency: "yearly", priority: 0.5 },
-    { url: `${base}/cookiebeleid`, lastModified, changeFrequency: "yearly", priority: 0.5 },
-    { url: `${base}/algemene-voorwaarden`, lastModified, changeFrequency: "yearly", priority: 0.5 },
-    { url: `${base}/disclaimer`, lastModified, changeFrequency: "yearly", priority: 0.5 },
-    {
-      url: `${base}/bookings`,
-      lastModified,
-      changeFrequency: "weekly",
-      priority: 0.85,
-    },
-  ];
-
-  const nextAppSlugs = new Set([
-    "acupunctuur",
-    "massage",
-    "cupping",
-    "guasha",
-    "contact",
-    "behandelingen",
-    "over-ons",
-    "afspraak",
-    "bookings",
-    "privacy",
-    "cookiebeleid",
-    "algemene-voorwaarden",
-    "disclaimer",
-    "blog",
-    "tarieven",
-    ...blogArtikelen.map((a) => a.slug),
-  ]);
-
-  let wpRoutes: MetadataRoute.Sitemap = [];
-  try {
-    const pages = await getAllPages();
-    wpRoutes = pages
-      .filter((p) => p.slug !== "home" && !nextAppSlugs.has(p.slug))
-      .map((p) => ({
-        url: `${base}/${p.slug}`,
-        lastModified: new Date(p.modified),
-        changeFrequency: "monthly" as const,
-        priority: 0.7,
-      }));
-    const urls = new Set(wpRoutes.map((r) => r.url));
-    const canonicalVergoeding = `${base}/acupunctuur-en-vergoeding-zorgverzekering`;
-    if (!urls.has(canonicalVergoeding)) {
-      wpRoutes.push({
-        url: canonicalVergoeding,
-        lastModified,
-        changeFrequency: "monthly",
-        priority: 0.6,
-      });
+    if (path === "/") {
+      return { url, lastModified, changeFrequency: "weekly", priority: 1 };
     }
-  } catch {
-    /* WP onbereikbaar tijdens build */
+    if (path === "/behandelingen") {
+      return { url, lastModified, changeFrequency: "monthly", priority: 0.9 };
+    }
+    if (path.startsWith("/behandelingen/")) {
+      return { url, lastModified, changeFrequency: "monthly", priority: 0.85 };
+    }
+    if (path === "/blog") {
+      return { url, lastModified, changeFrequency: "weekly", priority: 0.75 };
+    }
+    if (path === "/contact" || path === "/tarieven") {
+      return { url, lastModified, changeFrequency: "monthly", priority: 0.85 };
+    }
+    if (path === "/bookings") {
+      return { url, lastModified, changeFrequency: "weekly", priority: 0.85 };
+    }
+    if (path === "/over-ons") {
+      return { url, lastModified, changeFrequency: "monthly", priority: 0.8 };
+    }
+    if (path === "/privacy" || path === "/disclaimer" || path === "/cookiebeleid") {
+      return { url, lastModified, changeFrequency: "yearly", priority: 0.5 };
+    }
+    return { url, lastModified, changeFrequency: "monthly", priority: 0.75 };
   }
 
-  return [...staticRoutes, ...wpRoutes];
+  const staticRoutes = staticPaths.map(entryForPath);
+
+  const blogRoutes: MetadataRoute.Sitemap = blogArtikelen.map((a) => ({
+    url: `${base}/blog/${a.slug}`,
+    lastModified,
+    changeFrequency: "monthly" as const,
+    priority: 0.65,
+  }));
+
+  return [...staticRoutes, ...blogRoutes];
 }
