@@ -2,6 +2,10 @@ import { BoekingActies } from "@/components/admin/BoekingActies";
 import { adminBookingStatusLabel } from "@/lib/admin-i18n";
 import { prisma } from "@/lib/prisma";
 import { SERVICES } from "@/lib/site";
+import { format } from "date-fns";
+import { toZonedTime } from "date-fns-tz";
+
+const TZ_AMS = "Europe/Amsterdam";
 
 export const dynamic = "force-dynamic";
 
@@ -124,7 +128,18 @@ export default async function BoekingenPage({
               )}
             </div>
 
-            {b.status === "pending" && <BoekingActies bookingId={b.id} />}
+            {(b.status === "pending" || b.status === "bevestigd") && (
+              <BoekingActies
+                bookingId={b.id}
+                status={b.status === "pending" ? "pending" : "bevestigd"}
+                behandelingId={b.behandelingId}
+                datumYyyyMmDd={format(
+                  toZonedTime(b.datum, TZ_AMS),
+                  "yyyy-MM-dd"
+                )}
+                tijdslot={b.tijdslot}
+              />
+            )}
           </div>
         ))}
 

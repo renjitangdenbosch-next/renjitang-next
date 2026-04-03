@@ -207,12 +207,52 @@ export async function stuurAnnulering(
   booking: Booking,
   reden?: string | null
 ): Promise<{ ok: boolean; error?: string }> {
+  const uitBody = reden?.trim() ? reden.trim() : null;
   const merged: Booking = {
     ...booking,
-    annuleringsReden:
-      booking.annuleringsReden ?? (reden?.trim() ? reden.trim() : null),
+    /** Expliciete reden uit de aanroep gaat vóór DB-waarde (betrouwbaar in admin-PATCH). */
+    annuleringsReden: uitBody ?? booking.annuleringsReden ?? null,
   };
   return sendBoekingGeannuleerd(merged);
+}
+
+function escHtml(s: string): string {
+  return s
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
+}
+
+/** Mail naar klant bij door de praktijk gewijzigde datum/tijd zolang de boeking nog pending is. */
+export async function stuurDatumTijdWijzigingPendingNaarKlant(
+  booking: Booking
+): Promise<{ ok: boolean; error?: string }> {
+  const datumNl = new Intl.DateTimeFormat("nl-NL", {
+    weekday: "long",
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  }).format(booking.datum);
+  const html = `
+<div style="font-family:Arial,sans-serif;line-height:1.6;color:#333;max-width:560px">
+  <p>Beste ${escHtml(booking.naam)},</p>
+  <p>De datum en het tijdslot van uw <strong>aanvraag</strong> zijn door de praktijk aangepast.</p>
+  <p style="background:#f5f5f0;padding:12px 16px;border-radius:8px">
+    <strong>Behandeling / 治疗：</strong> ${escHtml(booking.behandeling)}<br/>
+    <strong>Datum / 日期：</strong> ${escHtml(datumNl)}<br/>
+    <strong>Tijd / 时间：</strong> ${escHtml(booking.tijdslot)}
+  </p>
+  <p style="color:#555;font-size:14px">
+    日期/时间已更改 — 以上为新的预约申请时间。
+  </p>
+  <p>Met vriendelijke groet,<br/>Ren Ji Tang</p>
+</div>`;
+  return sendTransactionalHtml(
+    booking.email,
+    "Datum/tijd gewijzigd / 日期/时间已更改 — Ren Ji Tang",
+    html
+  );
 }
 
 /** Transactionele HTML-mail via Brevo (o.a. site-aanvraag, admin-notificaties). */

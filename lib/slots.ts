@@ -146,13 +146,17 @@ export async function getBlockedSlotStarts(dayStr: string): Promise<Set<string>>
 
 /** Busy intervals: elke bestaande boeking blokkeert duur + buffer vanaf start */
 export async function getBusyIntervalsForDay(
-  dayStr: string
+  dayStr: string,
+  excludeBookingId?: string
 ): Promise<{ start: Date; end: Date }[]> {
   const { dayStart, nextStart } = amsterdamDayBounds(dayStr);
   const bookings = await prisma.booking.findMany({
     where: {
       datum: { gte: dayStart, lt: nextStart },
       status: { not: "geannuleerd" },
+      ...(excludeBookingId
+        ? { id: { not: excludeBookingId } }
+        : {}),
     },
     select: { datum: true, tijdslot: true, duur: true },
   });
@@ -164,7 +168,8 @@ export async function getBusyIntervalsForDay(
 
 export async function getAvailableSlots(
   dayStr: string,
-  durationMin: number
+  durationMin: number,
+  excludeBookingId?: string
 ): Promise<Date[]> {
   if (isVacationClosedDay(dayStr)) return [];
   if (await isDayFullyBlocked(dayStr)) return [];
@@ -172,7 +177,7 @@ export async function getAvailableSlots(
   const windows = await dayWindowsMinutes(dayStr);
   if (windows.length === 0) return [];
 
-  const busy = await getBusyIntervalsForDay(dayStr);
+  const busy = await getBusyIntervalsForDay(dayStr, excludeBookingId);
   const blockedStarts = await getBlockedSlotStarts(dayStr);
   const now = new Date();
   const out: Date[] = [];
