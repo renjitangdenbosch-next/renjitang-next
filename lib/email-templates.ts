@@ -64,23 +64,27 @@ export function generateAnnuleringsToken(email: string, id: string): string {
   return Buffer.from(email + id).toString("base64").slice(0, 16);
 }
 
-export function generateAnnuleringsLink(email: string, id: string): string {
-  const token = generateAnnuleringsToken(email, id);
-  const base = (
+/** Publieke app-URL (productie: zet NEXTAUTH_URL of NEXT_PUBLIC_SITE_URL op de Next.js-site). */
+function publicSiteBaseUrl(): string {
+  return (
     process.env.NEXTAUTH_URL ??
     process.env.NEXT_PUBLIC_SITE_URL ??
     "https://renjitang.nl"
   ).replace(/\/$/, "");
+}
+
+export function generateAnnuleringsLink(email: string, id: string): string {
+  const token = generateAnnuleringsToken(email, id);
+  const base = publicSiteBaseUrl();
   return `${base}/api/bookings/annuleer?id=${encodeURIComponent(id)}&token=${encodeURIComponent(token)}`;
 }
 
 function absBookingsUrl(): string {
-  const base = (
-    process.env.NEXTAUTH_URL ??
-    process.env.NEXT_PUBLIC_SITE_URL ??
-    "https://renjitang.nl"
-  ).replace(/\/$/, "");
-  return `${base}/bookings#stap-behandeling`;
+  return `${publicSiteBaseUrl()}/bookings#stap-behandeling`;
+}
+
+function adminBoekingenUrl(): string {
+  return `${publicSiteBaseUrl()}/admin/boekingen`;
 }
 
 function prijsEuro(b: BookingEmailData): string {
@@ -174,7 +178,7 @@ export function praktijkNieuweAanvraag(booking: BookingEmailData): EmailTemplate
   </div>
   ${afspraakBox(booking)}
   <div style="display:flex;gap:12px;margin-top:20px">
-    <a href="https://renjitang.nl/admin/boekingen"
+    <a href="${esc(adminBoekingenUrl())}"
       style="background:#2d6a4f;color:white;padding:12px 24px;
       border-radius:24px;text-decoration:none;font-size:14px">
       ✓ Bekijk en bevestig
