@@ -516,6 +516,33 @@ export default function BookingsPage() {
                   {loading ? "Versturen..." : "Aanvraag versturen →"}
                 </button>
               </div>
+
+              <div className="mt-4 space-y-1.5 text-sm text-stone-500">
+                <p>
+                  Door dit formulier te verzenden ga je akkoord met onze{" "}
+                  <a
+                    href="/privacy"
+                    className="text-rjt-red underline underline-offset-2"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    privacyverklaring
+                  </a>
+                  .
+                </p>
+                <p lang="zh-Hans">
+                  提交此表单即表示您同意我们的
+                  <a
+                    href="/privacy"
+                    className="text-rjt-red underline underline-offset-2"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    隐私声明
+                  </a>
+                  。
+                </p>
+              </div>
             </div>
           )}
 

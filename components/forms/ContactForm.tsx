@@ -118,6 +118,22 @@ export function ContactForm() {
       <Button type="submit" variant="primary" disabled={status === "loading"}>
         {status === "loading" ? "Verzenden…" : "Verzenden"}
       </Button>
+      <div className="mt-3 space-y-1.5 text-sm text-muted">
+        <p>
+          Door dit formulier te verzenden ga je akkoord met onze{" "}
+          <a href="/privacy" className="text-jade underline underline-offset-2">
+            privacyverklaring
+          </a>
+          .
+        </p>
+        <p lang="zh-Hans">
+          提交此表单即表示您同意我们的
+          <a href="/privacy" className="text-jade underline underline-offset-2">
+            隐私声明
+          </a>
+          。
+        </p>
+      </div>
     </form>
   );
 }
