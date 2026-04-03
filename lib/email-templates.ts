@@ -1,3 +1,5 @@
+import { formatBookingDatumVolledigNl } from "@/lib/booking-datums";
+
 const header = `
 <div style="background:#1A1A1A;padding:24px 32px;text-align:center">
   <p style="color:white;font-family:Georgia,serif;font-size:24px;
@@ -41,15 +43,6 @@ function wrap(content: string): string {
     </div>
     ${footer}
   </div>`;
-}
-
-function formatDatum(d: Date): string {
-  return new Intl.DateTimeFormat("nl-NL", {
-    weekday: "long",
-    day: "numeric",
-    month: "long",
-    year: "numeric",
-  }).format(d);
 }
 
 function esc(s: string): string {
@@ -139,7 +132,7 @@ function afspraakBox(b: BookingEmailData): string {
     padding:16px 20px;border-radius:4px;margin:20px 0;
     font-family:Arial,sans-serif;font-size:14px;line-height:2">
     <strong>Behandeling:</strong> ${esc(b.behandeling)}<br/>
-    <strong>Datum:</strong> ${formatDatum(new Date(b.datum))}<br/>
+    <strong>Datum:</strong> ${formatBookingDatumVolledigNl(new Date(b.datum))}<br/>
     <strong>Tijd:</strong> ${esc(b.tijdslot)}<br/>
     <strong>Duur:</strong> ${b.duur} minuten<br/>
     <strong>Prijs:</strong> €${prijsEuro(b)}

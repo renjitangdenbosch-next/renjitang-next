@@ -1,4 +1,5 @@
 import { adminWpBookingStatusLabel } from "@/lib/admin-i18n";
+import { formatBookingDatumTabelNl } from "@/lib/booking-datums";
 import { prisma } from "@/lib/prisma";
 import Link from "next/link";
 
@@ -110,11 +111,7 @@ export default async function HistoriePage({
                 </td>
                 <td className="px-4 py-3 text-stone-600">{b.dienst}</td>
                 <td className="px-4 py-3 text-stone-600">
-                  {new Date(b.datum).toLocaleDateString("nl-NL", {
-                    day: "numeric",
-                    month: "short",
-                    year: "numeric",
-                  })}
+                  {formatBookingDatumTabelNl(new Date(b.datum))}
                 </td>
                 <td className="px-4 py-3 text-stone-600">{b.tijd}</td>
                 <td className="px-4 py-3">

@@ -1,6 +1,10 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import {
+  formatYyyyMmDdSummaryNl,
+  localCalendarDateToYyyyMmDd,
+} from "@/lib/booking-datums";
 import { SERVICES } from "@/lib/site";
 
 const STAP_ANKERS = [
@@ -90,7 +94,7 @@ export default function BookingsPage() {
   }
 
   async function kiesDatum(d: Date) {
-    const iso = d.toISOString().split("T")[0];
+    const iso = localCalendarDateToYyyyMmDd(d);
     setDatum(iso);
     setTijdslot("");
     setLoadingSlots(true);
@@ -310,7 +314,7 @@ export default function BookingsPage() {
               <div className="grid grid-cols-7 gap-1 mb-6">
                 {getDagenInMaand().map((d, i) => {
                   if (!d) return <div key={i} />;
-                  const iso = d.toISOString().split("T")[0];
+                  const iso = localCalendarDateToYyyyMmDd(d);
                   const beschikbaar = isDagBeschikbaar(d);
                   const geselecteerdDag = datum === iso;
                   return (
@@ -409,11 +413,7 @@ export default function BookingsPage() {
                   </p>
                   <p>
                     <strong>Datum:</strong>{" "}
-                    {new Date(datum).toLocaleDateString("nl-NL", {
-                      weekday: "long",
-                      day: "numeric",
-                      month: "long",
-                    })}
+                    {formatYyyyMmDdSummaryNl(datum)}
                   </p>
                   <p>
                     <strong>Tijd:</strong> {tijdslot}
@@ -567,11 +567,7 @@ export default function BookingsPage() {
                   </p>
                   <p>
                     <strong>Datum:</strong>{" "}
-                    {new Date(datum).toLocaleDateString("nl-NL", {
-                      weekday: "long",
-                      day: "numeric",
-                      month: "long",
-                    })}
+                    {formatYyyyMmDdSummaryNl(datum)}
                   </p>
                   <p>
                     <strong>Tijd:</strong> {tijdslot}

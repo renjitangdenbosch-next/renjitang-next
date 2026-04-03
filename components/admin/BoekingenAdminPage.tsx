@@ -1,8 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { format } from "date-fns";
-import { nl } from "date-fns/locale";
+import { formatBookingDatumAdminRijNl } from "@/lib/booking-datums";
 import { adminBookingStatusLabel } from "@/lib/admin-i18n";
 
 type BookingRow = {
@@ -198,7 +197,7 @@ export function BoekingenAdminPage() {
                   </p>
                   <p className="text-sm text-stone-600 dark:text-stone-400">
                     {b.behandeling} · {b.tijdslot} ·{" "}
-                    {format(new Date(b.datum), "EEEE d MMM yyyy", { locale: nl })}
+                    {formatBookingDatumAdminRijNl(new Date(b.datum))}
                   </p>
                   <p className="text-xs text-stone-500">{b.email}</p>
                 </div>

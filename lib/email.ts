@@ -12,6 +12,7 @@ import {
   subjectPraktijkNieuweAanvraag,
   type BookingMailPayload,
 } from "@/lib/email-templates";
+import { formatBookingDatumVolledigNl } from "@/lib/booking-datums";
 import type { Booking } from "@prisma/client";
 
 export type SendHtmlOptions = {
@@ -228,12 +229,7 @@ function escHtml(s: string): string {
 export async function stuurDatumTijdWijzigingPendingNaarKlant(
   booking: Booking
 ): Promise<{ ok: boolean; error?: string }> {
-  const datumNl = new Intl.DateTimeFormat("nl-NL", {
-    weekday: "long",
-    day: "numeric",
-    month: "long",
-    year: "numeric",
-  }).format(booking.datum);
+  const datumNl = formatBookingDatumVolledigNl(booking.datum);
   const html = `
 <div style="font-family:Arial,sans-serif;line-height:1.6;color:#333;max-width:560px">
   <p>Beste ${escHtml(booking.naam)},</p>

@@ -2,6 +2,7 @@ import { BoekingActies } from "@/components/admin/BoekingActies";
 import { adminBookingStatusLabel } from "@/lib/admin-i18n";
 import { prisma } from "@/lib/prisma";
 import { SERVICES } from "@/lib/site";
+import { formatBookingDatumWoMaandNl } from "@/lib/booking-datums";
 import { format } from "date-fns";
 import { toZonedTime } from "date-fns-tz";
 
@@ -111,11 +112,7 @@ export default async function BoekingenPage({
             >
               <p>
                 📅{" "}
-                {new Date(b.datum).toLocaleDateString("nl-NL", {
-                  weekday: "long",
-                  day: "numeric",
-                  month: "long",
-                })}{" "}
+                {formatBookingDatumWoMaandNl(b.datum)}{" "}
                 om {b.tijdslot}
               </p>
               <p>

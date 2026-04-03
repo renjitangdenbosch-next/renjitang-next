@@ -1,8 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
-import { format } from "date-fns";
-import { nl } from "date-fns/locale";
+import { formatBookingDatumVolledigNl } from "@/lib/booking-datums";
 
 const DAGEN = [
   { v: 0, l: "Zondag" },
@@ -217,7 +216,7 @@ export function TijdslotenAdminPage() {
               className="flex flex-wrap items-center justify-between gap-2 rounded-xl border border-stone-100 px-4 py-3 text-sm dark:border-stone-800"
             >
               <span>
-                {format(new Date(b.datum), "PPP", { locale: nl })}{" "}
+                {formatBookingDatumVolledigNl(new Date(b.datum))}{" "}
                 {b.tijdslot ? `· ${b.tijdslot}` : "(hele dag)"}{" "}
                 {b.reden ? `— ${b.reden}` : ""}
               </span>

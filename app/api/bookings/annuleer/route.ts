@@ -1,7 +1,9 @@
+import { formatBookingDatumWoMaandNl } from "@/lib/booking-datums";
 import { sendTransactionalHtml, stuurAnnulering } from "@/lib/email";
 import { generateAnnuleringsToken } from "@/lib/email-templates";
-import { SITE } from "@/lib/site";
 import { prisma } from "@/lib/prisma";
+import { bookingStartUtc } from "@/lib/slots";
+import { SITE } from "@/lib/site";
 
 function esc(s: string): string {
   return s
@@ -78,8 +80,8 @@ export async function GET(req: Request) {
   }
 
   const nu = new Date();
-  const afspraak = new Date(booking.datum);
-  const tijdVerschil = afspraak.getTime() - nu.getTime();
+  const afspraakStart = bookingStartUtc(booking);
+  const tijdVerschil = afspraakStart.getTime() - nu.getTime();
   const urenVerschil = tijdVerschil / (1000 * 60 * 60);
 
   if (urenVerschil < 24) {
@@ -134,11 +136,7 @@ export async function GET(req: Request) {
       <p><strong>Naam:</strong> ${esc(booking.naam)}</p>
       <p><strong>Behandeling:</strong> ${esc(booking.behandeling)}</p>
       <p><strong>Datum:</strong> ${esc(
-        new Date(booking.datum).toLocaleDateString("nl-NL", {
-          weekday: "long",
-          day: "numeric",
-          month: "long",
-        })
+        formatBookingDatumWoMaandNl(booking.datum)
       )} om ${esc(booking.tijdslot)}</p>
     `
       );

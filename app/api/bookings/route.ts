@@ -6,6 +6,7 @@ import {
   formatSlotLabel,
   getAvailableSlots,
   normalizeTijdslotLabel,
+  parsePublicBookingDate,
 } from "@/lib/slots";
 import { SERVICES } from "@/lib/site";
 
@@ -69,7 +70,7 @@ export async function POST(req: Request) {
         behandelingId: service.id,
         duur: service.duur,
         prijs: new Prisma.Decimal(service.prijs),
-        datum: new Date(datumStr),
+        datum: parsePublicBookingDate(datumStr),
         tijdslot: tijdslotNorm,
         status: "pending",
         bron: "website",
