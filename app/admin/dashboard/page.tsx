@@ -15,6 +15,12 @@ export const dynamic = "force-dynamic";
 
 const TZ = "Europe/Amsterdam";
 
+const cardBase =
+  "block rounded-xl border border-stone-200 bg-white p-6 transition hover:border-purple-300 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 focus-visible:ring-offset-2 dark:border-stone-700 dark:bg-stone-900 dark:hover:border-purple-600";
+
+const cardBaseSm =
+  "block rounded-xl border border-stone-200 bg-white p-5 transition hover:border-purple-300 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 focus-visible:ring-offset-2 dark:border-stone-700 dark:bg-stone-900 dark:hover:border-purple-600";
+
 export default async function AdminDashboardPage() {
   const now = new Date();
   const z = toZonedTime(now, TZ);
@@ -112,50 +118,125 @@ export default async function AdminDashboardPage() {
 
   return (
     <div className="space-y-10">
+      <section
+        className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-purple-700 via-violet-700 to-purple-900 p-8 text-white shadow-lg"
+        aria-label="Snel naar alle boekingen"
+      >
+        <div className="relative z-10 flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
+          <div>
+            <h2 className="font-serif text-2xl font-semibold tracking-tight sm:text-3xl">
+              Alle boekingen beheren
+            </h2>
+            <p className="mt-2 text-sm text-purple-100">管理所有预约</p>
+          </div>
+          <Link
+            href="/admin/boekingen"
+            className="inline-flex items-center justify-center gap-2 self-start rounded-full bg-white px-8 py-3.5 text-base font-semibold text-purple-800 shadow-md transition hover:bg-purple-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-purple-800 sm:self-center"
+          >
+            <span>Naar boekingen</span>
+            <span className="text-xl leading-none" aria-hidden>
+              →
+            </span>
+          </Link>
+        </div>
+      </section>
+
       <div>
-        <h1 className="font-serif text-3xl mb-1 text-stone-900 dark:text-stone-100">
+        <h1 className="mb-1 font-serif text-3xl text-stone-900 dark:text-stone-100">
           Beheer
         </h1>
-        <p className="text-stone-400 text-sm">管理后台</p>
+        <p className="text-sm text-stone-400">管理后台</p>
       </div>
 
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        {[
-          { label: "Omzet deze maand (€)", value: omzet.toFixed(0) },
-          { label: "Boekingen deze week", value: weekCount },
-          { label: "Populairste behandeling", value: topBehandeling },
-          { label: "Nieuwe aanvragen (site, deze maand)", value: nieuweDezeMaand },
-        ].map((c) => (
-          <div
-            key={c.label}
-            className="rounded-xl border border-stone-200 bg-white p-6 dark:border-stone-700 dark:bg-stone-900"
-          >
-            <p className="text-sm text-stone-500 dark:text-stone-400">{c.label}</p>
-            <p className="mt-2 font-serif text-2xl text-stone-900 dark:text-stone-50">
-              {c.value}
-            </p>
-          </div>
-        ))}
+        <Link href="/admin/historie" className={cardBase}>
+          <p className="text-sm text-stone-500 dark:text-stone-400">
+            Omzet deze maand (€)
+          </p>
+          <p className="mt-2 font-serif text-2xl text-stone-900 dark:text-stone-50">
+            {omzet.toFixed(0)}
+          </p>
+        </Link>
+        <Link href="/admin/boekingen" className={cardBase}>
+          <p className="text-sm text-stone-500 dark:text-stone-400">
+            Boekingen deze week
+          </p>
+          <p className="mt-2 font-serif text-2xl text-stone-900 dark:text-stone-50">
+            {weekCount}
+          </p>
+        </Link>
+        <Link href="/admin/boekingen" className={cardBase}>
+          <p className="text-sm text-stone-500 dark:text-stone-400">
+            Populairste behandeling
+          </p>
+          <p className="mt-2 font-serif text-2xl text-stone-900 dark:text-stone-50">
+            {topBehandeling}
+          </p>
+        </Link>
+        <Link
+          href="/admin/boekingen?status=pending"
+          className={cardBase}
+        >
+          <p className="text-sm text-stone-500 dark:text-stone-400">
+            Nieuwe aanvragen (site, deze maand)
+          </p>
+          <p className="mt-2 font-serif text-2xl text-stone-900 dark:text-stone-50">
+            {nieuweDezeMaand}
+          </p>
+        </Link>
       </div>
 
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
-        {[
-          { label: "Totaal", value: total },
-          { label: "In afwachting / 待确认", value: pending },
-          { label: "Bevestigd / 已确认", value: bevestigd },
-          { label: "Geannuleerd / 已取消", value: geannuleerd },
-          { label: "Voltooid / 已完成", value: voltooid },
-        ].map((c) => (
-          <div
-            key={c.label}
-            className="rounded-xl border border-stone-200 bg-white p-5 dark:border-stone-700 dark:bg-stone-900"
-          >
-            <p className="text-sm text-stone-500 dark:text-stone-400">{c.label}</p>
-            <p className="mt-2 font-serif text-2xl text-stone-900 dark:text-stone-50">
-              {c.value}
-            </p>
-          </div>
-        ))}
+        <Link href="/admin/boekingen" className={cardBaseSm}>
+          <p className="text-sm text-stone-500 dark:text-stone-400">Totaal</p>
+          <p className="mt-2 font-serif text-2xl text-stone-900 dark:text-stone-50">
+            {total}
+          </p>
+        </Link>
+        <Link
+          href="/admin/boekingen?status=pending"
+          className={cardBaseSm}
+        >
+          <p className="text-sm text-stone-500 dark:text-stone-400">
+            In afwachting / 待确认
+          </p>
+          <p className="mt-2 font-serif text-2xl text-stone-900 dark:text-stone-50">
+            {pending}
+          </p>
+        </Link>
+        <Link
+          href="/admin/boekingen?status=bevestigd"
+          className={cardBaseSm}
+        >
+          <p className="text-sm text-stone-500 dark:text-stone-400">
+            Bevestigd / 已确认
+          </p>
+          <p className="mt-2 font-serif text-2xl text-stone-900 dark:text-stone-50">
+            {bevestigd}
+          </p>
+        </Link>
+        <Link
+          href="/admin/boekingen?status=geannuleerd"
+          className={cardBaseSm}
+        >
+          <p className="text-sm text-stone-500 dark:text-stone-400">
+            Geannuleerd / 已取消
+          </p>
+          <p className="mt-2 font-serif text-2xl text-stone-900 dark:text-stone-50">
+            {geannuleerd}
+          </p>
+        </Link>
+        <Link
+          href="/admin/boekingen?status=voltooid"
+          className={cardBaseSm}
+        >
+          <p className="text-sm text-stone-500 dark:text-stone-400">
+            Voltooid / 已完成
+          </p>
+          <p className="mt-2 font-serif text-2xl text-stone-900 dark:text-stone-50">
+            {voltooid}
+          </p>
+        </Link>
       </div>
 
       <section className="rounded-2xl border border-stone-200 bg-white p-6 dark:border-stone-700 dark:bg-stone-900">
@@ -191,34 +272,26 @@ export default async function AdminDashboardPage() {
         <h2 className="font-serif text-xl text-stone-900 dark:text-stone-100">
           Recente boekingen
         </h2>
+        <p className="mt-1 text-sm text-stone-400">最近预约</p>
         <ul className="mt-4 divide-y divide-stone-100 dark:divide-stone-800">
           {recent.map((b) => (
-            <li
-              key={b.id}
-              className="flex flex-wrap items-center justify-between gap-2 py-3 text-sm"
-            >
-              <span className="font-medium text-stone-800 dark:text-stone-100">
-                {b.naam}
-              </span>
-              <span className="text-stone-600 dark:text-stone-400">
-                {b.behandeling} · {b.tijdslot}
-              </span>
-              <span className="rounded-full bg-stone-100 px-2 py-0.5 text-xs dark:bg-stone-800">
-                {adminBookingStatusLabel(b.status)}
-              </span>
+            <li key={b.id}>
+              <Link
+                href={`/admin/boekingen#booking-${b.id}`}
+                className="flex flex-wrap items-center justify-between gap-2 rounded-lg py-3 text-sm text-stone-800 transition-colors hover:bg-stone-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 dark:text-stone-100 dark:hover:bg-stone-800/60"
+              >
+                <span className="font-medium">{b.naam}</span>
+                <span className="text-stone-600 dark:text-stone-400">
+                  {b.behandeling} · {b.tijdslot}
+                </span>
+                <span className="rounded-full bg-stone-100 px-2 py-0.5 text-xs dark:bg-stone-800">
+                  {adminBookingStatusLabel(b.status)}
+                </span>
+              </Link>
             </li>
           ))}
         </ul>
       </section>
-
-      <p>
-        <Link
-          href="/admin/boekingen"
-          className="font-medium text-amber-900 underline dark:text-amber-200"
-        >
-          Alle boekingen beheren →
-        </Link>
-      </p>
     </div>
   );
 }

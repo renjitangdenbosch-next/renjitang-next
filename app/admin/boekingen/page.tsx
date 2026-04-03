@@ -5,10 +5,27 @@ import { SERVICES } from "@/lib/site";
 
 export const dynamic = "force-dynamic";
 
-export default async function BoekingenPage() {
+const STATUS_FILTERS = [
+  "pending",
+  "bevestigd",
+  "geannuleerd",
+  "voltooid",
+] as const;
+
+export default async function BoekingenPage({
+  searchParams,
+}: {
+  searchParams?: { status?: string };
+}) {
   const boekingen = await prisma.booking.findMany({
     orderBy: { createdAt: "desc" },
   });
+
+  const statusParam = searchParams?.status;
+  const statusFilter = STATUS_FILTERS.find((s) => s === statusParam) ?? null;
+  const getoond = statusFilter
+    ? boekingen.filter((b) => b.status === statusFilter)
+    : boekingen;
 
   const pending = boekingen.filter((b) => b.status === "pending");
   const bevestigd = boekingen.filter((b) => b.status === "bevestigd");
@@ -54,10 +71,11 @@ export default async function BoekingenPage() {
 
       {/* Boekingen lijst */}
       <div className="space-y-4">
-        {boekingen.map((b) => (
+        {getoond.map((b) => (
           <div
             key={b.id}
-            className="bg-white rounded-2xl p-6 shadow-sm border 
+            id={`booking-${b.id}`}
+            className="scroll-mt-24 bg-white rounded-2xl p-6 shadow-sm border 
               border-stone-100"
           >
             <div className="flex justify-between items-start mb-4">
@@ -110,10 +128,17 @@ export default async function BoekingenPage() {
           </div>
         ))}
 
-        {boekingen.length === 0 && (
-          <p className="text-center text-stone-400 py-12">
-            Nog geen boekingen
-          </p>
+        {getoond.length === 0 && (
+          <div className="py-12 text-center text-stone-400">
+            <p>
+              {statusFilter
+                ? "Geen boekingen met deze status"
+                : "Nog geen boekingen"}
+            </p>
+            {statusFilter && (
+              <p className="mt-1 text-sm text-stone-400">无此状态预约</p>
+            )}
+          </div>
         )}
       </div>
     </div>
