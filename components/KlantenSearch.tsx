@@ -32,7 +32,7 @@ export function KlantenSearch({ initialQuery }: { initialQuery: string }) {
           onChange={(e) => setQ(e.target.value)}
           onKeyDown={(e) => e.key === "Enter" && (e.preventDefault(), apply())}
           placeholder="Zoek op naam of e-mail / 按姓名或邮箱搜索"
-          className="mt-1 w-full rounded-lg border border-stone-300 bg-white px-3 py-2 dark:border-stone-600 dark:bg-stone-950"
+          className="mt-1 w-full rounded-lg border border-[#d4c5a0] px-3 py-2"
         />
       </div>
       <button

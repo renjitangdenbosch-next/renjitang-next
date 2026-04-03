@@ -204,7 +204,7 @@ export function BoekingActies({
               placeholder="Reden (optioneel) / 原因（可选）"
               value={reden}
               onChange={(e) => setReden(e.target.value)}
-              className="flex-1 min-w-[12rem] border border-stone-200 rounded-lg 
+              className="min-w-[12rem] flex-1 rounded-lg border border-[#d4c5a0] 
                 px-3 py-2 text-sm"
             />
             <button
@@ -219,8 +219,7 @@ export function BoekingActies({
             <button
               type="button"
               onClick={() => setToonReden(false)}
-              className="px-3 py-2 border border-stone-200 
-                rounded-lg text-sm"
+              className="admin-btn-cancel rounded-lg px-3 py-2 text-sm"
             >
               ✕
             </button>
@@ -251,17 +250,17 @@ export function BoekingActies({
           }}
         >
           <div
-            className="bg-white rounded-2xl shadow-xl max-w-md w-full p-6 
-              border border-stone-200"
+            className="admin-modal-panel max-w-md w-full rounded-2xl border 
+              border-stone-200 p-6 shadow-xl"
           >
             <h2
               id="reschedule-modal-title"
-              className="font-serif text-lg font-semibold text-stone-900 mb-4"
+              className="mb-4 font-serif text-lg font-semibold text-[#1a0f08]"
             >
               Wijzig datum/tijd / 修改日期/时间
             </h2>
             <div className="space-y-4">
-              <label className="block text-sm">
+              <label className="block text-sm text-[#1a0f08]">
                 <span className="text-stone-600">
                   Nieuwe datum / 新日期
                 </span>
@@ -273,51 +272,28 @@ export function BoekingActies({
                     setDatumKeuze(v);
                     setModalFout(null);
                   }}
-                  className="mt-1 w-full rounded-lg"
-                  style={{
-                    color: "#1a0f08",
-                    background: "white",
-                    border: "1px solid #d4b87a",
-                    padding: "0.6rem 1rem",
-                    width: "100%",
-                    fontSize: "1rem",
-                  }}
+                  className="mt-1 w-full rounded-lg border border-[#d4b87a] px-3 py-2.5 text-base"
                 />
               </label>
-              <label className="block text-sm">
+              <label className="block text-sm text-[#1a0f08]">
                 <span className="text-stone-600">
                   Nieuw tijdslot / 新时间段
                 </span>
                 {slotsLaden ? (
-                  <p className="mt-2 text-sm text-stone-500">
+                  <p className="mt-2 text-sm text-stone-600">
                     Laden… / 加载中…
                   </p>
                 ) : (
                   <select
                     value={tijdKeuze}
                     onChange={(e) => setTijdKeuze(e.target.value)}
-                    className="mt-1 w-full rounded-lg"
-                    style={{
-                      color: tijdKeuze ? "#1a0f08" : "#888",
-                      background: "white",
-                      border: "1px solid #d4b87a",
-                      padding: "0.6rem 1rem",
-                      width: "100%",
-                      fontSize: "1rem",
-                    }}
+                    className={`mt-1 w-full rounded-lg border border-[#d4b87a] px-3 py-2.5 text-base ${
+                      !tijdKeuze ? "admin-select-empty" : ""
+                    }`}
                   >
-                    <option
-                      value=""
-                      style={{ color: "#888", background: "white" }}
-                    >
-                      — Kies tijd / 选择时间 —
-                    </option>
+                    <option value="">— Kies tijd / 选择时间 —</option>
                     {slots.map((s) => (
-                      <option
-                        key={s}
-                        value={s}
-                        style={{ color: "#1a0f08", background: "white" }}
-                      >
+                      <option key={s} value={s}>
                         {s}
                       </option>
                     ))}
@@ -339,7 +315,7 @@ export function BoekingActies({
               <button
                 type="button"
                 onClick={() => setModalOpen(false)}
-                className="px-4 py-2 border border-stone-200 rounded-lg text-sm"
+                className="admin-btn-cancel rounded-lg px-4 py-2 text-sm"
               >
                 Sluiten / 关闭
               </button>

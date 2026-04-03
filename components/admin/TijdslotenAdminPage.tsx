@@ -135,7 +135,7 @@ export function TijdslotenAdminPage() {
             <select
               name="dag"
               required
-              className="mt-1 block rounded-xl border border-stone-300 bg-white px-3 py-2 dark:border-stone-600 dark:bg-stone-950"
+              className="mt-1 block rounded-xl border border-[#d4c5a0] px-3 py-2"
             >
               {DAGEN.map((d) => (
                 <option key={d.v} value={d.v}>
@@ -150,7 +150,7 @@ export function TijdslotenAdminPage() {
               name="startTijd"
               type="time"
               required
-              className="mt-1 block rounded-xl border border-stone-300 bg-white px-3 py-2 dark:border-stone-600 dark:bg-stone-950"
+              className="mt-1 block rounded-xl border border-[#d4c5a0] px-3 py-2"
             />
           </label>
           <label className="text-sm">
@@ -159,7 +159,7 @@ export function TijdslotenAdminPage() {
               name="eindTijd"
               type="time"
               required
-              className="mt-1 block rounded-xl border border-stone-300 bg-white px-3 py-2 dark:border-stone-600 dark:bg-stone-950"
+              className="mt-1 block rounded-xl border border-[#d4c5a0] px-3 py-2"
             />
           </label>
           <button

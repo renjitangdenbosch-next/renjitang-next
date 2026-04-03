@@ -30,32 +30,32 @@ export default function AdminLoginPage() {
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-stone-warm px-4 dark:bg-stone-950">
+    <div className="admin flex min-h-screen items-center justify-center bg-stone-warm px-4 dark:bg-stone-950">
       <form
         onSubmit={onSubmit}
-        className="w-full max-w-sm space-y-4 rounded-2xl border border-stone-200 bg-white p-8 shadow dark:border-stone-700 dark:bg-stone-900"
+        className="admin-modal-panel w-full max-w-sm space-y-4 rounded-2xl border border-stone-200 p-8 shadow dark:border-stone-300"
       >
-        <h1 className="font-serif text-2xl text-stone-900 dark:text-stone-100">
+        <h1 className="font-serif text-2xl text-[#1a0f08]">
           Beheerderslogin
         </h1>
-        <p className="text-stone-400 text-sm">管理员登录</p>
+        <p className="text-sm text-stone-500">管理员登录</p>
         <div>
-          <label className="text-sm font-medium">E-mail</label>
+          <label className="text-sm font-medium text-[#1a0f08]">E-mail</label>
           <input
             type="email"
             autoComplete="username"
-            className="mt-1 w-full rounded-lg border border-stone-300 px-3 py-2 dark:border-stone-600 dark:bg-stone-950"
+            className="mt-1 w-full rounded-lg border border-[#d4c5a0] px-3 py-2"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
           />
         </div>
         <div>
-          <label className="text-sm font-medium">Wachtwoord</label>
+          <label className="text-sm font-medium text-[#1a0f08]">Wachtwoord</label>
           <input
             type="password"
             autoComplete="current-password"
-            className="mt-1 w-full rounded-lg border border-stone-300 px-3 py-2 dark:border-stone-600 dark:bg-stone-950"
+            className="mt-1 w-full rounded-lg border border-[#d4c5a0] px-3 py-2"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required

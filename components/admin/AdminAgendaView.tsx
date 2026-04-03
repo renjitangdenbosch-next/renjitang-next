@@ -88,7 +88,7 @@ export function AdminAgendaView({
               required
               name="datum"
               type="date"
-              className="mt-1 block rounded-xl border border-stone-300 bg-white px-3 py-2 dark:border-stone-600 dark:bg-stone-950"
+              className="mt-1 block rounded-xl border border-[#d4c5a0] px-3 py-2"
             />
           </label>
           <label className="text-sm">
@@ -96,14 +96,14 @@ export function AdminAgendaView({
             <input
               name="tijd"
               type="time"
-              className="mt-1 block rounded-xl border border-stone-300 bg-white px-3 py-2 dark:border-stone-600 dark:bg-stone-950"
+              className="mt-1 block rounded-xl border border-[#d4c5a0] px-3 py-2"
             />
           </label>
           <label className="min-w-[200px] flex-1 text-sm">
             <span className="text-stone-600 dark:text-stone-400">Reden</span>
             <input
               name="reden"
-              className="mt-1 w-full rounded-xl border border-stone-300 bg-white px-3 py-2 dark:border-stone-600 dark:bg-stone-950"
+              className="mt-1 w-full rounded-xl border border-[#d4c5a0] px-3 py-2"
               placeholder="Vakantie / onderhoud…"
             />
           </label>
@@ -159,29 +159,32 @@ export function AdminAgendaView({
           role="dialog"
           aria-modal
         >
-          <div className="max-h-[90vh] w-full max-w-md overflow-y-auto rounded-2xl bg-white p-6 shadow-xl dark:bg-stone-900">
-            <h3 className="font-serif text-xl text-stone-900 dark:text-stone-50">
+          <div
+            className="admin-modal-panel max-h-[90vh] w-full max-w-md 
+              overflow-y-auto rounded-2xl border border-stone-200 p-6 shadow-xl"
+          >
+            <h3 className="font-serif text-xl text-[#1a0f08]">
               {selected.resource?.behandeling || selected.title}
             </h3>
-            <dl className="mt-4 space-y-2 text-sm text-stone-700 dark:text-stone-300">
+            <dl className="mt-4 space-y-2 text-sm text-[#1a0f08]">
               <div>
-                <dt className="text-stone-500">Naam</dt>
+                <dt className="text-stone-600">Naam</dt>
                 <dd>{selected.resource?.naam}</dd>
               </div>
               <div>
-                <dt className="text-stone-500">E-mail</dt>
+                <dt className="text-stone-600">E-mail</dt>
                 <dd>{selected.resource?.email}</dd>
               </div>
               <div>
-                <dt className="text-stone-500">Telefoon</dt>
+                <dt className="text-stone-600">Telefoon</dt>
                 <dd>{selected.resource?.telefoon}</dd>
               </div>
               <div>
-                <dt className="text-stone-500">Tijd</dt>
+                <dt className="text-stone-600">Tijd</dt>
                 <dd>{selected.resource?.tijdslot}</dd>
               </div>
               <div>
-                <dt className="text-stone-500">Status</dt>
+                <dt className="text-stone-600">Status</dt>
                 <dd>
                   {selected.resource?.status
                     ? adminBookingStatusLabel(selected.resource.status)
@@ -190,7 +193,7 @@ export function AdminAgendaView({
               </div>
               {selected.resource?.opmerking && (
                 <div>
-                  <dt className="text-stone-500">Opmerking</dt>
+                  <dt className="text-stone-600">Opmerking</dt>
                   <dd className="whitespace-pre-wrap">{selected.resource.opmerking}</dd>
                 </div>
               )}
@@ -205,7 +208,7 @@ export function AdminAgendaView({
               <button
                 type="button"
                 onClick={() => setSelected(null)}
-                className="rounded-full border border-stone-300 px-4 py-2 text-sm dark:border-stone-600"
+                className="admin-btn-cancel rounded-full px-4 py-2 text-sm"
               >
                 Sluiten
               </button>

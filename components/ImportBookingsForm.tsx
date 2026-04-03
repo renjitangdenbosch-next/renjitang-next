@@ -108,7 +108,7 @@ export function ImportBookingsForm() {
         telefoon, duur, opmerking.
       </p>
       <textarea
-        className="min-h-[200px] w-full rounded-xl border border-stone-300 bg-white p-3 font-mono text-sm dark:border-stone-600 dark:bg-stone-950"
+        className="min-h-[200px] w-full rounded-xl border border-[#d4c5a0] p-3 font-mono text-sm"
         value={raw}
         onChange={(e) => setRaw(e.target.value)}
         placeholder={`naam;email;behandeling;datum;tijdslot\nJan;jan@x.nl;Acupunctuur;2026-04-15;10:00`}
@@ -117,7 +117,7 @@ export function ImportBookingsForm() {
         <button
           type="button"
           onClick={onPreview}
-          className="rounded-full bg-stone-200 px-4 py-2 text-sm font-medium dark:bg-stone-700"
+          className="admin-btn-outline-dark rounded-full px-4 py-2 text-sm font-medium"
         >
           Voorvertoning
         </button>

@@ -60,8 +60,8 @@ export default async function HistoriePage({
           name="q"
           defaultValue={zoek}
           placeholder="Zoek op naam, email of behandeling..."
-          className="w-full border border-stone-200 rounded-xl 
-            px-4 py-3 focus:outline-none focus:border-rjt-red"
+          className="w-full rounded-xl border border-[#d4c5a0] px-4 py-3 
+            focus:border-rjt-red focus:outline-none"
         />
       </form>
 

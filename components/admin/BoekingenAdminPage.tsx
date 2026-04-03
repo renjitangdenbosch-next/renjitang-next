@@ -136,11 +136,17 @@ export function BoekingenAdminPage() {
             className={
               tab === t.key
                 ? "rounded-full bg-rjt-red px-4 py-2 text-sm font-semibold text-white"
-                : "rounded-full border border-stone-300 px-4 py-2 text-sm dark:border-stone-600"
+                : "admin-btn-outline-dark rounded-full px-4 py-2 text-sm font-medium"
             }
           >
             {t.label}
-            <span className="ml-2 rounded-full bg-white/20 px-2 py-0.5 text-xs">
+            <span
+              className={
+                tab === t.key
+                  ? "ml-2 rounded-full bg-white/20 px-2 py-0.5 text-xs text-white"
+                  : "ml-2 rounded-full bg-stone-200 px-2 py-0.5 text-xs text-[#1a0f08]"
+              }
+            >
               {tabBadges[t.key as keyof typeof tabBadges] ?? 0}
             </span>
           </button>
@@ -151,7 +157,7 @@ export function BoekingenAdminPage() {
         <label className="block flex-1 text-sm">
           <span className="text-stone-600 dark:text-stone-400">Zoeken (naam/e-mail)</span>
           <input
-            className="mt-1 w-full rounded-xl border border-stone-300 bg-white px-3 py-2 dark:border-stone-600 dark:bg-stone-950"
+            className="mt-1 w-full rounded-xl border border-[#d4c5a0] px-3 py-2"
             value={searchInput}
             onChange={(e) => setSearchInput(e.target.value)}
             placeholder="Zoek…"
@@ -161,7 +167,7 @@ export function BoekingenAdminPage() {
           <span className="text-stone-600 dark:text-stone-400">Datum</span>
           <input
             type="date"
-            className="mt-1 w-full rounded-xl border border-stone-300 bg-white px-3 py-2 dark:border-stone-600 dark:bg-stone-950"
+            className="mt-1 w-full rounded-xl border border-[#d4c5a0] px-3 py-2"
             value={datumFilter}
             onChange={(e) => setDatumFilter(e.target.value)}
           />
@@ -231,7 +237,7 @@ export function BoekingenAdminPage() {
                 <button
                   type="button"
                   onClick={() => setDetailId(open ? null : b.id)}
-                  className="rounded-lg border border-stone-300 px-3 py-1.5 text-xs font-medium dark:border-stone-600"
+                  className="admin-btn-outline-dark rounded-lg px-3 py-1.5 text-xs font-medium"
                 >
                   {open ? "Details ▲" : "Details ▼"}
                 </button>

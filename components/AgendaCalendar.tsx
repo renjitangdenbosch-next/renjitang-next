@@ -47,7 +47,11 @@ export function AgendaCalendar({
   onSelectEvent,
 }: Props) {
   return (
-    <div className="h-[70vh] min-h-[420px] rounded-xl border border-stone-200 bg-white p-2 dark:border-stone-700 dark:bg-stone-900 [&_.rbc-toolbar]:flex-wrap [&_.rbc-toolbar]:gap-2">
+    <div
+      className="h-[70vh] min-h-[420px] rounded-xl border border-stone-200 
+        bg-white p-2 dark:border-stone-300 dark:bg-white 
+        [&_.rbc-toolbar]:flex-wrap [&_.rbc-toolbar]:gap-2"
+    >
       <Calendar
         localizer={localizer}
         culture="nl"

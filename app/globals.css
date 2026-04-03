@@ -189,3 +189,86 @@ body {
     margin-right: -50vw;
   }
 }
+
+/* —— Admin backend: leesbare formulieren (licht én dark theme) —— */
+.admin input:not([type="checkbox"]):not([type="radio"]):not([type="file"]):not(
+    [type="submit"]
+  ):not([type="button"]):not([type="reset"]):not([type="image"]):not([type="hidden"]),
+.admin textarea,
+.admin select {
+  color: #1a0f08 !important;
+  background-color: #fff !important;
+}
+
+.admin input::placeholder,
+.admin textarea::placeholder {
+  color: #9ca3af !important;
+}
+
+.admin select option {
+  color: #1a0f08;
+  background-color: #fff;
+}
+
+.admin select.admin-select-empty {
+  color: #9ca3af !important;
+}
+
+.admin .admin-modal-panel {
+  background-color: #fff !important;
+  color: #1a0f08;
+}
+
+.admin button.admin-btn-cancel {
+  background: #f5f0e8 !important;
+  color: #1a0f08 !important;
+  border: 1px solid #d4c5a0 !important;
+}
+
+.admin button.admin-btn-cancel:hover {
+  opacity: 0.92;
+}
+
+.admin button.admin-btn-outline-dark {
+  color: #1a0f08 !important;
+  background-color: #f5f0e8 !important;
+  border: 1px solid #d4c5a0 !important;
+}
+
+.admin button.admin-btn-outline-dark:hover {
+  border-color: #c8a040 !important;
+  background-color: #faf7f2 !important;
+}
+
+/* react-big-calendar (admin agenda): toolbar & labels leesbaar */
+.admin .rbc-toolbar {
+  color: #1a0f08 !important;
+}
+
+.admin .rbc-toolbar button {
+  color: #1a0f08 !important;
+  background-color: #fff !important;
+  border: 1px solid #d4c5a0 !important;
+}
+
+.admin .rbc-toolbar button:hover {
+  background-color: #f5f0e8 !important;
+}
+
+.admin .rbc-header,
+.admin .rbc-time-header-content .rbc-header,
+.admin .rbc-agenda-view table,
+.admin .rbc-agenda-view table th,
+.admin .rbc-agenda-view table td {
+  color: #1a0f08 !important;
+}
+
+.admin .rbc-time-slot,
+.admin .rbc-label {
+  color: #57534e !important;
+}
+
+.admin .rbc-show-more {
+  color: #1a0f08 !important;
+  background-color: #f5f0e8 !important;
+}

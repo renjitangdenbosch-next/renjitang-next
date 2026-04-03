@@ -20,7 +20,7 @@ export function AdminChrome({ children }: { children: ReactNode }) {
   if (pathname === "/admin/login") return <>{children}</>;
 
   return (
-    <div className="min-h-screen bg-stone-warm dark:bg-stone-950">
+    <div className="admin min-h-screen bg-stone-warm dark:bg-stone-950">
       <div className="flex flex-col md:flex-row">
         <aside className="border-b border-stone-200 bg-white px-4 py-4 dark:border-stone-700 dark:bg-stone-900 md:w-56 md:border-b-0 md:border-r">
           <p className="font-serif text-lg text-stone-900 dark:text-stone-100">
