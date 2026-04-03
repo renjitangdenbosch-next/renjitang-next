@@ -32,6 +32,8 @@ export async function PATCH(
     tijdslot?: string;
   };
 
+  console.log("PATCH body:", body);
+
   const { status, reden, datum: datumBody, tijdslot: tijdslotBody } = body;
 
   const existing = await prisma.booking.findUnique({

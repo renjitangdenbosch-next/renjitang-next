@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { normalizeTijdslotLabelClient } from "@/lib/tijdslot-string";
 
 const WEIGER_REDEN =
   "Aanvraag geweigerd door praktijk / 诊所已拒绝您的预约申请";
@@ -30,13 +31,15 @@ export function BoekingActies({
   const [datumKeuze, setDatumKeuze] = useState(datumYyyyMmDd);
   const [slots, setSlots] = useState<string[]>([]);
   const [slotsLaden, setSlotsLaden] = useState(false);
-  const [tijdKeuze, setTijdKeuze] = useState(tijdslot);
+  const [tijdKeuze, setTijdKeuze] = useState(
+    () => normalizeTijdslotLabelClient(tijdslot) ?? tijdslot
+  );
   const [modalFout, setModalFout] = useState<string | null>(null);
 
   useEffect(() => {
     if (!modalOpen) return;
     setDatumKeuze(datumYyyyMmDd);
-    setTijdKeuze(tijdslot);
+    setTijdKeuze(normalizeTijdslotLabelClient(tijdslot) ?? tijdslot);
     setModalFout(null);
   }, [modalOpen, datumYyyyMmDd, tijdslot]);
 
@@ -55,14 +58,23 @@ export function BoekingActies({
         );
         u.searchParams.set("datum", datumKeuze);
         u.searchParams.set("behandelingId", behandelingId);
+        u.searchParams.set("excludeBookingId", bookingId);
         const res = await fetch(u.toString());
         const data = (await res.json()) as { slots?: string[] };
         if (!cancelled) {
           const list = data.slots || [];
           setSlots(list);
-          setTijdKeuze((prev) =>
-            list.includes(prev) ? prev : ""
-          );
+          setTijdKeuze((prev) => {
+            const normPrev = normalizeTijdslotLabelClient(prev);
+            const match =
+              list.find(
+                (s) =>
+                  s === prev ||
+                  (normPrev != null &&
+                    normalizeTijdslotLabelClient(s) === normPrev)
+              ) ?? "";
+            return match;
+          });
         }
       } finally {
         if (!cancelled) setSlotsLaden(false);
@@ -73,7 +85,9 @@ export function BoekingActies({
     };
   }, [modalOpen, datumKeuze, behandelingId]);
 
-  async function patchJson(body: Record<string, unknown>) {
+  async function patchJson(
+    body: Record<string, unknown>
+  ): Promise<{ ok: true } | { ok: false; error: string }> {
     setLoading(true);
     try {
       const res = await fetch(`/api/admin/boekingen/${bookingId}`, {
@@ -81,42 +95,56 @@ export function BoekingActies({
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body),
       });
-      const data = (await res.json().catch(() => ({}))) as {
-        error?: string;
-      };
+      const raw = await res.text();
+      let errorMsg = "Actie mislukt / 操作失败";
       if (!res.ok) {
-        window.alert(
-          data.error ||
-            "Actie mislukt / 操作失败"
-        );
-        return false;
+        try {
+          const data = JSON.parse(raw) as { error?: string };
+          if (data.error) errorMsg = data.error;
+        } catch {
+          if (raw.trim()) errorMsg = raw.trim().slice(0, 280);
+        }
+        return { ok: false, error: errorMsg };
       }
-      return true;
+      return { ok: true };
     } finally {
       setLoading(false);
     }
   }
 
   async function actieStatus(nieuweStatus: string, redenArg?: string) {
-    const ok = await patchJson({ status: nieuweStatus, reden: redenArg });
-    if (ok) {
+    const result = await patchJson({ status: nieuweStatus, reden: redenArg });
+    if (result.ok) {
       router.refresh();
       setToonReden(false);
       setReden("");
+    } else {
+      window.alert(result.error);
     }
   }
 
   async function opslaanReschedule() {
     setModalFout(null);
-    if (!datumKeuze || !tijdKeuze) {
-      setModalFout("Kies datum en tijdslot / 请选择日期和时间段");
+    const datumStr = datumKeuze.trim();
+    const tijdNorm = normalizeTijdslotLabelClient(tijdKeuze);
+    if (!datumStr || !/^\d{4}-\d{2}-\d{2}$/.test(datumStr)) {
+      setModalFout("Ongeldige datum (verwacht jjjj-mm-dd) / 日期格式无效");
       return;
     }
-    const ok = await patchJson({ datum: datumKeuze, tijdslot: tijdKeuze });
-    if (ok) {
+    if (!tijdNorm) {
+      setModalFout("Kies een geldig tijdslot (bijv. 09:00) / 请选择有效时间");
+      return;
+    }
+    const result = await patchJson({
+      datum: datumStr,
+      tijdslot: tijdNorm,
+    });
+    if (result.ok) {
       window.alert("Datum/tijd gewijzigd / 日期/时间已更改");
       setModalOpen(false);
       router.refresh();
+    } else {
+      setModalFout(result.error);
     }
   }
 
@@ -240,9 +268,13 @@ export function BoekingActies({
                 <input
                   type="date"
                   value={datumKeuze}
-                  onChange={(e) => setDatumKeuze(e.target.value)}
+                  onChange={(e) => {
+                    const v = e.target.value;
+                    setDatumKeuze(v);
+                    setModalFout(null);
+                  }}
                   className="mt-1 w-full border border-stone-200 rounded-lg 
-                    px-3 py-2 text-sm"
+                    px-3 py-2 text-sm text-stone-900"
                 />
               </label>
               <label className="block text-sm">

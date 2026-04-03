@@ -6,6 +6,8 @@ export async function GET(req: Request) {
   const { searchParams } = new URL(req.url);
   const datum = searchParams.get("datum");
   const behandelingId = searchParams.get("behandelingId");
+  const excludeBookingId =
+    searchParams.get("excludeBookingId")?.trim() || undefined;
 
   if (!datum || !behandelingId || !/^\d{4}-\d{2}-\d{2}$/.test(datum)) {
     return NextResponse.json({ slots: [] });
@@ -15,7 +17,11 @@ export async function GET(req: Request) {
   if (!service) return NextResponse.json({ slots: [] });
 
   try {
-    const slotDates = await getAvailableSlots(datum, service.duur);
+    const slotDates = await getAvailableSlots(
+      datum,
+      service.duur,
+      excludeBookingId
+    );
     const slots = slotDates.map(formatSlotLabel);
     return NextResponse.json({ slots });
   } catch (e) {

@@ -56,20 +56,13 @@ export default function BookingsPage() {
   const [maand, setMaand] = useState(vandaag.getMonth());
   const [jaar, setJaar] = useState(vandaag.getFullYear());
 
-  const maandNamen = [
-    "januari",
-    "februari",
-    "maart",
-    "april",
-    "mei",
-    "juni",
-    "juli",
-    "augustus",
-    "september",
-    "oktober",
-    "november",
-    "december",
-  ];
+  const huidigeMaand = new Date(jaar, maand, 15);
+  const maandNaamNl = new Intl.DateTimeFormat("nl-NL", {
+    month: "long",
+    year: "numeric",
+    timeZone: "Europe/Amsterdam",
+  }).format(huidigeMaand);
+
   const dagNamen = ["Zo", "Ma", "Di", "Wo", "Do", "Vr", "Za"];
 
   function getDagenInMaand(): (Date | null)[] {
@@ -85,7 +78,14 @@ export default function BookingsPage() {
     return dagen;
   }
 
+  function isVakantieperiode(d: Date): boolean {
+    if (d.getFullYear() !== 2026 || d.getMonth() !== 3) return false;
+    const day = d.getDate();
+    return day >= 6 && day <= 27;
+  }
+
   function isDagBeschikbaar(d: Date): boolean {
+    if (isVakantieperiode(d)) return false;
     const nu = new Date();
     nu.setHours(0, 0, 0, 0);
     if (d < nu) return false;
@@ -266,8 +266,15 @@ export default function BookingsPage() {
                 Kies datum en tijd
               </h2>
 
+              <div
+                className="mb-4 text-center text-sm font-lato"
+                style={{ color: "#c8a040" }}
+              >
+                🌴 Gesloten van 6 t/m 27 april wegens vakantie
+              </div>
+
               {/* Kalender navigatie */}
-              <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center justify-between mb-4 gap-2">
                 <button
                   type="button"
                   onClick={() => {
@@ -276,12 +283,16 @@ export default function BookingsPage() {
                       setJaar((j) => j - 1);
                     } else setMaand((m) => m - 1);
                   }}
-                  className="p-2 hover:bg-stone-100 rounded-lg"
+                  className="p-2 hover:bg-stone-100 rounded-lg shrink-0"
+                  aria-label="Vorige maand"
                 >
                   ←
                 </button>
-                <span className="font-semibold capitalize">
-                  {maandNamen[maand]} {jaar}
+                <span
+                  className="font-semibold text-rjt-dark text-center min-h-[1.5rem] 
+                    flex-1 px-1 capitalize"
+                >
+                  {maandNaamNl}
                 </span>
                 <button
                   type="button"
@@ -291,7 +302,8 @@ export default function BookingsPage() {
                       setJaar((j) => j + 1);
                     } else setMaand((m) => m + 1);
                   }}
-                  className="p-2 hover:bg-stone-100 rounded-lg"
+                  className="p-2 hover:bg-stone-100 rounded-lg shrink-0"
+                  aria-label="Volgende maand"
                 >
                   →
                 </button>
@@ -315,8 +327,35 @@ export default function BookingsPage() {
                 {getDagenInMaand().map((d, i) => {
                   if (!d) return <div key={i} />;
                   const iso = localCalendarDateToYyyyMmDd(d);
+                  const vakantie = isVakantieperiode(d);
                   const beschikbaar = isDagBeschikbaar(d);
                   const geselecteerdDag = datum === iso;
+
+                  if (vakantie) {
+                    return (
+                      <div
+                        key={i}
+                        title="Gesloten wegens vakantie"
+                        className="aspect-square rounded-lg flex flex-col items-center 
+                          justify-center gap-0.5 cursor-not-allowed select-none
+                          bg-[rgba(192,57,43,0.08)]"
+                      >
+                        <span
+                          className="text-sm font-medium text-[#c0392b]"
+                          style={{ opacity: 0.6 }}
+                        >
+                          {d.getDate()}
+                        </span>
+                        <span
+                          className="text-[10px] leading-none"
+                          aria-hidden
+                        >
+                          🌴
+                        </span>
+                      </div>
+                    );
+                  }
+
                   return (
                     <button
                       type="button"
