@@ -16,10 +16,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const artikel = blogArtikelen.find((a) => a.slug === slug);
   if (!artikel) return {};
+  const base = (process.env.NEXT_PUBLIC_SITE_URL || "https://www.renjitang.nl").replace(/\/$/, "");
+  const titleAbsolute = artikel.metaTitle ?? `${artikel.titel} — Ren Ji Tang`;
   return {
-    title: `${artikel.titel} — Ren Ji Tang`,
-    description: artikel.intro,
-    alternates: { canonical: `/blog/${artikel.slug}` },
+    title: { absolute: titleAbsolute },
+    description: artikel.metaDescription ?? artikel.intro,
+    alternates: { canonical: `${base}/blog/${artikel.slug}` },
   };
 }
 

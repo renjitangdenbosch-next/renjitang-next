@@ -83,7 +83,7 @@ export function BoekingActies({
     return () => {
       cancelled = true;
     };
-  }, [modalOpen, datumKeuze, behandelingId]);
+  }, [modalOpen, datumKeuze, behandelingId, bookingId]);
 
   async function patchJson(
     body: Record<string, unknown>

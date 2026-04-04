@@ -36,23 +36,26 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     if (path === "/behandelingen") {
       return { url, lastModified, changeFrequency: "monthly", priority: 0.9 };
     }
+    if (path === "/behandelingen/acupunctuur") {
+      return { url, lastModified, changeFrequency: "monthly", priority: 0.9 };
+    }
     if (path.startsWith("/behandelingen/")) {
-      return { url, lastModified, changeFrequency: "monthly", priority: 0.85 };
-    }
-    if (path === "/blog") {
-      return { url, lastModified, changeFrequency: "weekly", priority: 0.75 };
-    }
-    if (path === "/contact" || path === "/tarieven") {
-      return { url, lastModified, changeFrequency: "monthly", priority: 0.85 };
-    }
-    if (path === "/bookings") {
-      return { url, lastModified, changeFrequency: "weekly", priority: 0.85 };
-    }
-    if (path === "/over-ons") {
       return { url, lastModified, changeFrequency: "monthly", priority: 0.8 };
     }
+    if (path === "/bookings") {
+      return { url, lastModified, changeFrequency: "weekly", priority: 0.9 };
+    }
+    if (path === "/blog") {
+      return { url, lastModified, changeFrequency: "weekly", priority: 0.7 };
+    }
+    if (path === "/tarieven" || path === "/over-ons") {
+      return { url, lastModified, changeFrequency: "monthly", priority: 0.7 };
+    }
+    if (path === "/contact") {
+      return { url, lastModified, changeFrequency: "monthly", priority: 0.6 };
+    }
     if (path === "/privacy" || path === "/disclaimer" || path === "/cookiebeleid") {
-      return { url, lastModified, changeFrequency: "yearly", priority: 0.5 };
+      return { url, lastModified, changeFrequency: "yearly", priority: 0.3 };
     }
     return { url, lastModified, changeFrequency: "monthly", priority: 0.75 };
   }
@@ -63,7 +66,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     url: `${base}/blog/${a.slug}`,
     lastModified,
     changeFrequency: "monthly" as const,
-    priority: 0.65,
+    priority: a.sitemapPriority ?? 0.65,
   }));
 
   return [...staticRoutes, ...blogRoutes];

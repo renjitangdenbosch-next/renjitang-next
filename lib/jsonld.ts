@@ -1,51 +1,8 @@
-import { SITE, SERVICES } from "@/lib/site";
-
 const siteUrl = () =>
   (process.env.NEXT_PUBLIC_SITE_URL || "https://www.renjitang.nl").replace(
     /\/$/,
     ""
   );
-
-export function localBusinessJsonLd() {
-  return {
-    "@context": "https://schema.org",
-    "@type": "HealthAndBeautyBusiness",
-    "@id": `${siteUrl()}/#business`,
-    name: SITE.name,
-    description: SITE.shortDescription,
-    url: siteUrl(),
-    email: SITE.email,
-    telephone: SITE.phoneTel,
-    address: {
-      "@type": "PostalAddress",
-      streetAddress: SITE.streetAddress,
-      postalCode: SITE.postalCode,
-      addressLocality: SITE.city,
-      addressRegion: SITE.region,
-      addressCountry: SITE.country,
-    },
-    openingHoursSpecification: SITE.openingHoursSpecification.map((o) => ({
-      "@type": "OpeningHoursSpecification",
-      dayOfWeek: o.dayOfWeek,
-      opens: o.opens,
-      closes: o.closes,
-    })),
-    hasOfferCatalog: {
-      "@type": "OfferCatalog",
-      name: "Behandelingen TCG",
-      itemListElement: SERVICES.map((s, i) => ({
-        "@type": "Offer",
-        itemOffered: {
-          "@type": "Service",
-          name: s.naam,
-          description: s.beschrijving,
-          areaServed: { "@type": "City", name: SITE.city },
-        },
-        position: i + 1,
-      })),
-    },
-  };
-}
 
 export function faqJsonLd(items: { question: string; answer: string }[]) {
   return {

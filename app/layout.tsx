@@ -5,8 +5,7 @@ import "./globals.css";
 import { Providers } from "@/components/Providers";
 import { CookieBanner } from "@/components/CookieBanner";
 import { GoogleAnalyticsWithConsent } from "@/components/GoogleAnalyticsWithConsent";
-import { JsonLd } from "@/components/JsonLd";
-import { localBusinessJsonLd } from "@/lib/jsonld";
+import SchemaOrg from "./components/SchemaOrg";
 
 const serif = Cormorant_Garamond({
   subsets: ["latin", "latin-ext"],
@@ -23,8 +22,10 @@ const sans = Lato({
   display: "swap",
 });
 
-const siteUrl =
-  process.env.NEXT_PUBLIC_SITE_URL || "https://www.renjitang.nl";
+const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL || "https://www.renjitang.nl").replace(
+  /\/$/,
+  ""
+);
 
 export const metadata: Metadata = {
   icons: {
@@ -41,19 +42,41 @@ export const metadata: Metadata = {
   },
   metadataBase: new URL(siteUrl),
   title: {
-    default: "Ren Ji Tang — Acupunctuur & TCG 's-Hertogenbosch",
+    default: "Ren Ji Tang — Acupunctuur & TCG in 's-Hertogenbosch",
     template: "%s | Ren Ji Tang",
   },
   description:
-    "Ren Ji Tang: acupunctuur, Tuina-massage, cupping en ontspanningsmassage in het kader van Traditionele Chinese Geneeskunde (TCG) in 's-Hertogenbosch (Den Bosch).",
+    "De beste TCG-praktijk in 's-Hertogenbosch. Acupunctuur, cupping, massage en kruidengeneeskunde. 5 sterren op Google. Online afspraak 24/7. Erkend door CZ, VGZ, Menzis.",
+  keywords: [
+    "acupunctuur Den Bosch",
+    "acupunctuur 's-Hertogenbosch",
+    "Chinese geneeskunde Den Bosch",
+    "TCG Den Bosch",
+    "cupping Den Bosch",
+    "massage Den Bosch",
+    "acupuncturist Den Bosch",
+    "traditionele Chinese geneeskunde Noord-Brabant",
+    "burn-out behandeling Den Bosch",
+    "stress behandeling Den Bosch",
+  ],
+  authors: [{ name: "Ren Ji Tang" }],
+  creator: "Ren Ji Tang",
   openGraph: {
     type: "website",
     locale: "nl_NL",
     url: siteUrl,
     siteName: "Ren Ji Tang",
-    title: "Ren Ji Tang — Acupunctuur & TCG Den Bosch",
+    title: "Ren Ji Tang — Acupunctuur & TCG in 's-Hertogenbosch | 5 Sterren",
     description:
-      "Praktijk voor Traditionele Chinese Geneeskunde in 's-Hertogenbosch.",
+      "Enige TCG-praktijk in 's-Hertogenbosch met Mandarijnsprekende behandelaar. 5.0 sterren op Google. Online afspraak 24/7. Erkend door alle grote zorgverzekeraars.",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+    },
   },
 };
 
@@ -93,7 +116,7 @@ export default function RootLayout({
             <GoogleAnalyticsWithConsent measurementId={gaId} />
           </>
         ) : null}
-        <JsonLd data={localBusinessJsonLd()} />
+        <SchemaOrg />
         <Providers>{children}</Providers>
         <CookieBanner />
       </body>

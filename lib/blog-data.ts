@@ -6,6 +6,12 @@ export type BlogArtikel = {
   afbeelding: string;
   datum: string;
   inhoud: string;
+  /** Optioneel: exacte meta title (zonder layout-template). */
+  metaTitle?: string;
+  /** Optioneel: meta description; anders wordt intro gebruikt. */
+  metaDescription?: string;
+  /** Optioneel: sitemap-priority (default 0,65 in sitemap.ts). */
+  sitemapPriority?: number;
 };
 
 export const blogArtikelen: BlogArtikel[] = [
@@ -106,6 +112,132 @@ Wij zijn erkend door Zhong (Nederlandse Vereniging voor TCM), KAB Koepel en SCAG
 ## Vergoeding zorgverzekeraar
 
 Veel zorgverzekeraars vergoeden TCM behandelingen gedeeltelijk via het aanvullend pakket. Controleer uw polisvoorwaarden of neem contact met ons op voor meer informatie.
+    `.trim(),
+  },
+  {
+    slug: "acupunctuur-bij-burn-out",
+    titel: "Acupunctuur bij burn-out: wat kun je verwachten?",
+    categorie: "Acupunctuur",
+    metaTitle: "Acupunctuur bij burn-out: wat kun je verwachten?",
+    metaDescription:
+      "Burn-out herstel met acupunctuur in 's-Hertogenbosch. Ren Ji Tang behandelt stress en vermoeidheid met TCG. Vergoed door zorgverzekeraar.",
+    sitemapPriority: 0.8,
+    intro:
+      "Burn-out is meer dan alleen vermoeidheid. Het is een toestand waarbij lichaam en geest volledig uitgeput zijn — waarbij rust alleen niet genoeg is om te herstellen. Steeds meer mensen in 's-Hertogenbosch zoeken naast reguliere begeleiding naar natuurlijke ondersteuning. Acupunctuur is daar één van.",
+    afbeelding: "/images/hero_3_acupunctuur.jpg",
+    datum: "2026-01-10",
+    inhoud: `
+## Wat doet acupunctuur bij burn-out?
+
+Vanuit de Traditionele Chinese Geneeskunde (TCG) wordt burn-out gezien als een ernstige uitputting van de levensenergie (Qi). Het lichaam heeft letterlijk zijn reserves opgebruikt. Acupunctuur herstelt deze balans door specifieke punten te stimuleren die het zenuwstelsel kalmeren, de bijnieren ondersteunen en de slaapkwaliteit verbeteren.
+
+## Wat merk je tijdens de behandeling?
+
+De meeste cliënten ervaren al tijdens de eerste behandeling een diep ontspannen gevoel. Sommigen vallen in slaap op de behandeltafel. Na een aantal behandelingen melden cliënten:
+
+- Betere slaap
+- Meer energie overdag
+- Minder piekeren
+- Rustiger zenuwstelsel
+- Meer veerkracht
+
+## Hoe lang duurt een behandeltraject?
+
+Bij burn-out adviseren wij meestal 6 tot 10 behandelingen, afhankelijk van hoe lang de klachten al spelen. De intake bij Ren Ji Tang duurt 90 minuten — daarin bespreken we klachten uitgebreid en starten we met de eerste behandeling.
+
+## Wordt het vergoed?
+
+Ja. Acupunctuur wordt vergoed via de aanvullende zorgverzekering. Ren Ji Tang is aangesloten bij Zhong en erkend door CZ, VGZ, Menzis, Zilveren Kruis en DSW.
+
+## Afspraak maken
+
+Maak een afspraak via renjitang.nl/bookings of bel 073 211 02 24. Bereikbaar dinsdag t/m vrijdag tot 20:00 en in het weekend.
+    `.trim(),
+  },
+  {
+    slug: "acupunctuur-vergoeding-2026",
+    titel: "Wordt acupunctuur vergoed in 2026?",
+    categorie: "Vergoeding",
+    metaTitle: "Wordt acupunctuur vergoed in 2026?",
+    metaDescription:
+      "Acupunctuur vergoeding 2026: ontdek welke zorgverzekeraars TCG vergoeden. Ren Ji Tang in 's-Hertogenbosch is erkend door CZ, VGZ, Menzis en meer.",
+    sitemapPriority: 0.8,
+    intro:
+      "Een van de meest gestelde vragen bij Ren Ji Tang: vergoedt mijn zorgverzekering de behandelingen? Het antwoord is in de meeste gevallen: ja — via de aanvullende verzekering.",
+    afbeelding: "/images/hero_acupunctuur_handen.jpg",
+    datum: "2026-02-01",
+    inhoud: `
+## Hoe werkt de vergoeding?
+
+Acupunctuur valt niet onder het basispakket maar wel onder het aanvullend pakket. Hoeveel je vergoed krijgt hangt af van je verzekering en pakket.
+
+Ren Ji Tang is aangesloten bij Zhong, erkend door:
+
+- CZ
+- VGZ
+- Menzis
+- Zilveren Kruis
+- DSW
+- En meer
+
+## Hoeveel krijg ik vergoed?
+
+Dit verschilt per verzekeraar. Gemiddeld vergoeden aanvullende pakketten tussen €200 en €600 per jaar voor alternatieve geneeskunde. Controleer je polisvoorwaarden of bel je verzekeraar.
+
+## Wat kost een behandeling bij Ren Ji Tang?
+
+- Intake (90 minuten): vanaf €85
+- Vervolgbehandeling (60 minuten): vanaf €65
+
+## Hoe declareer ik?
+
+Na elke behandeling ontvang je een factuur van Ren Ji Tang. Die stuur je op naar je zorgverzekeraar. Veel verzekeraars hebben hier een app voor.
+
+## Vragen of afspraak?
+
+Vragen over vergoeding? Bel 073 211 02 24 of WhatsApp. Afspraak maken via renjitang.nl/bookings.
+    `.trim(),
+  },
+  {
+    slug: "acupunctuur-of-fysiotherapie",
+    titel: "Acupunctuur of fysiotherapie: wat past bij jou?",
+    categorie: "Acupunctuur",
+    metaTitle: "Acupunctuur of fysiotherapie: wat past bij jou?",
+    metaDescription:
+      "Wat is het verschil tussen acupunctuur en fysiotherapie? Ren Ji Tang legt uit wanneer TCG de betere keuze is voor rugpijn, stress en chronische klachten.",
+    sitemapPriority: 0.8,
+    intro:
+      "Bij rugpijn of nekklachten denken veel mensen direct aan de fysiotherapeut. Logisch — fysiotherapie is bekend en goed vergoed. Maar steeds meer mensen in 's-Hertogenbosch kiezen ook voor acupunctuur, soms naast fysiotherapie, soms als alternatief.",
+    afbeelding: "/images/hero_2_massage.jpg",
+    datum: "2026-03-05",
+    inhoud: `
+## Fysiotherapie: gericht op het bewegingsapparaat
+
+Fysiotherapie richt zich op spieren, gewrichten en het bewegingsapparaat via oefeningen, mobilisatie en massage. Effectief bij acute blessures en revalidatie.
+
+## Acupunctuur: gericht op de oorzaak
+
+Traditionele Chinese Geneeskunde beschouwt klachten als een verstoring van de balans in het lichaam. Acupunctuur behandelt niet alleen het symptoom maar ook de onderliggende oorzaak. Effectief bij chronische pijn, stress-gerelateerde klachten en klachten waarbij fysiotherapie onvoldoende helpt.
+
+## Wanneer kies je voor acupunctuur?
+
+- Chronische klachten die niet overgaan
+- Pijn gecombineerd met stress of vermoeidheid
+- Slaapproblemen naast fysieke klachten
+- Als aanvulling op fysiotherapie
+- Bij burn-out of overspannenheid
+
+## Kunnen ze samen?
+
+Ja. Acupunctuur en fysiotherapie sluiten elkaar niet uit. Veel cliënten van Ren Ji Tang combineren beide behandelingen met goed resultaat.
+
+## Beide vergoed?
+
+Ja, beide via de aanvullende zorgverzekering. Ren Ji Tang is erkend door alle grote verzekeraars via Zhong.
+
+## Intake plannen
+
+Twijfel je welke behandeling bij jou past? Maak een intake afspraak via renjitang.nl/bookings. Bel of WhatsApp: 073 211 02 24.
     `.trim(),
   },
 ];
