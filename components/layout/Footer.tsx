@@ -98,18 +98,18 @@ export function Footer() {
             <h3 className="mb-5 font-lato text-xs uppercase tracking-[0.2em] text-[#2D6A2D]">
               Openingstijden
             </h3>
-            <div className="space-y-2 font-lato text-sm font-medium text-[#1A2E1A]">
+            <div className="space-y-2 font-lato text-sm font-semibold text-[#1A2E1A]">
               <div className="flex justify-between gap-8">
                 <span>Dinsdag t/m vrijdag</span>
-                <span>09:00 – 20:00</span>
+                <span className="text-[#1A2E1A]">09:00 – 20:00</span>
               </div>
               <div className="flex justify-between gap-8">
                 <span>Zaterdag &amp; zondag</span>
-                <span>09:00 – 17:00</span>
+                <span className="text-[#1A2E1A]">09:00 – 17:00</span>
               </div>
               <div className="flex justify-between gap-8">
                 <span>Maandag</span>
-                <span className="text-[#1A2E1A]/80">Gesloten</span>
+                <span className="text-[#1A2E1A]">Gesloten</span>
               </div>
             </div>
           </div>

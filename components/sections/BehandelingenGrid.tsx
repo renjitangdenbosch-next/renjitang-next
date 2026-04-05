@@ -68,18 +68,18 @@ export function BehandelingenGrid() {
                     sizes="(max-width:768px) 100vw, 33vw"
                     className="object-cover transition-transform duration-500 group-hover:scale-105"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-black/5 to-transparent" />
                   <div className="pointer-events-none absolute right-4 top-4 select-none font-cormorant text-[80px] leading-none text-white/10">
                     {BEHANDELING_DETAILS[b.slug].karakterCN}
                   </div>
                   <div className="absolute bottom-0 left-0 right-0 p-5">
-                    <AnimatedLine width={60} color="#4A9E4A" className="mb-3" noMargin />
-                    <span className="mb-1 block font-lato text-[10px] uppercase tracking-[0.2em] text-[#4A9E4A]">
+                    <AnimatedLine width={60} color="#ffffff" className="mb-3 opacity-90" noMargin />
+                    <span className="mb-1 block font-lato text-[10px] uppercase tracking-[0.2em] text-white/85">
                       Traditionele Chinese Geneeskunde
                     </span>
                     <h3 className="mb-2 font-cormorant text-2xl font-normal text-white">{b.naam}</h3>
-                    <p className="mb-3 line-clamp-2 font-lato text-sm text-white/75">{b.beschrijving}</p>
-                    <span className="font-lato text-xs uppercase tracking-wide text-[#4A9E4A]">
+                    <p className="mb-3 line-clamp-2 font-lato text-sm text-white/90">{b.beschrijving}</p>
+                    <span className="font-lato text-xs uppercase tracking-wide text-white/90">
                       Meer informatie →
                     </span>
                   </div>
