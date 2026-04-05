@@ -16,7 +16,7 @@ export function ContactPageHero() {
         className="absolute inset-0 z-10"
         style={{
           background:
-            "linear-gradient(to right, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.5) 55%, rgba(0,0,0,0.4) 100%)",
+            "linear-gradient(to right, rgba(0,0,0,0.325) 0%, rgba(0,0,0,0.25) 55%, rgba(0,0,0,0.2) 100%)",
         }}
         aria-hidden
       />

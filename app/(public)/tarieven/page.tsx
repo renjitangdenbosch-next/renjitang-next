@@ -33,7 +33,7 @@ export default function TarievenPage() {
       >
         <div
           className="absolute inset-0 z-10"
-          style={{ background: "rgba(0,0,0,0.5)" }}
+          style={{ background: "rgba(0,0,0,0.15)" }}
           aria-hidden
         />
         <div className="absolute inset-0 z-20 flex items-end pb-12">

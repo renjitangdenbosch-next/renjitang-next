@@ -26,7 +26,7 @@ export default function BehandelingenPage() {
       >
         <div
           className="absolute inset-0 z-10"
-          style={{ background: "rgba(0,0,0,0.5)" }}
+          style={{ background: "rgba(0,0,0,0.15)" }}
           aria-hidden
         />
         <div className="pointer-events-none absolute right-6 top-1/2 z-10 -translate-y-1/2 font-cormorant text-[140px] leading-none text-white/15 select-none">

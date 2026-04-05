@@ -34,7 +34,7 @@ export function PageLayout({
           className="absolute inset-0 z-10"
           style={{
             background:
-              "linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.55) 45%, rgba(0,0,0,0.4) 100%)",
+              "linear-gradient(to top, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.15) 45%, rgba(0,0,0,0.1) 100%)",
           }}
           aria-hidden
         />

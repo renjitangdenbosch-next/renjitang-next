@@ -11,7 +11,7 @@ import { SITE } from "@/lib/site";
 import { CTABanner } from "@/components/sections/CTABanner";
 
 const DEFAULT_HERO_OVERLAY =
-  "linear-gradient(to right, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.5) 50%, rgba(0,0,0,0.4) 100%)";
+  "linear-gradient(to right, rgba(0,0,0,0.25) 0%, rgba(0,0,0,0.15) 50%, rgba(0,0,0,0.1) 100%)";
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 36 },

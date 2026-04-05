@@ -54,8 +54,7 @@ export function bookingStartUtc(booking: {
   datum: Date;
   tijdslot: string;
 }): Date {
-  const z = toZonedTime(booking.datum, TZ);
-  const d = format(z, "yyyy-MM-dd");
+  const d = formatInTimeZone(booking.datum, TZ, "yyyy-MM-dd");
   const mins = parseTimeToMinutes(booking.tijdslot);
   if (mins == null) {
     return fromZonedTime(`${d}T09:00:00`, TZ);

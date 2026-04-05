@@ -68,7 +68,7 @@ export function BehandelingenGrid() {
                     sizes="(max-width:768px) 100vw, 33vw"
                     className="object-cover transition-transform duration-500 group-hover:scale-105"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
                   <div className="pointer-events-none absolute right-4 top-4 select-none font-cormorant text-[80px] leading-none text-white/10">
                     {BEHANDELING_DETAILS[b.slug].karakterCN}
                   </div>
