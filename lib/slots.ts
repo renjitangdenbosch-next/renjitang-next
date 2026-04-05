@@ -5,9 +5,8 @@ import {
   format,
   getDay,
   isBefore,
-  isSameDay,
 } from "date-fns";
-import { fromZonedTime, toZonedTime } from "date-fns-tz";
+import { formatInTimeZone, fromZonedTime, toZonedTime } from "date-fns-tz";
 import { prisma } from "@/lib/prisma";
 
 const TZ = "Europe/Amsterdam";
@@ -194,11 +193,12 @@ export async function getAvailableSlots(
       t += SLOT_STEP_MIN * 60 * 1000
     ) {
       const slot = new Date(t);
-      const zSlot = toZonedTime(slot, TZ);
-      const zNow = toZonedTime(now, TZ);
-      if (isSameDay(zSlot, zNow) && !isBefore(now, slot)) continue;
+      const isTodayAmsterdam =
+        formatInTimeZone(slot, TZ, "yyyy-MM-dd") ===
+        formatInTimeZone(now, TZ, "yyyy-MM-dd");
+      if (isTodayAmsterdam && slot.getTime() <= now.getTime()) continue;
 
-      const slotLabel = `${pad(zSlot.getHours())}:${pad(zSlot.getMinutes())}`;
+      const slotLabel = formatInTimeZone(slot, TZ, "HH:mm");
       if (blockedStarts.has(slotLabel)) continue;
 
       const candidate = {
@@ -218,8 +218,7 @@ export async function getAvailableSlots(
 }
 
 export function formatSlotLabel(d: Date): string {
-  const z = toZonedTime(d, TZ);
-  return `${pad(z.getHours())}:${pad(z.getMinutes())}`;
+  return formatInTimeZone(d, TZ, "HH:mm");
 }
 
 /** Client-tijd naar hetzelfde HH:mm-formaat als `formatSlotLabel` (leading zeros). */

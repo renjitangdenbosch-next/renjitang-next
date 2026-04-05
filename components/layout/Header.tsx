@@ -149,7 +149,7 @@ export function Header() {
                 "flex h-10 w-10 items-center justify-center rounded-sm border md:hidden",
                 solid
                   ? "border-stone-300 text-ink"
-                  : "border-white/40 text-white"
+                  : "border-ink/40 text-ink"
               )}
               aria-expanded={menuOpen}
               aria-controls="mobile-drawer"
@@ -178,12 +178,12 @@ export function Header() {
             aria-label="Menu sluiten"
             onClick={closeMobile}
           />
-          <div className="absolute right-0 top-0 flex h-full w-[min(100%,22rem)] flex-col bg-[#1A2E1A]/40 backdrop-blur-xl shadow-xl">
-            <div className="flex items-center justify-between border-b border-white/10 px-4 py-4">
-              <span className="font-lato text-lg font-medium text-white">Menu</span>
+          <div className="absolute right-0 top-0 flex h-full w-[min(100%,22rem)] flex-col bg-[#F4FAF0]/95 backdrop-blur-xl shadow-xl">
+            <div className="flex items-center justify-between border-b border-[#1A2E1A]/10 px-4 py-4">
+              <span className="font-lato text-lg font-medium text-[#1A2E1A]">Menu</span>
               <button
                 type="button"
-                className="rounded-sm p-2 text-white/80 hover:bg-white/10"
+                className="rounded-sm p-2 text-[#1A2E1A]/90 hover:bg-[#1A2E1A]/10"
                 aria-label="Sluiten"
                 onClick={closeMobile}
               >
@@ -194,7 +194,7 @@ export function Header() {
               <Link
                 href="/behandelingen"
                 onClick={closeMobile}
-                className="border-b border-white/10 px-6 py-3 font-lato text-white/90"
+                className="border-b border-[#1A2E1A]/10 px-6 py-3 font-lato text-[#1A2E1A]"
               >
                 Behandelingen
               </Link>
@@ -203,7 +203,7 @@ export function Header() {
                   key={item.href}
                   href={item.href}
                   onClick={closeMobile}
-                  className="border-b border-white/5 pl-10 pr-6 py-2.5 font-lato text-sm text-white/75"
+                  className="border-b border-[#1A2E1A]/10 pl-10 pr-6 py-2.5 font-lato text-sm text-[#1A2E1A]/80"
                 >
                   {item.label}
                 </Link>
@@ -213,7 +213,7 @@ export function Header() {
                   key={item.href}
                   href={item.href}
                   onClick={closeMobile}
-                  className="border-b border-white/10 px-6 py-3 font-lato text-white/90"
+                  className="border-b border-[#1A2E1A]/10 px-6 py-3 font-lato text-[#1A2E1A]"
                 >
                   {item.label}
                 </Link>

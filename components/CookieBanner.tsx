@@ -85,7 +85,7 @@ export function CookieBanner() {
         role="dialog"
         aria-labelledby={titleId}
         aria-modal={false}
-        className="fixed bottom-0 left-0 right-0 z-[90] border-t border-[#c8a040]/25 bg-[#1A2E1A]/98 shadow-[0_-8px_32px_rgba(0,0,0,0.35)] backdrop-blur-sm"
+        className="fixed bottom-0 left-0 right-0 z-[90] border-t border-[#c8a040]/25 bg-[#F4FAF0]/98 shadow-[0_-8px_32px_rgba(0,0,0,0.35)] backdrop-blur-sm"
         style={{
           transform: visible ? "translateY(0)" : "translateY(100%)",
           opacity: visible ? 1 : 0,
@@ -98,9 +98,8 @@ export function CookieBanner() {
             <p id={titleId} className="font-serif text-base font-normal text-[#c8a040] md:text-[1.05rem]">
               Cookies &amp; privacy
             </p>
-            <p className="mt-1 font-sans text-sm leading-relaxed text-white/75">
-              Wij gebruiken noodzakelijke cookies en — met uw toestemming — Google Analytics.{" "}
-              <span className="whitespace-nowrap text-white/85">我们使用必要的 Cookie；经您同意还会使用 Google 分析。</span>
+            <p className="mt-1 font-sans text-sm leading-relaxed text-[#1A2E1A]/80">
+              Wij gebruiken noodzakelijke cookies en — met uw toestemming — Google Analytics.
             </p>
             <Link
               href="/cookiebeleid"
@@ -113,24 +112,24 @@ export function CookieBanner() {
           <div className="flex flex-shrink-0 flex-col gap-2 sm:flex-row sm:flex-wrap sm:items-center">
             <button
               type="button"
-              className="rounded-sm bg-[#c8a040] px-4 py-2.5 font-sans text-sm font-semibold text-black transition-opacity hover:opacity-90"
+              className="rounded-sm bg-[#C0392B] px-4 py-2.5 font-sans text-sm font-semibold text-white transition-opacity hover:opacity-90"
               onClick={() => applyChoice(true, closeBanner)}
             >
-              Alles accepteren <span className="font-normal opacity-90">· 全部接受</span>
+              Alles accepteren
             </button>
             <button
               type="button"
-              className="rounded-sm border-2 border-[#c8a040] bg-transparent px-4 py-2.5 font-sans text-sm font-semibold text-[#f5e6c8] transition-colors hover:bg-[#c8a040]/10"
+              className="rounded-sm border-2 border-[#1A2E1A] bg-transparent px-4 py-2.5 font-sans text-sm font-semibold text-[#1A2E1A] transition-colors hover:bg-[#1A2E1A]/10"
               onClick={() => applyChoice(false, closeBanner)}
             >
-              Alles weigeren <span className="font-normal opacity-90">· 全部拒绝</span>
+              Alles weigeren
             </button>
             <button
               type="button"
-              className="rounded-sm border border-white/20 bg-white/5 px-4 py-2.5 font-sans text-sm font-medium text-white/90 transition-colors hover:bg-white/10"
+              className="rounded-sm border border-[#1A2E1A]/20 bg-[#1A2E1A]/5 px-4 py-2.5 font-sans text-sm font-medium text-[#1A2E1A] transition-colors hover:bg-[#1A2E1A]/10"
               onClick={openPreferences}
             >
-              Voorkeuren instellen <span className="font-normal opacity-80">· 设置偏好</span>
+              Voorkeuren instellen
             </button>
           </div>
         </div>
@@ -150,34 +149,20 @@ export function CookieBanner() {
             role="dialog"
             aria-modal="true"
             aria-labelledby={modalTitleId}
-            className="relative z-10 w-full max-w-lg rounded-2xl border border-[#c8a040]/25 bg-[#1A2E1A] p-6 shadow-2xl sm:p-8"
+            className="relative z-10 w-full max-w-lg rounded-2xl border border-[#c8a040]/25 bg-[#F4FAF0] p-6 shadow-2xl sm:p-8"
           >
-            <span
-              className="pointer-events-none absolute right-4 top-4 select-none font-serif text-5xl leading-none text-[#c8a040]/12"
-              aria-hidden
-            >
-              隐
-            </span>
-
-            <h2
-              id={modalTitleId}
-              className="pr-10 font-serif text-xl font-normal text-[#c8a040] sm:text-2xl"
-            >
-              Cookievoorkeuren <span className="text-lg font-normal text-white/50 sm:text-xl">· 偏好设置</span>
+            <h2 id={modalTitleId} className="pr-10 font-serif text-xl font-normal text-[#c8a040] sm:text-2xl">
+              Cookievoorkeuren
             </h2>
-            <p className="mt-2 font-sans text-sm text-white/65">
-              Kies per categorie. / <span lang="zh-Hans">按类别选择。</span>
-            </p>
+            <p className="mt-2 font-sans text-sm text-[#1A2E1A]/70">Kies per categorie.</p>
 
             <ul className="mt-6 space-y-4">
-              <li className="rounded-xl border border-white/10 bg-white/[0.04] px-4 py-4">
+              <li className="rounded-xl border border-[#1A2E1A]/10 bg-[#1A2E1A]/5 px-4 py-4">
                 <div className="flex items-center justify-between gap-4">
                   <div>
-                    <p className="font-sans text-sm font-medium text-white/90">
-                      Noodzakelijk <span className="font-normal text-white/45">· 必要</span>
-                    </p>
-                    <p className="mt-1 font-sans text-xs text-white/50">
-                      Altijd actief voor beveiliging en werking van de site. / 网站运行与安全所必需。
+                    <p className="font-sans text-sm font-medium text-[#1A2E1A]">Noodzakelijk</p>
+                    <p className="mt-1 font-sans text-xs text-[#1A2E1A]/70">
+                      Altijd actief voor beveiliging en werking van de site.
                     </p>
                   </div>
                   <div
@@ -187,19 +172,17 @@ export function CookieBanner() {
                     <span className="absolute left-1 top-1 h-6 w-6 rounded-full bg-[#c8a040]" />
                   </div>
                 </div>
-                <p className="mt-2 font-sans text-[0.65rem] uppercase tracking-wider text-white/35">
-                  Altijd aan · 始终开启
+                <p className="mt-2 font-sans text-[0.65rem] uppercase tracking-wider text-[#1A2E1A]/60">
+                  Altijd aan
                 </p>
               </li>
 
-              <li className="rounded-xl border border-white/10 bg-white/[0.04] px-4 py-4">
+              <li className="rounded-xl border border-[#1A2E1A]/10 bg-[#1A2E1A]/5 px-4 py-4">
                 <div className="flex items-center justify-between gap-4">
                   <div>
-                    <p className="font-sans text-sm font-medium text-white/90">
-                      Analytisch <span className="font-normal text-white/45">· 分析</span>
-                    </p>
-                    <p className="mt-1 font-sans text-xs text-white/50">
-                      Google Analytics — gebruik van de website meten. / Google 分析，用于统计访问情况。
+                    <p className="font-sans text-sm font-medium text-[#1A2E1A]">Analytisch</p>
+                    <p className="mt-1 font-sans text-xs text-[#1A2E1A]/70">
+                      Google Analytics — gebruik van de website meten.
                     </p>
                   </div>
                   <button
@@ -208,7 +191,7 @@ export function CookieBanner() {
                     aria-checked={analyticsDraft}
                     onClick={() => setAnalyticsDraft((v) => !v)}
                     className={`relative h-8 w-14 shrink-0 rounded-full transition-colors ${
-                      analyticsDraft ? "bg-[#c8a040]" : "bg-stone-600"
+                      analyticsDraft ? "bg-[#c8a040]" : "bg-stone-400"
                     }`}
                   >
                     <span
@@ -225,14 +208,14 @@ export function CookieBanner() {
             <div className="mt-8 flex flex-col-reverse gap-2 sm:flex-row sm:justify-end">
               <button
                 type="button"
-                className="rounded-sm border border-white/20 px-5 py-2.5 font-sans text-sm text-white/80 hover:bg-white/5"
+                className="rounded-sm border border-[#1A2E1A]/20 px-5 py-2.5 font-sans text-sm text-[#1A2E1A]/90 hover:bg-[#1A2E1A]/5"
                 onClick={closeModal}
               >
-                Annuleren <span className="opacity-70">· 取消</span>
+                Annuleren
               </button>
               <button
                 type="button"
-                className="rounded-sm bg-[#c8a040] px-5 py-2.5 font-sans text-sm font-semibold text-black hover:opacity-90"
+                className="rounded-sm bg-[#C0392B] px-5 py-2.5 font-sans text-sm font-semibold text-white hover:opacity-90"
                 onClick={() => {
                   applyChoice(analyticsDraft, () => {
                     setModalOpen(false);
@@ -240,7 +223,7 @@ export function CookieBanner() {
                   });
                 }}
               >
-                Voorkeuren opslaan <span className="font-normal opacity-90">· 保存偏好</span>
+                Voorkeuren opslaan
               </button>
             </div>
           </div>
