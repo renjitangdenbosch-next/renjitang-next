@@ -10,7 +10,7 @@ import { formatInTimeZone, fromZonedTime, toZonedTime } from "date-fns-tz";
 import { prisma } from "@/lib/prisma";
 
 const TZ = "Europe/Amsterdam";
-export const SLOT_BUFFER_MIN = 15;
+export const SLOT_BUFFER_MIN = 0;
 const SLOT_STEP_MIN = 30;
 
 /** Vakantie 2026: Amsterdam-kalenderdatum als `yyyy-MM-dd` (zelfde als `dayStr` in deze module). */
