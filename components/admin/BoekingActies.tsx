@@ -255,12 +255,12 @@ export function BoekingActies({
           >
             <h2
               id="reschedule-modal-title"
-              className="mb-4 font-serif text-lg font-semibold text-[#1a0f08]"
+              className="mb-4 font-serif text-lg font-semibold text-[#1A2E1A]"
             >
               Wijzig datum/tijd / 修改日期/时间
             </h2>
             <div className="space-y-4">
-              <label className="block text-sm text-[#1a0f08]">
+              <label className="block text-sm text-[#1A2E1A]">
                 <span className="text-stone-600">
                   Nieuwe datum / 新日期
                 </span>
@@ -275,7 +275,7 @@ export function BoekingActies({
                   className="mt-1 w-full rounded-lg border border-[#d4b87a] px-3 py-2.5 text-base"
                 />
               </label>
-              <label className="block text-sm text-[#1a0f08]">
+              <label className="block text-sm text-[#1A2E1A]">
                 <span className="text-stone-600">
                   Nieuw tijdslot / 新时间段
                 </span>

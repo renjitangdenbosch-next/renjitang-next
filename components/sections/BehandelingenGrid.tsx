@@ -30,17 +30,17 @@ export function BehandelingenGrid() {
           <div className="pointer-events-none absolute inset-0 flex select-none items-center justify-center">
             <span className="font-cormorant text-[200px] leading-none text-[#1A1208]/5">療</span>
           </div>
-          <span className="mb-4 block font-lato text-[11px] uppercase tracking-[0.25em] text-[#B8860B]">
+          <span className="mb-4 block font-lato text-[11px] uppercase tracking-[0.25em] text-[#4A9E4A]">
             Ren Ji Tang
           </span>
-          <AnimatedLine width={160} color="#B8860B" className="mx-auto mb-4" noMargin />
+          <AnimatedLine width={160} color="#4A9E4A" className="mx-auto mb-4" noMargin />
           <h2
             id="behandelingen-grid-heading"
-            className="mb-4 font-cormorant text-5xl font-normal text-[#1A1208]"
+            className="mb-4 font-cormorant text-5xl font-normal text-[#1A2E1A]"
           >
             Onze behandelingen
           </h2>
-          <p className="mx-auto max-w-md font-lato text-base text-[#9E8E75]">
+          <p className="mx-auto max-w-md font-lato text-base text-[#6B8C6B]">
             Traditionele Chinese geneeskunde voor lichaam en geest
           </p>
         </div>
@@ -73,13 +73,13 @@ export function BehandelingenGrid() {
                     {BEHANDELING_DETAILS[b.slug].karakterCN}
                   </div>
                   <div className="absolute bottom-0 left-0 right-0 p-5">
-                    <AnimatedLine width={60} color="#B8860B" className="mb-3" noMargin />
-                    <span className="mb-1 block font-lato text-[10px] uppercase tracking-[0.2em] text-[#B8860B]">
+                    <AnimatedLine width={60} color="#4A9E4A" className="mb-3" noMargin />
+                    <span className="mb-1 block font-lato text-[10px] uppercase tracking-[0.2em] text-[#4A9E4A]">
                       Traditionele Chinese Geneeskunde
                     </span>
                     <h3 className="mb-2 font-cormorant text-2xl font-normal text-white">{b.naam}</h3>
                     <p className="mb-3 line-clamp-2 font-lato text-sm text-white/75">{b.beschrijving}</p>
-                    <span className="font-lato text-xs uppercase tracking-wide text-[#B8860B]">
+                    <span className="font-lato text-xs uppercase tracking-wide text-[#4A9E4A]">
                       Meer informatie →
                     </span>
                   </div>

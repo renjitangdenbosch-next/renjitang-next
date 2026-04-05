@@ -22,7 +22,7 @@ const tarieven = [
 
 export default function TarievenPage() {
   return (
-    <div className="min-h-screen bg-[#F9F5EE]">
+    <div className="min-h-screen bg-[#F4FAF0]">
       <ParallaxHeroBackground
         className="relative h-[42vh] min-h-[300px] w-full overflow-hidden"
         src="/images/hero-behandelaar.jpg"
@@ -38,7 +38,7 @@ export default function TarievenPage() {
         />
         <div className="absolute inset-0 z-20 flex items-end pb-12">
           <div className="mx-auto w-full max-w-3xl px-6">
-            <span className="mb-4 block font-lato text-xs uppercase tracking-[0.2em] text-[#B8860B]">
+            <span className="mb-4 block font-lato text-xs uppercase tracking-[0.2em] text-[#4A9E4A]">
               Tarieven
             </span>
             <h1 className="mb-4 font-cormorant text-5xl text-white">Onze tarieven</h1>
@@ -49,10 +49,10 @@ export default function TarievenPage() {
 
       <div className="mx-auto max-w-3xl px-6 py-12">
         <div className="mb-8 overflow-hidden rounded-sm border border-stone-200/80 bg-white">
-          <div className="grid grid-cols-3 bg-[#1A1208] px-6 py-3">
-            <span className="font-lato text-xs uppercase tracking-widest text-[#B8860B]">Behandeling</span>
-            <span className="font-lato text-xs uppercase tracking-widest text-[#B8860B]">Duur</span>
-            <span className="text-right font-lato text-xs uppercase tracking-widest text-[#B8860B]">
+          <div className="grid grid-cols-3 bg-[#F4FAF0] px-6 py-3">
+            <span className="font-lato text-xs uppercase tracking-widest text-[#4A9E4A]">Behandeling</span>
+            <span className="font-lato text-xs uppercase tracking-widest text-[#4A9E4A]">Duur</span>
+            <span className="text-right font-lato text-xs uppercase tracking-widest text-[#4A9E4A]">
               Tarief
             </span>
           </div>
@@ -60,11 +60,11 @@ export default function TarievenPage() {
             <div
               key={`${t.behandeling}-${t.duur}-${i}`}
               className={`grid grid-cols-3 border-b border-stone-100 px-6 py-4 ${
-                i % 2 === 0 ? "bg-white" : "bg-[#F9F5EE]"
+                i % 2 === 0 ? "bg-white" : "bg-[#F4FAF0]"
               }`}
             >
-              <span className="font-cormorant text-lg text-[#1A1208]">{t.behandeling}</span>
-              <span className="self-center font-lato text-sm text-[#9E8E75]">{t.duur}</span>
+              <span className="font-cormorant text-lg text-[#1A2E1A]">{t.behandeling}</span>
+              <span className="self-center font-lato text-sm text-[#6B8C6B]">{t.duur}</span>
               <span className="self-center text-right font-lato text-sm font-bold text-[#C0392B]">
                 {t.prijs}
               </span>
@@ -72,10 +72,10 @@ export default function TarievenPage() {
           ))}
         </div>
 
-        <div className="mb-10 space-y-2 rounded-sm bg-[#EDE8DC] p-6 font-lato text-sm text-[#5A4E3C]">
+        <div className="mb-10 space-y-2 rounded-sm bg-[#EDE8DC] p-6 font-lato text-sm text-[#3D5C3D]">
           <p>✓ Veel zorgverzekeraars vergoeden TCM behandelingen (aanvullend pakket) *</p>
           <p>✓ Vraag naar onze behandelpakketten voor meerdere sessies</p>
-          <p className="mt-4 text-xs italic text-[#9E8E75]">
+          <p className="mt-4 text-xs italic text-[#6B8C6B]">
             * De vergoeding van TCM-behandelingen verschilt per zorgverzekeraar en per aanvullend pakket. Wij
             adviseren u vooraf uw polisvoorwaarden te raadplegen of contact op te nemen met uw
             zorgverzekeraar om te bevestigen welke behandelingen vergoed worden en onder welke voorwaarden.

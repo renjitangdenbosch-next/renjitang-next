@@ -31,7 +31,7 @@ export default function OverOnsPage() {
         />
         <div className="absolute inset-0 z-20 flex items-end pb-16">
           <div className="mx-auto w-full max-w-5xl px-6 lg:px-16">
-            <span className="mb-3 block font-lato text-xs uppercase tracking-[0.2em] text-[#B8860B]">
+            <span className="mb-3 block font-lato text-xs uppercase tracking-[0.2em] text-[#4A9E4A]">
               Over ons
             </span>
             <h1 className="font-cormorant text-5xl font-normal text-white lg:text-6xl">Ren Ji Tang</h1>

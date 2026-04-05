@@ -31,7 +31,7 @@ export default async function BlogArtikelPage({ params }: Props) {
   if (!artikel) notFound();
 
   return (
-    <main className="min-h-screen bg-[#F9F5EE]">
+    <main className="min-h-screen bg-[#F4FAF0]">
       <BlogArtikelHero
         afbeelding={artikel.afbeelding}
         titel={artikel.titel}
@@ -39,12 +39,12 @@ export default async function BlogArtikelPage({ params }: Props) {
       />
 
       <div className="mx-auto max-w-3xl px-6 py-16">
-        <p className="mb-10 font-lato text-lg leading-relaxed text-[#5A4E3C]">{artikel.intro}</p>
+        <p className="mb-10 font-lato text-lg leading-relaxed text-[#3D5C3D]">{artikel.intro}</p>
         <BlogInhoudBody inhoud={artikel.inhoud} />
 
         <div className="mt-16 rounded-sm bg-[#EDE8DC] p-8 text-center">
-          <h2 className="mb-3 font-cormorant text-3xl text-[#1A1208]">Interesse gewekt?</h2>
-          <p className="mb-6 font-lato text-[#9E8E75]">Maak een vrijblijvende afspraak bij Ren Ji Tang.</p>
+          <h2 className="mb-3 font-cormorant text-3xl text-[#1A2E1A]">Interesse gewekt?</h2>
+          <p className="mb-6 font-lato text-[#6B8C6B]">Maak een vrijblijvende afspraak bij Ren Ji Tang.</p>
           <Link href={SITE.bookingUrl} className="btn-primary inline-block">
             Maak een afspraak →
           </Link>
@@ -52,7 +52,7 @@ export default async function BlogArtikelPage({ params }: Props) {
 
         <Link
           href="/blog"
-          className="mt-8 inline-block font-lato text-sm text-[#3D6B4F] hover:underline"
+          className="mt-8 inline-block font-lato text-sm text-[#4A9E4A] hover:underline"
         >
           ← Terug naar blog
         </Link>

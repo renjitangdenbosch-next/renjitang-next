@@ -20,7 +20,7 @@ function renderAfterHeading(lines: string[]): ReactNode[] {
     const text = paraBuf.join(" ").trim();
     if (text) {
       out.push(
-        <p key={`p-${out.length}`} className="mb-4 leading-relaxed text-[#5A4E3C]">
+        <p key={`p-${out.length}`} className="mb-4 leading-relaxed text-[#3D5C3D]">
           {inlineFormat(text)}
         </p>
       );
@@ -31,7 +31,7 @@ function renderAfterHeading(lines: string[]): ReactNode[] {
   const flushList = () => {
     if (listBuf.length === 0) return;
     out.push(
-      <ul key={`ul-${out.length}`} className="mb-4 list-disc space-y-2 pl-6 leading-relaxed text-[#5A4E3C]">
+      <ul key={`ul-${out.length}`} className="mb-4 list-disc space-y-2 pl-6 leading-relaxed text-[#3D5C3D]">
         {listBuf.map((line, li) => (
           <li key={li}>{inlineFormat(line.replace(/^-\s+/, ""))}</li>
         ))}
@@ -66,7 +66,7 @@ export function BlogInhoudBody({ inhoud }: { inhoud: string }) {
           return (
             <div key={si}>
               {t.split(/\n\n+/).map((para, pi) => (
-                <p key={pi} className="mb-4 leading-relaxed text-[#5A4E3C]">
+                <p key={pi} className="mb-4 leading-relaxed text-[#3D5C3D]">
                   {inlineFormat(para.trim())}
                 </p>
               ))}
@@ -80,7 +80,7 @@ export function BlogInhoudBody({ inhoud }: { inhoud: string }) {
 
         return (
           <div key={si} className="mb-2">
-            <h2 className="mb-3 mt-8 font-cormorant text-2xl text-[#1A1208] first:mt-0">
+            <h2 className="mb-3 mt-8 font-cormorant text-2xl text-[#1A2E1A] first:mt-0">
               {inlineFormat(titleLine)}
             </h2>
             {renderAfterHeading(rest)}

@@ -18,7 +18,7 @@ const logoImgClass =
 export function PartnerLogos() {
   return (
     <section
-      className="bg-[#f0ebe0] py-10 [@media(prefers-color-scheme:dark)]:bg-[#1a0f08]"
+      className="bg-[#f0ebe0] py-10 [@media(prefers-color-scheme:dark)]:bg-[#F4FAF0]"
       aria-label="Aangesloten bij"
     >
       <div className="mx-auto max-w-5xl px-6">

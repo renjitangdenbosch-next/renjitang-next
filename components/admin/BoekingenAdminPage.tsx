@@ -144,7 +144,7 @@ export function BoekingenAdminPage() {
               className={
                 tab === t.key
                   ? "ml-2 rounded-full bg-white/20 px-2 py-0.5 text-xs text-white"
-                  : "ml-2 rounded-full bg-stone-200 px-2 py-0.5 text-xs text-[#1a0f08]"
+                  : "ml-2 rounded-full bg-stone-200 px-2 py-0.5 text-xs text-[#1A2E1A]"
               }
             >
               {tabBadges[t.key as keyof typeof tabBadges] ?? 0}

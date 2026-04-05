@@ -24,17 +24,17 @@ export function OverOns() {
           <div className="pointer-events-none absolute inset-0 flex select-none items-center justify-center">
             <span className="font-cormorant text-[200px] leading-none text-[#1A1208]/5">仁</span>
           </div>
-          <span className="mb-4 block font-lato text-[11px] uppercase tracking-[0.25em] text-[#B8860B]">
+          <span className="mb-4 block font-lato text-[11px] uppercase tracking-[0.25em] text-[#4A9E4A]">
             Ren Ji Tang
           </span>
-          <AnimatedLine width={160} color="#B8860B" className="mx-auto mb-4" noMargin />
+          <AnimatedLine width={160} color="#4A9E4A" className="mx-auto mb-4" noMargin />
           <h2
             id="over-ons-home-heading"
-            className="mb-4 font-cormorant text-5xl font-normal text-[#1A1208]"
+            className="mb-4 font-cormorant text-5xl font-normal text-[#1A2E1A]"
           >
             Meer dan 20 jaar ervaring in TCM
           </h2>
-          <p className="mx-auto max-w-md font-lato text-base text-[#9E8E75]">
+          <p className="mx-auto max-w-md font-lato text-base text-[#6B8C6B]">
             Persoonlijke zorg met aandacht voor lichaam en geest
           </p>
         </div>

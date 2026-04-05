@@ -24,16 +24,16 @@ html {
 }
 
 :root {
-  --ink: #1a1208;
+  --ink: #1A2E1A;
   --ink-light: #241a0e;
-  --paper: #f9f5ee;
+  --paper: #f4faf0;
   --cream: #ede8dc;
   --vermilion: #c0392b;
   --vermilion-hover: #a93226;
-  --gold: #b8860b;
-  --gold-muted: rgba(184, 134, 11, 0.25);
-  --jade: #3d6b4f;
-  --muted: #9e8e75;
+  --gold: #4a9e4a;
+  --gold-muted: rgba(74, 158, 74, 0.25);
+  --jade: #4a9e4a;
+  --muted: #5a7a5a;
 
   --color-ink: var(--ink);
   --color-paper: var(--paper);
@@ -43,7 +43,7 @@ html {
   --color-gold: var(--gold);
   --color-jade: var(--jade);
   --color-text-primary: var(--ink);
-  --color-text-secondary: #5a4e3c;
+  --color-text-secondary: #3d5c3d;
   --color-text-muted: var(--muted);
   --color-bg: var(--paper);
   --color-surface: var(--cream);
@@ -196,7 +196,7 @@ body {
   ):not([type="button"]):not([type="reset"]):not([type="image"]):not([type="hidden"]),
 .admin textarea,
 .admin select {
-  color: #1a0f08 !important;
+  color: #1A2E1A !important;
   background-color: #fff !important;
 }
 
@@ -206,7 +206,7 @@ body {
 }
 
 .admin select option {
-  color: #1a0f08;
+  color: #1A2E1A;
   background-color: #fff;
 }
 
@@ -216,12 +216,12 @@ body {
 
 .admin .admin-modal-panel {
   background-color: #fff !important;
-  color: #1a0f08;
+  color: #1A2E1A;
 }
 
 .admin button.admin-btn-cancel {
   background: #f5f0e8 !important;
-  color: #1a0f08 !important;
+  color: #1A2E1A !important;
   border: 1px solid #d4c5a0 !important;
 }
 
@@ -230,7 +230,7 @@ body {
 }
 
 .admin button.admin-btn-outline-dark {
-  color: #1a0f08 !important;
+  color: #1A2E1A !important;
   background-color: #f5f0e8 !important;
   border: 1px solid #d4c5a0 !important;
 }
@@ -242,11 +242,11 @@ body {
 
 /* react-big-calendar (admin agenda): toolbar & labels leesbaar */
 .admin .rbc-toolbar {
-  color: #1a0f08 !important;
+  color: #1A2E1A !important;
 }
 
 .admin .rbc-toolbar button {
-  color: #1a0f08 !important;
+  color: #1A2E1A !important;
   background-color: #fff !important;
   border: 1px solid #d4c5a0 !important;
 }
@@ -260,7 +260,7 @@ body {
 .admin .rbc-agenda-view table,
 .admin .rbc-agenda-view table th,
 .admin .rbc-agenda-view table td {
-  color: #1a0f08 !important;
+  color: #1A2E1A !important;
 }
 
 .admin .rbc-time-slot,
@@ -269,6 +269,6 @@ body {
 }
 
 .admin .rbc-show-more {
-  color: #1a0f08 !important;
+  color: #1A2E1A !important;
   background-color: #f5f0e8 !important;
 }

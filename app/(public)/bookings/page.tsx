@@ -439,7 +439,7 @@ export default function BookingsPage() {
                             className={
                               selected
                                 ? "rounded-full border border-[#c8a040] bg-[#c8a040] px-4 py-2 text-sm font-medium text-white transition-colors"
-                                : "rounded-full border border-[#d4c5a0] bg-white px-4 py-2 text-sm font-medium text-[#1a0f08] transition-colors hover:border-[#c8a040] hover:bg-[#f5f0e8] hover:text-[#1a0f08]"
+                                : "rounded-full border border-[#d4c5a0] bg-white px-4 py-2 text-sm font-medium text-[#1A2E1A] transition-colors hover:border-[#c8a040] hover:bg-[#f5f0e8] hover:text-[#1A2E1A]"
                             }
                           >
                             {slot}
@@ -509,7 +509,7 @@ export default function BookingsPage() {
                   onChange={(e) =>
                     setForm({ ...form, naam: e.target.value })
                   }
-                  style={{ color: "#1a0f08", background: "white" }}
+                  style={{ color: "#1A2E1A", background: "white" }}
                   className="w-full rounded-xl border border-stone-200 px-4 py-3
                     placeholder:text-[#9ca3af] focus:border-rjt-red focus:outline-none"
                 />
@@ -520,7 +520,7 @@ export default function BookingsPage() {
                   onChange={(e) =>
                     setForm({ ...form, email: e.target.value })
                   }
-                  style={{ color: "#1a0f08", background: "white" }}
+                  style={{ color: "#1A2E1A", background: "white" }}
                   className="w-full rounded-xl border border-stone-200 px-4 py-3
                     placeholder:text-[#9ca3af] focus:border-rjt-red focus:outline-none"
                 />
@@ -531,7 +531,7 @@ export default function BookingsPage() {
                   onChange={(e) =>
                     setForm({ ...form, telefoon: e.target.value })
                   }
-                  style={{ color: "#1a0f08", background: "white" }}
+                  style={{ color: "#1A2E1A", background: "white" }}
                   className="w-full rounded-xl border border-stone-200 px-4 py-3
                     placeholder:text-[#9ca3af] focus:border-rjt-red focus:outline-none"
                 />
@@ -542,7 +542,7 @@ export default function BookingsPage() {
                     setForm({ ...form, opmerking: e.target.value })
                   }
                   rows={3}
-                  style={{ color: "#1a0f08", background: "white" }}
+                  style={{ color: "#1A2E1A", background: "white" }}
                   className="w-full resize-none rounded-xl border border-stone-200 
                     px-4 py-3 placeholder:text-[#9ca3af] focus:border-rjt-red 
                     focus:outline-none"

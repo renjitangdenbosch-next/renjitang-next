@@ -85,7 +85,7 @@ export function CookieBanner() {
         role="dialog"
         aria-labelledby={titleId}
         aria-modal={false}
-        className="fixed bottom-0 left-0 right-0 z-[90] border-t border-[#c8a040]/25 bg-[#1a0f08]/98 shadow-[0_-8px_32px_rgba(0,0,0,0.35)] backdrop-blur-sm"
+        className="fixed bottom-0 left-0 right-0 z-[90] border-t border-[#c8a040]/25 bg-[#1A2E1A]/98 shadow-[0_-8px_32px_rgba(0,0,0,0.35)] backdrop-blur-sm"
         style={{
           transform: visible ? "translateY(0)" : "translateY(100%)",
           opacity: visible ? 1 : 0,
@@ -150,7 +150,7 @@ export function CookieBanner() {
             role="dialog"
             aria-modal="true"
             aria-labelledby={modalTitleId}
-            className="relative z-10 w-full max-w-lg rounded-2xl border border-[#c8a040]/25 bg-[#1a0f08] p-6 shadow-2xl sm:p-8"
+            className="relative z-10 w-full max-w-lg rounded-2xl border border-[#c8a040]/25 bg-[#1A2E1A] p-6 shadow-2xl sm:p-8"
           >
             <span
               className="pointer-events-none absolute right-4 top-4 select-none font-serif text-5xl leading-none text-[#c8a040]/12"

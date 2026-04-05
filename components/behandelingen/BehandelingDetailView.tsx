@@ -43,13 +43,13 @@ export function BehandelingDetailView({ data }: { data: BehandelingDetail }) {
           {data.karakterCN}
         </div>
         <div className="absolute bottom-10 left-6 z-20 lg:left-16">
-          <span className="mb-3 block font-lato text-[11px] uppercase tracking-[0.25em] text-[#B8860B]">
+          <span className="mb-3 block font-lato text-[11px] uppercase tracking-[0.25em] text-[#4A9E4A]">
             Traditionele Chinese Geneeskunde
           </span>
           <h1 className="font-cormorant text-5xl font-normal text-white lg:text-7xl">{data.naam}</h1>
           <AnimatedLine
             width={160}
-            color="#B8860B"
+            color="#4A9E4A"
             strokeOpacity={0.4}
             className="mt-3 mb-6"
             noMargin
@@ -75,7 +75,7 @@ export function BehandelingDetailView({ data }: { data: BehandelingDetail }) {
             {p}
           </p>
         ))}
-        <p className="mt-4 font-lato text-sm text-[#9E8E75]">{data.seoTekst}</p>
+        <p className="mt-4 font-lato text-sm text-[#6B8C6B]">{data.seoTekst}</p>
       </motion.section>
 
       <motion.section

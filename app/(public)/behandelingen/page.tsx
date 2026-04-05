@@ -33,7 +33,7 @@ export default function BehandelingenPage() {
           療
         </div>
         <div className="absolute bottom-10 left-6 z-20 lg:left-16">
-          <span className="mb-3 block font-lato text-[11px] uppercase tracking-[0.25em] text-[#B8860B]">
+          <span className="mb-3 block font-lato text-[11px] uppercase tracking-[0.25em] text-[#4A9E4A]">
             Ren Ji Tang
           </span>
           <h1 className="mb-6 font-cormorant text-5xl font-normal text-white lg:text-6xl">

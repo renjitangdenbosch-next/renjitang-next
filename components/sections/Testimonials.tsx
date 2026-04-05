@@ -39,23 +39,23 @@ export function Testimonials() {
   const reduceMotion = useReducedMotion();
 
   return (
-    <section className="bg-ink py-24" aria-labelledby="testimonials-heading">
+    <section className="bg-[#F4FAF0] py-24" aria-labelledby="testimonials-heading">
       <div className="mx-auto max-w-[1100px] px-6">
         <div className="relative mb-16 text-center">
           <div className="pointer-events-none absolute inset-0 flex select-none items-center justify-center">
-            <span className="font-cormorant text-[200px] leading-none text-white/[0.06]">信</span>
+            <span className="font-cormorant text-[200px] leading-none text-[#1A2E1A]/[0.06]">信</span>
           </div>
-          <span className="mb-4 block font-lato text-[11px] uppercase tracking-[0.25em] text-[#B8860B]">
+          <span className="mb-4 block font-lato text-[11px] uppercase tracking-[0.25em] text-[#4A9E4A]">
             Ren Ji Tang
           </span>
-          <AnimatedLine width={160} color="#B8860B" className="mx-auto mb-4" noMargin />
+          <AnimatedLine width={160} color="#4A9E4A" className="mx-auto mb-4" noMargin />
           <h2
             id="testimonials-heading"
-            className="mb-4 font-cormorant text-5xl font-normal text-white"
+            className="mb-4 font-cormorant text-5xl font-normal text-[#1A2E1A]"
           >
             Ervaringen die spreken
           </h2>
-          <p className="mx-auto max-w-md font-lato text-base text-white/55">
+          <p className="mx-auto max-w-md font-lato text-base text-[#1A2E1A]/70">
             5,0 · Beoordeeld op Google
           </p>
         </div>
@@ -70,15 +70,15 @@ export function Testimonials() {
               whileInView={reduceMotion ? undefined : "show"}
               viewport={{ once: true, margin: "-40px" }}
             >
-              <article className="h-full rounded-md border border-gold/25 bg-ink-light p-10">
+              <article className="h-full rounded-md border border-gold/25 bg-white p-10">
                 <span
-                  className="block font-cormorant text-[5rem] leading-none text-gold/50"
+                  className="block font-cormorant text-[5rem] leading-none text-[#4A9E4A]/50"
                   aria-hidden
                 >
                   &ldquo;
                 </span>
-                <StarRating size={18} className="mt-2 text-gold" />
-                <blockquote className="mt-5 font-cormorant text-[1.15rem] italic leading-[1.85] text-white/[0.88]">
+                <StarRating size={18} className="mt-2 text-[#4A9E4A]" />
+                <blockquote className="mt-5 font-cormorant text-[1.15rem] italic leading-[1.85] text-[#1A2E1A]/80">
                   {r.tekst}
                 </blockquote>
                 <div className="my-6 h-px w-full bg-gold/25" aria-hidden />
@@ -95,7 +95,7 @@ export function Testimonials() {
             href="https://www.google.com/maps/place/Renjitang+Massage+%26+Acupunctuur+praktijk/@51.7210204,5.3090705"
             target="_blank"
             rel="noopener noreferrer"
-            className="font-lato text-sm text-gold/90 underline-offset-4 hover:underline"
+            className="font-lato text-sm text-[#4A9E4A] underline-offset-4 hover:underline"
           >
             Bekijk ons Google-profiel
           </a>

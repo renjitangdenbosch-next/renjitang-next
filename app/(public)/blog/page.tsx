@@ -12,12 +12,12 @@ export const metadata: Metadata = {
 
 export default function BlogPage() {
   return (
-    <main className="min-h-screen bg-[#F9F5EE] py-20">
+    <main className="min-h-screen bg-[#F4FAF0] py-20">
       <div className="mx-auto max-w-5xl px-6">
-        <span className="mb-4 block text-center font-lato text-xs uppercase tracking-[0.2em] text-[#B8860B]">
+        <span className="mb-4 block text-center font-lato text-xs uppercase tracking-[0.2em] text-[#4A9E4A]">
           Kennis &amp; Inzichten
         </span>
-        <h1 className="mb-16 text-center font-cormorant text-5xl text-[#1A1208]">Blog</h1>
+        <h1 className="mb-16 text-center font-cormorant text-5xl text-[#1A2E1A]">Blog</h1>
         <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
           {blogArtikelen.map((artikel) => (
             <Link
@@ -35,13 +35,13 @@ export default function BlogPage() {
                 />
               </div>
               <div className="p-6">
-                <span className="mb-2 block font-lato text-xs uppercase tracking-widest text-[#B8860B]">
+                <span className="mb-2 block font-lato text-xs uppercase tracking-widest text-[#4A9E4A]">
                   {artikel.categorie}
                 </span>
-                <h2 className="mb-2 font-cormorant text-xl text-[#1A1208] transition-colors group-hover:text-[#C0392B]">
+                <h2 className="mb-2 font-cormorant text-xl text-[#1A2E1A] transition-colors group-hover:text-[#C0392B]">
                   {artikel.titel}
                 </h2>
-                <p className="line-clamp-2 font-lato text-sm text-[#9E8E75]">{artikel.intro}</p>
+                <p className="line-clamp-2 font-lato text-sm text-[#6B8C6B]">{artikel.intro}</p>
               </div>
             </Link>
           ))}

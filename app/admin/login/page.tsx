@@ -35,12 +35,12 @@ export default function AdminLoginPage() {
         onSubmit={onSubmit}
         className="admin-modal-panel w-full max-w-sm space-y-4 rounded-2xl border border-stone-200 p-8 shadow dark:border-stone-300"
       >
-        <h1 className="font-serif text-2xl text-[#1a0f08]">
+        <h1 className="font-serif text-2xl text-[#1A2E1A]">
           Beheerderslogin
         </h1>
         <p className="text-sm text-stone-500">管理员登录</p>
         <div>
-          <label className="text-sm font-medium text-[#1a0f08]">E-mail</label>
+          <label className="text-sm font-medium text-[#1A2E1A]">E-mail</label>
           <input
             type="email"
             autoComplete="username"
@@ -51,7 +51,7 @@ export default function AdminLoginPage() {
           />
         </div>
         <div>
-          <label className="text-sm font-medium text-[#1a0f08]">Wachtwoord</label>
+          <label className="text-sm font-medium text-[#1A2E1A]">Wachtwoord</label>
           <input
             type="password"
             autoComplete="current-password"

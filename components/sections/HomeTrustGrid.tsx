@@ -53,7 +53,7 @@ export function HomeTrustGrid() {
   return (
     <section
       ref={ref}
-      className="bg-[#1a0f08] py-10 md:py-12"
+      className="bg-[#F4FAF0] py-10 md:py-12"
       aria-label="Openingstijden, reviews en klanten"
     >
       <div className="mx-auto max-w-6xl px-6">
@@ -68,7 +68,7 @@ export function HomeTrustGrid() {
               Di–Za
             </p>
             <p
-              className="font-lato uppercase text-white/35"
+              className="font-lato uppercase text-[#1A2E1A]/70"
               style={{ fontSize: "0.65rem", letterSpacing: "0.2em" }}
             >
               Openingstijden
@@ -93,7 +93,7 @@ export function HomeTrustGrid() {
             <p className="font-serif font-light leading-none" style={{ fontSize: "2.4rem", color: gold }}>
               5,0
             </p>
-            <p className="font-lato text-[0.65rem] text-white/35">op Google</p>
+            <p className="font-lato text-[0.65rem] text-[#1A2E1A]/70">op Google</p>
             <p
               className="font-lato transition-opacity group-hover:opacity-100"
               style={{ fontSize: "0.72rem", color: gold, opacity: 0.45 }}
@@ -109,7 +109,7 @@ export function HomeTrustGrid() {
               {count}+
             </p>
             <p
-              className="font-lato uppercase text-white/35"
+              className="font-lato uppercase text-[#1A2E1A]/70"
               style={{ fontSize: "0.65rem", letterSpacing: "0.2em" }}
             >
               Tevreden klanten

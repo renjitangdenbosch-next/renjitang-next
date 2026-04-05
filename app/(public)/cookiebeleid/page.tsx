@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 export default function CookiebeleidPage() {
   return (
     <div className="-mt-[7rem] text-ink">
-      <section className="relative overflow-hidden bg-[#1a0f08] pb-16 pt-28 md:pb-20 md:pt-32">
+      <section className="relative overflow-hidden bg-[#F4FAF0] pb-16 pt-28 md:pb-20 md:pt-32">
         <div
           className="pointer-events-none absolute right-6 top-1/2 -translate-y-1/2 select-none font-cormorant text-[min(28vw,9rem)] leading-none text-[#B8860B]/15 md:right-10 md:text-[140px]"
           aria-hidden
@@ -20,10 +20,10 @@ export default function CookiebeleidPage() {
           隐
         </div>
         <div className="relative z-10 mx-auto max-w-3xl px-6">
-          <span className="mb-3 block font-lato text-xs uppercase tracking-[0.2em] text-[#B8860B]">
+          <span className="mb-3 block font-lato text-xs uppercase tracking-[0.2em] text-[#4A9E4A]">
             Juridisch
           </span>
-          <h1 className="font-cormorant text-4xl font-normal text-[#B8860B] md:text-5xl">Cookiebeleid</h1>
+          <h1 className="font-cormorant text-4xl font-normal text-[#4A9E4A] md:text-5xl">Cookiebeleid</h1>
         </div>
       </section>
 

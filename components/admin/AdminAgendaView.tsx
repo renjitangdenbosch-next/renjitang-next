@@ -163,10 +163,10 @@ export function AdminAgendaView({
             className="admin-modal-panel max-h-[90vh] w-full max-w-md 
               overflow-y-auto rounded-2xl border border-stone-200 p-6 shadow-xl"
           >
-            <h3 className="font-serif text-xl text-[#1a0f08]">
+            <h3 className="font-serif text-xl text-[#1A2E1A]">
               {selected.resource?.behandeling || selected.title}
             </h3>
-            <dl className="mt-4 space-y-2 text-sm text-[#1a0f08]">
+            <dl className="mt-4 space-y-2 text-sm text-[#1A2E1A]">
               <div>
                 <dt className="text-stone-600">Naam</dt>
                 <dd>{selected.resource?.naam}</dd>

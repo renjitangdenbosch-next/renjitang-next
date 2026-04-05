@@ -31,7 +31,7 @@ export function Hero() {
     <div
       ref={parallaxRef}
       role="banner"
-      className="relative min-h-[max(640px,100svh)] w-full overflow-hidden bg-[#1a0f08]"
+      className="relative min-h-[max(640px,100svh)] w-full overflow-hidden bg-[#F4FAF0]"
     >
       <div className="parallax-img pointer-events-none absolute inset-x-0 top-[-20%] z-0 h-[140%] w-full will-change-transform" aria-hidden>
         <Image

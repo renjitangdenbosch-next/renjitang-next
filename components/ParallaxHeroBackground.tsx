@@ -20,7 +20,7 @@ type Props = {
 };
 
 /**
- * Hero met parallax: donkere `#1a0f08` achtergrond, `overflow-hidden`, laag `.parallax-img` 140% hoog.
+ * Hero met parallax: lichte `#F4FAF0` fallback-achtergrond, `overflow-hidden`, laag `.parallax-img` 140% hoog.
  */
 export function ParallaxHeroBackground({
   src,
@@ -39,7 +39,7 @@ export function ParallaxHeroBackground({
   const parallaxRef = useParallax(speed, enabled);
 
   return (
-    <div ref={parallaxRef} className={cn("relative overflow-hidden bg-[#1a0f08]", className)}>
+    <div ref={parallaxRef} className={cn("relative overflow-hidden bg-[#F4FAF0]", className)}>
       <div
         className="parallax-img pointer-events-none absolute inset-x-0 top-[-20%] z-0 h-[140%] w-full will-change-transform"
         aria-hidden
