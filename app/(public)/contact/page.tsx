@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { MapPin, Phone, Mail, Clock } from "lucide-react";
+import Link from "next/link";
+import { MapPin, Phone, Mail, Clock, Car, Navigation } from "lucide-react";
 import { ContactPageHero } from "@/components/contact/ContactPageHero";
 import { ContactForm } from "@/components/forms/ContactForm";
 import { SITE } from "@/lib/site";
@@ -81,6 +82,43 @@ export default function ContactPage() {
                 </table>
               </div>
             </div>
+
+            <aside
+              className="rounded-sm border border-[#2D6A2D]/15 bg-gradient-to-br from-[#F4FAF0] to-[#EDE8DC]/90 p-6 shadow-sm"
+              aria-label="Parkeren en bereikbaarheid"
+            >
+              <p className="font-lato text-[11px] uppercase tracking-[0.2em] text-[#4A9E4A]">Bereikbaarheid</p>
+              <h2 className="mt-2 font-cormorant text-xl text-ink">Parkeren &amp; ligging</h2>
+              <div className="mt-5 space-y-4">
+                <div className="flex gap-3">
+                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-white/80 text-[#2D6A2D] shadow-sm ring-1 ring-[#2D6A2D]/10">
+                    <Car className="h-4 w-4" aria-hidden />
+                  </span>
+                  <p className="font-lato text-sm leading-relaxed text-ink/85">
+                    <span className="font-semibold text-ink">Gratis parkeren</span> in de omgeving van de praktijk — prettig
+                    als u met de auto komt. Vraag gerust naar de meest praktische plek bij uw afspraak.
+                  </p>
+                </div>
+                <div className="h-px bg-[#1A2E1A]/10" aria-hidden />
+                <div className="flex gap-3">
+                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-white/80 text-[#2D6A2D] shadow-sm ring-1 ring-[#2D6A2D]/10">
+                    <Navigation className="h-4 w-4" aria-hidden />
+                  </span>
+                  <p className="font-lato text-sm leading-relaxed text-ink/85">
+                    Vanuit het <span className="font-semibold text-ink">stadscentrum van &apos;s-Hertogenbosch</span> bent u
+                    in ongeveer <span className="font-semibold text-ink">10 minuten</span> bij ons — te voet, met de fiets
+                    of met het openbaar vervoer, afhankelijk van uw vertrekpunt.
+                  </p>
+                </div>
+              </div>
+              <p className="mt-4 font-lato text-xs leading-relaxed text-[#3D5C3D]">
+                Uitgebreide route, OV en tips voor het bedrijventerrein:{" "}
+                <Link href="/locatie" className="font-semibold text-[#2D6A2D] underline-offset-2 hover:underline">
+                  locatie &amp; parkeren
+                </Link>
+                .
+              </p>
+            </aside>
 
             <div className="mt-8 h-80 w-full overflow-hidden rounded-sm border border-stone-200 shadow-sm">
               <iframe

@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { blogArtikelen } from "@/lib/blog-data";
+import { klachtenSitemapPaths } from "@/lib/klachten-data";
 
 const staticPaths = [
   "/",
@@ -13,12 +14,21 @@ const staticPaths = [
   "/over-ons",
   "/tarieven",
   "/zorgverzekering",
+  "/locatie",
+  "/eerste-bezoek",
+  "/klachten",
+  "/faq",
+  "/diplomas-en-registraties",
+  "/cadeaubon",
+  "/acupunctuur-zwangerschap",
+  "/acupunctuur-stress-burnout",
   "/blog",
   "/contact",
   "/bookings",
   "/privacy",
   "/disclaimer",
   "/cookiebeleid",
+  ...klachtenSitemapPaths,
 ] as const;
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
@@ -51,6 +61,23 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     }
     if (path === "/tarieven" || path === "/zorgverzekering" || path === "/over-ons") {
       return { url, lastModified, changeFrequency: "monthly", priority: 0.7 };
+    }
+    if (path === "/klachten") {
+      return { url, lastModified, changeFrequency: "monthly", priority: 0.78 };
+    }
+    if (path.startsWith("/klachten/")) {
+      return { url, lastModified, changeFrequency: "monthly", priority: 0.72 };
+    }
+    if (
+      path === "/locatie" ||
+      path === "/eerste-bezoek" ||
+      path === "/faq" ||
+      path === "/diplomas-en-registraties" ||
+      path === "/cadeaubon" ||
+      path === "/acupunctuur-zwangerschap" ||
+      path === "/acupunctuur-stress-burnout"
+    ) {
+      return { url, lastModified, changeFrequency: "monthly", priority: 0.72 };
     }
     if (path === "/contact") {
       return { url, lastModified, changeFrequency: "monthly", priority: 0.6 };

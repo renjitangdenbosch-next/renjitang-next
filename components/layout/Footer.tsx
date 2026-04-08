@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { PRAKTIJK_NAV_ITEMS } from "@/lib/praktijk-nav";
 
 export function Footer() {
   return (
@@ -19,7 +20,7 @@ export function Footer() {
 
       {/* === HOOFD FOOTER INHOUD === */}
       <div className="relative z-10 mx-auto max-w-6xl px-6 py-16">
-        <div className="grid grid-cols-1 gap-12 md:grid-cols-3">
+        <div className="grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-4">
           {/* KOLOM 1 — Merk + contact */}
           <div>
             <Image
@@ -98,7 +99,23 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* KOLOM 3 — Openingstijden */}
+          {/* KOLOM 3 — Praktijk */}
+          <div>
+            <h3 className="mb-5 font-lato text-xs uppercase tracking-[0.2em] text-[#2D6A2D]">
+              Praktijk
+            </h3>
+            <ul className="space-y-2 font-lato text-sm font-medium text-[#1A2E1A]">
+              {PRAKTIJK_NAV_ITEMS.map((item) => (
+                <li key={item.href}>
+                  <a href={item.href} className="transition-colors hover:text-[#2D6A2D]">
+                    {item.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* KOLOM 4 — Openingstijden */}
           <div>
             <h3 className="mb-5 font-lato text-xs uppercase tracking-[0.2em] text-[#2D6A2D]">
               Openingstijden

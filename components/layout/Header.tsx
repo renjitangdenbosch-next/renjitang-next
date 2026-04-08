@@ -8,6 +8,7 @@ import { ChevronDown } from "lucide-react";
 import { AnnouncementBar } from "./AnnouncementBar";
 import { cn } from "@/lib/cn";
 import { BEHANDELING_NAV_ITEMS, HEADER_LINKS } from "@/lib/navigation";
+import { PRAKTIJK_NAV_ITEMS } from "@/lib/praktijk-nav";
 import { SITE } from "@/lib/site";
 
 const LOGO = "/images/logo-transparent.png";
@@ -129,6 +130,38 @@ export function Header() {
                 </div>
               </div>
 
+              <div className="group relative">
+                <button
+                  type="button"
+                  className={cn(
+                    "flex items-center gap-1 rounded-sm px-3 py-2 font-lato text-sm font-medium transition-colors",
+                    navMuted
+                  )}
+                  aria-expanded="false"
+                  aria-haspopup="true"
+                >
+                  Praktijk
+                  <ChevronDown className="h-4 w-4 opacity-70" aria-hidden />
+                </button>
+                <div
+                  className="invisible absolute left-0 top-full z-[70] min-w-[260px] pt-2 opacity-0 transition-[opacity,visibility] duration-150 group-hover:visible group-hover:opacity-100"
+                  role="menu"
+                >
+                  <div className="rounded-sm border border-stone-200 bg-white py-2 shadow-xl">
+                    {PRAKTIJK_NAV_ITEMS.map((item) => (
+                      <Link
+                        key={item.href}
+                        href={item.href}
+                        role="menuitem"
+                        className="block px-4 py-2.5 font-lato text-sm text-ink hover:bg-paper"
+                      >
+                        {item.label}
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
               {HEADER_LINKS.map((item) => (
                 <Link
                   key={item.href}
@@ -229,6 +262,19 @@ export function Header() {
               >
                 Zorgverzekering
               </Link>
+              <p className="border-b border-[#1A2E1A]/10 px-6 py-2 font-lato text-[11px] uppercase tracking-[0.2em] text-[#4A9E4A]">
+                Praktijk
+              </p>
+              {PRAKTIJK_NAV_ITEMS.map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  onClick={closeMobile}
+                  className="border-b border-[#1A2E1A]/10 pl-10 pr-6 py-2.5 font-lato text-sm text-[#1A2E1A]/80"
+                >
+                  {item.label}
+                </Link>
+              ))}
               {HEADER_LINKS.map((item) => (
                 <Link
                   key={item.href}
