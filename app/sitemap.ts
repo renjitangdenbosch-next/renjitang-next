@@ -12,6 +12,7 @@ const staticPaths = [
   "/behandelingen/kruiden",
   "/over-ons",
   "/tarieven",
+  "/zorgverzekering",
   "/blog",
   "/contact",
   "/bookings",
@@ -48,7 +49,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     if (path === "/blog") {
       return { url, lastModified, changeFrequency: "weekly", priority: 0.7 };
     }
-    if (path === "/tarieven" || path === "/over-ons") {
+    if (path === "/tarieven" || path === "/zorgverzekering" || path === "/over-ons") {
       return { url, lastModified, changeFrequency: "monthly", priority: 0.7 };
     }
     if (path === "/contact") {

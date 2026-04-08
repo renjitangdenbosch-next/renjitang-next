@@ -81,6 +81,14 @@ export default function TarievenPage() {
             zorgverzekeraar om te bevestigen welke behandelingen vergoed worden en onder welke voorwaarden.
             Ren Ji Tang is aangesloten bij Zhong, KAB Koepel en SCAG, wat de kans op vergoeding vergroot.
           </p>
+          <p className="pt-2">
+            <Link
+              href="/zorgverzekering"
+              className="font-semibold text-[#2D6A2D] underline-offset-2 hover:underline"
+            >
+              Meer informatie over aanvullende zorgverzekeringen →
+            </Link>
+          </p>
         </div>
 
         <Link href={SITE.bookingUrl} className="btn-primary inline-block">

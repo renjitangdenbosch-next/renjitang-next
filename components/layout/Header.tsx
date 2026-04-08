@@ -108,6 +108,13 @@ export function Header() {
                     >
                       Tarieven
                     </Link>
+                    <Link
+                      href="/zorgverzekering"
+                      role="menuitem"
+                      className="block px-4 py-2.5 font-lato text-sm text-ink hover:bg-paper"
+                    >
+                      Zorgverzekering
+                    </Link>
                     {BEHANDELING_NAV_ITEMS.map((item) => (
                       <Link
                         key={item.href}
@@ -208,6 +215,20 @@ export function Header() {
                   {item.label}
                 </Link>
               ))}
+              <Link
+                href="/tarieven"
+                onClick={closeMobile}
+                className="border-b border-[#1A2E1A]/10 pl-10 pr-6 py-2.5 font-lato text-sm text-[#1A2E1A]/80"
+              >
+                Tarieven
+              </Link>
+              <Link
+                href="/zorgverzekering"
+                onClick={closeMobile}
+                className="border-b border-[#1A2E1A]/10 pl-10 pr-6 py-2.5 font-lato text-sm text-[#1A2E1A]/80"
+              >
+                Zorgverzekering
+              </Link>
               {HEADER_LINKS.map((item) => (
                 <Link
                   key={item.href}

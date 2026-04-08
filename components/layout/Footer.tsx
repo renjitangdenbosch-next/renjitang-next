@@ -90,6 +90,11 @@ export function Footer() {
                   Tarieven
                 </a>
               </li>
+              <li>
+                <a href="/zorgverzekering" className="transition-colors hover:text-[#2D6A2D]">
+                  Zorgverzekering
+                </a>
+              </li>
             </ul>
           </div>
 
