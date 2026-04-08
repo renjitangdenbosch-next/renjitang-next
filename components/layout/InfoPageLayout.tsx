@@ -35,23 +35,28 @@ export function InfoPageLayout({
       >
         <div
           className="absolute inset-0 z-10"
-          style={{ background: "rgba(0,0,0,0.1)" }}
+          style={{
+            background:
+              "linear-gradient(to top, rgba(0,0,0,0.78) 0%, rgba(0,0,0,0.5) 42%, rgba(0,0,0,0.22) 100%)",
+          }}
           aria-hidden
         />
         <div className="absolute inset-0 z-20 flex items-end pb-10">
           <div className="mx-auto w-full max-w-3xl px-6">
-            <span className="mb-3 block font-lato text-xs uppercase tracking-[0.2em] text-[#4A9E4A]">
+            <span className="mb-3 block font-lato text-xs uppercase tracking-[0.2em] text-white/85">
               {eyebrow}
             </span>
-            <h1 className="font-cormorant text-4xl text-white sm:text-5xl">{title}</h1>
+            <h1 className="font-cormorant text-4xl text-white drop-shadow-sm sm:text-5xl">{title}</h1>
             {intro ? (
-              <p className="mt-4 max-w-2xl font-lato text-base leading-relaxed text-white/90">{intro}</p>
+              <p className="mt-4 max-w-2xl font-lato text-base leading-relaxed text-white/95 drop-shadow-sm">
+                {intro}
+              </p>
             ) : null}
           </div>
         </div>
       </ParallaxHeroBackground>
 
-      <div className="mx-auto max-w-3xl px-6 py-12">
+      <div className="mx-auto max-w-3xl px-6 py-12 text-ink dark:text-ink">
         {children}
         {showBookingCta ? (
           <div className="mt-14 rounded-sm border border-stone-200/80 bg-white p-8 text-center shadow-sm">

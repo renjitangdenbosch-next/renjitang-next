@@ -25,18 +25,21 @@ export default function ZorgverzekeringPage() {
       >
         <div
           className="absolute inset-0 z-10"
-          style={{ background: "rgba(0,0,0,0.12)" }}
+          style={{
+            background:
+              "linear-gradient(to top, rgba(0,0,0,0.78) 0%, rgba(0,0,0,0.5) 42%, rgba(0,0,0,0.22) 100%)",
+          }}
           aria-hidden
         />
         <div className="absolute inset-0 z-20 flex items-end pb-12">
           <div className="mx-auto w-full max-w-3xl px-6">
-            <span className="mb-4 block font-lato text-xs uppercase tracking-[0.2em] text-[#4A9E4A]">
+            <span className="mb-4 block font-lato text-xs uppercase tracking-[0.2em] text-white/85">
               Zorgverzekering
             </span>
-            <h1 className="mb-4 font-cormorant text-4xl text-white sm:text-5xl">
+            <h1 className="mb-4 font-cormorant text-4xl text-white drop-shadow-sm sm:text-5xl">
               Aanvullende zorgverzekering &amp; vergoeding
             </h1>
-            <p className="max-w-2xl font-lato text-lg text-white/90">
+            <p className="max-w-2xl font-lato text-lg text-white/95 drop-shadow-sm">
               Traditionele Chinese Geneeskunde valt meestal buiten de basisverzekering. Via een aanvullend pakket is
               vaak (deels) vergoeding mogelijk — afhankelijk van uw polis.
             </p>
@@ -44,7 +47,7 @@ export default function ZorgverzekeringPage() {
         </div>
       </ParallaxHeroBackground>
 
-      <div className="mx-auto max-w-3xl px-6 py-12">
+      <div className="mx-auto max-w-3xl px-6 py-12 text-ink dark:text-ink">
         <div className="prose prose-neutral max-w-none">
           <p className="font-lato text-lg leading-relaxed text-[#1A2E1A]/90">
             Veel klanten vragen of acupunctuur, massage of andere TCM-behandelingen worden vergoed. Het korte antwoord:
