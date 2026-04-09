@@ -1,8 +1,9 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 
-const STORAGE_KEY = "rjt-announcement-dismissed";
+const STORAGE_KEY = "rjt-announcement-dismissed-2026-04";
 
 function readDismissed(): boolean {
   if (typeof window === "undefined") return false;
@@ -14,10 +15,13 @@ function readDismissed(): boolean {
 }
 
 export function AnnouncementBar() {
+  const pathname = usePathname();
   const [dismissed, setDismissed] = useState(false);
   const [mounted, setMounted] = useState(false);
 
-  const hiddenByEnv = process.env.NEXT_PUBLIC_ANNOUNCEMENT_BAR === "false";
+  const hiddenByEnv =
+    process.env.NEXT_PUBLIC_ANNOUNCEMENT_BAR === "false" && pathname !== "/";
+
   const message =
     process.env.NEXT_PUBLIC_ANNOUNCEMENT_TEXT?.trim() ||
     "Gesloten wegens vakantie · 6 t/m 27 april";
@@ -36,8 +40,7 @@ export function AnnouncementBar() {
     setDismissed(true);
   }, []);
 
-  if (hiddenByEnv) return null;
-  if (!mounted || dismissed) return null;
+  if (hiddenByEnv || !mounted || dismissed) return null;
 
   return (
     <div
