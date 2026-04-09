@@ -2,26 +2,10 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { motion, useReducedMotion } from "framer-motion";
+import { useReducedMotion } from "framer-motion";
 import { Button } from "@/components/ui/Button";
 import { SITE } from "@/lib/site";
 import { PARALLAX_SPEED_DEFAULT, useParallax } from "@/hooks/useParallax";
-
-const heroContainer = {
-  hidden: {},
-  show: {
-    transition: { staggerChildren: 0.15, delayChildren: 0.2 },
-  },
-};
-
-const heroItem = {
-  hidden: { opacity: 0, y: 28 },
-  show: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.75, ease: [0.25, 0.1, 0.25, 1] as const },
-  },
-};
 
 export function Hero() {
   const reduceMotion = useReducedMotion();
@@ -44,6 +28,11 @@ export function Hero() {
         />
       </div>
       <div
+        className="pointer-events-none absolute inset-0 z-[1]"
+        style={{ background: "rgba(255, 255, 255, 0.68)" }}
+        aria-hidden
+      />
+      <div
         className="absolute inset-0 z-10"
         style={{
           background:
@@ -53,45 +42,37 @@ export function Hero() {
       />
 
       <div className="absolute inset-0 z-20 flex min-h-[max(640px,100svh)] items-center">
-        <div className="mx-auto w-full max-w-6xl px-6 pb-16 pt-28 md:px-10 md:pt-32 lg:px-12">
-        <motion.div
-          variants={reduceMotion ? undefined : heroContainer}
-          initial={reduceMotion ? false : "hidden"}
-          animate={reduceMotion ? undefined : "show"}
-          className="max-w-3xl"
-        >
-          <motion.span
-            variants={reduceMotion ? undefined : heroItem}
-            className="mb-4 block font-lato text-xs font-medium uppercase tracking-[0.28em] text-gold"
+        <div className="relative z-30 mx-auto w-full max-w-6xl px-6 pb-16 pt-28 md:px-10 md:pt-32 lg:px-12">
+        <div className="max-w-3xl">
+          <span
+            className="hero-fade-up mb-4 block font-lato text-xs font-medium uppercase tracking-[0.28em] text-[#3B6D11]"
           >
             Traditionele Chinese geneeskunde
-          </motion.span>
-          <motion.h1
-            variants={reduceMotion ? undefined : heroItem}
-            className="font-cormorant text-5xl font-normal leading-[1.05] text-white md:text-7xl lg:text-8xl"
+          </span>
+          <h1
+            className="hero-fade-up hero-fade-up-delay-1 font-cormorant text-5xl font-normal leading-[1.05] text-[#173404] md:text-7xl lg:text-8xl"
           >
             Herstel
             <br />
             je balans
-          </motion.h1>
-          <motion.p
-            variants={reduceMotion ? undefined : heroItem}
-            className="mt-6 max-w-xl font-lato text-lg text-white/80 md:text-xl"
+          </h1>
+          <p
+            className="hero-fade-up hero-fade-up-delay-2 mt-6 max-w-xl font-lato text-lg text-[#27500A] md:text-xl"
           >
             Acupunctuur, massage en kruidengeneeskunde in &apos;s-Hertogenbosch
-          </motion.p>
-          <motion.div
-            variants={reduceMotion ? undefined : heroItem}
-            className="mt-10 flex flex-col gap-3 sm:flex-row sm:items-center"
-          >
+          </p>
+          <div className="mt-10 flex flex-col gap-3 sm:flex-row sm:items-center">
             <Button variant="primary" href={SITE.bookingUrl}>
               Maak een afspraak →
             </Button>
-            <Link href="/behandelingen" className="btn-outline sm:min-w-[12rem]">
+            <Link
+              href="/behandelingen"
+              className="sm:min-w-[12rem] inline-block rounded-[4px] border-[1.5px] border-[#27500A] bg-[rgba(255,255,255,0.5)] px-8 py-[13px] text-center font-[family:var(--font-sans),sans-serif] text-[0.8rem] font-normal uppercase tracking-[0.08em] text-[#27500A] transition-[border-color] duration-200 hover:border-[#27500A]"
+            >
               Bekijk behandelingen
             </Link>
-          </motion.div>
-        </motion.div>
+          </div>
+        </div>
         </div>
       </div>
 

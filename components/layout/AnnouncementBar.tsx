@@ -42,7 +42,7 @@ export function AnnouncementBar() {
   return (
     <div
       className="flex min-h-9 w-full shrink-0 items-center justify-center gap-2 border-b border-white/10 px-3 py-1 text-center text-white sm:px-6"
-      style={{ backgroundColor: "var(--vermilion)" }}
+      style={{ backgroundColor: "#3B6D11", color: "#ffffff" }}
       role="alert"
       aria-live="polite"
     >
