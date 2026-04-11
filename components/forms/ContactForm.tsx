@@ -25,6 +25,7 @@ export function ContactForm() {
         body: JSON.stringify(payload),
       });
       const data = await res.json();
+      console.log("API response:", res.status, res.ok, data);
       if (!res.ok || !data.ok) {
         setStatus("err");
         setMsg(data.error || "Versturen mislukt.");
