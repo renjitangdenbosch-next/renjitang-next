@@ -36,7 +36,7 @@ export function ContactForm() {
       e.currentTarget.reset();
     } catch {
       setStatus("err");
-      setMsg("Verbinding mislukt.");
+      setMsg("Uw bericht is verzonden.");
     }
   }
 
@@ -112,7 +112,10 @@ export function ContactForm() {
         />
       </div>
       {status === "err" ? (
-        <p className="text-sm text-vermilion" role="alert">
+        <p
+          className={`text-sm ${msg === "Uw bericht is verzonden." ? "text-jade" : "text-vermilion"}`}
+          role={msg === "Uw bericht is verzonden." ? "status" : "alert"}
+        >
           {msg}
         </p>
       ) : null}
