@@ -7,6 +7,7 @@ import {
   hasCookieChoiceBeenMade,
   persistCookiePreferences,
   pushGoogleConsentModeUpdate,
+  readCookiePreferences,
 } from "@/lib/cookie-consent";
 
 function dispatchConsentChanged() {
@@ -15,9 +16,9 @@ function dispatchConsentChanged() {
   }
 }
 
-function applyChoice(analytics: boolean, onDone: () => void) {
-  persistCookiePreferences(analytics);
-  pushGoogleConsentModeUpdate({ analytics });
+function applyChoice(analytics: boolean, marketing: boolean, onDone: () => void) {
+  persistCookiePreferences({ analytics, marketing });
+  pushGoogleConsentModeUpdate({ analytics, marketing });
   dispatchConsentChanged();
   onDone();
 }
@@ -30,6 +31,7 @@ export function CookieBanner() {
   const [visible, setVisible] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const [analyticsDraft, setAnalyticsDraft] = useState(false);
+  const [marketingDraft, setMarketingDraft] = useState(false);
 
   useEffect(() => {
     if (hasCookieChoiceBeenMade()) return;
@@ -54,7 +56,9 @@ export function CookieBanner() {
   );
 
   const openPreferences = useCallback(() => {
-    setAnalyticsDraft(false);
+    const p = readCookiePreferences();
+    setAnalyticsDraft(p?.analytics ?? false);
+    setMarketingDraft(p?.marketing ?? false);
     setModalOpen(true);
   }, []);
 
@@ -99,7 +103,8 @@ export function CookieBanner() {
               Cookies &amp; privacy
             </p>
             <p className="mt-1 font-sans text-sm leading-relaxed text-[#1A2E1A]/80">
-              Wij gebruiken noodzakelijke cookies en — met uw toestemming — Google Analytics.
+              Wij gebruiken noodzakelijke cookies en — met uw toestemming — Google Analytics en (optioneel)
+              Google Ads voor relevante advertenties en conversiemeting.
             </p>
             <Link
               href="/cookiebeleid"
@@ -113,14 +118,14 @@ export function CookieBanner() {
             <button
               type="button"
               className="rounded-sm bg-[#C0392B] px-4 py-2.5 font-sans text-sm font-semibold text-white transition-opacity hover:opacity-90"
-              onClick={() => applyChoice(true, closeBanner)}
+              onClick={() => applyChoice(true, true, closeBanner)}
             >
               Alles accepteren
             </button>
             <button
               type="button"
               className="rounded-sm border-2 border-[#1A2E1A] bg-transparent px-4 py-2.5 font-sans text-sm font-semibold text-[#1A2E1A] transition-colors hover:bg-[#1A2E1A]/10"
-              onClick={() => applyChoice(false, closeBanner)}
+              onClick={() => applyChoice(false, false, closeBanner)}
             >
               Alles weigeren
             </button>
@@ -203,6 +208,33 @@ export function CookieBanner() {
                   </button>
                 </div>
               </li>
+
+              <li className="rounded-xl border border-[#1A2E1A]/10 bg-[#1A2E1A]/5 px-4 py-4">
+                <div className="flex items-center justify-between gap-4">
+                  <div>
+                    <p className="font-sans text-sm font-medium text-[#1A2E1A]">Marketing / advertenties</p>
+                    <p className="mt-1 font-sans text-xs text-[#1A2E1A]/70">
+                      Google Ads — meten van conversies en (her)advertenties. Los van analytische cookies.
+                    </p>
+                  </div>
+                  <button
+                    type="button"
+                    role="switch"
+                    aria-checked={marketingDraft}
+                    onClick={() => setMarketingDraft((v) => !v)}
+                    className={`relative h-8 w-14 shrink-0 rounded-full transition-colors ${
+                      marketingDraft ? "bg-[#c8a040]" : "bg-stone-400"
+                    }`}
+                  >
+                    <span
+                      className={`absolute top-1 h-6 w-6 rounded-full bg-white shadow transition-transform ${
+                        marketingDraft ? "left-7" : "left-1"
+                      }`}
+                    />
+                    <span className="sr-only">Marketingcookies {marketingDraft ? "aan" : "uit"}</span>
+                  </button>
+                </div>
+              </li>
             </ul>
 
             <div className="mt-8 flex flex-col-reverse gap-2 sm:flex-row sm:justify-end">
@@ -217,7 +249,7 @@ export function CookieBanner() {
                 type="button"
                 className="rounded-sm bg-[#C0392B] px-5 py-2.5 font-sans text-sm font-semibold text-white hover:opacity-90"
                 onClick={() => {
-                  applyChoice(analyticsDraft, () => {
+                  applyChoice(analyticsDraft, marketingDraft, () => {
                     setModalOpen(false);
                     closeBanner();
                   });

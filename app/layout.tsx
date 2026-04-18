@@ -4,7 +4,9 @@ import Script from "next/script";
 import "./globals.css";
 import { Providers } from "@/components/Providers";
 import { CookieBanner } from "@/components/CookieBanner";
+import { GoogleAdsTag } from "@/components/GoogleAdsTag";
 import { GoogleAnalyticsWithConsent } from "@/components/GoogleAnalyticsWithConsent";
+import { isGoogleAdsConfigured } from "@/lib/google-ads";
 import SchemaOrg from "./components/SchemaOrg";
 
 const serif = Cormorant_Garamond({
@@ -86,6 +88,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   const gaId = process.env.NEXT_PUBLIC_GA_ID;
+  const googleAdsEnabled = isGoogleAdsConfigured();
+  const needsConsentBootstrap = Boolean(gaId || googleAdsEnabled);
 
   return (
     <html lang="nl" className={`${serif.variable} ${sans.variable}`} suppressHydrationWarning>
@@ -96,7 +100,7 @@ export default function RootLayout({
         >
           Ga naar inhoud
         </a>
-        {gaId ? (
+        {needsConsentBootstrap ? (
           <>
             <Script id="google-consent-mode-default" strategy="beforeInteractive">
               {`
@@ -113,7 +117,8 @@ export default function RootLayout({
                 });
               `}
             </Script>
-            <GoogleAnalyticsWithConsent measurementId={gaId} />
+            {gaId ? <GoogleAnalyticsWithConsent measurementId={gaId} /> : null}
+            {googleAdsEnabled ? <GoogleAdsTag /> : null}
           </>
         ) : null}
         <SchemaOrg />

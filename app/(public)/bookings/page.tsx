@@ -5,6 +5,7 @@ import {
   formatYyyyMmDdSummaryNl,
   localCalendarDateToYyyyMmDd,
 } from "@/lib/booking-datums";
+import { trackConversion } from "@/lib/google-ads";
 import { SERVICES } from "@/lib/site";
 
 const STAP_ANKERS = [
@@ -170,6 +171,8 @@ export default function BookingsPage() {
 
     setStap(4);
     setLoading(false);
+    const boekingPrijs = SERVICES.find((s) => s.id === geselecteerd)?.prijs;
+    trackConversion(boekingPrijs ?? 70);
   }
 
   // Progress bar

@@ -63,7 +63,7 @@ export default function CookiebeleidPage() {
                     <td className="py-3 pr-4">cookie-consent (localStorage)</td>
                     <td className="py-3 pr-4">Ren Ji Tang / uw browser</td>
                     <td className="py-3 pr-4">
-                      Onthoudt of u analytische cookies heeft geaccepteerd of geweigerd (geen HTTP-cookie).
+                      Onthoudt uw keuzes voor analytische en marketingcookies (geen HTTP-cookie).
                     </td>
                     <td className="py-3">Tot u de gegevens wist of opnieuw kiest via cookie-instellingen</td>
                   </tr>
@@ -77,10 +77,19 @@ export default function CookiebeleidPage() {
                     <td className="py-3 pr-4">o.a. _ga, _ga_*</td>
                     <td className="py-3 pr-4">Google (Analytics)</td>
                     <td className="py-3 pr-4">
-                      Meten van bezoek en gebruik van de website. Alleen na toestemming via de banner; wij laden
-                      Analytics pas na &apos;Accepteren&apos;.
+                      Meten van bezoek en gebruik van de website. Alleen na toestemming voor analytische cookies;
+                      wij laden Analytics pas na uw keuze.
                     </td>
                     <td className="py-3">Doorgaans tot 2 jaar (instelbaar door Google)</td>
+                  </tr>
+                  <tr className="border-b border-stone-100 dark:border-stone-700">
+                    <td className="py-3 pr-4">Google Ads / conversie (o.a. via gtag)</td>
+                    <td className="py-3 pr-4">Google (Ads)</td>
+                    <td className="py-3 pr-4">
+                      Conversiemeting en advertentiefuncties. Alleen na aparte toestemming voor marketing in de
+                      cookiebanner.
+                    </td>
+                    <td className="py-3">Zie het cookie- en privacybeleid van Google</td>
                   </tr>
                   <tr className="border-b border-stone-100 dark:border-stone-700">
                     <td className="py-3 pr-4">o.a. NID, 1P_JAR (voorbeeld)</td>

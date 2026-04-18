@@ -1,12 +1,13 @@
-/** localStorage key voor cookievoorkeuren (JSON v2 of legacy string). */
+/** localStorage key voor cookievoorkeuren (JSON v3 of legacy). */
 export const COOKIE_CONSENT_STORAGE_KEY = "cookie-consent";
 
 export type CookieConsentChoice = "accepted" | "rejected";
 
-/** Na wijziging; luistert o.a. `GoogleAnalyticsWithConsent`. */
+/** Na wijziging; luistert o.a. `GoogleAnalyticsWithConsent` en `GoogleAdsTag`. */
 export const COOKIE_CONSENT_CHANGED_EVENT = "rjt-cookie-consent-changed";
 
-const PREFS_VERSION = 2 as const;
+const PREFS_VERSION = 3 as const;
+const PREFS_VERSION_LEGACY = 2 as const;
 
 export type StoredCookiePreferences = {
   v: typeof PREFS_VERSION;
@@ -14,19 +15,32 @@ export type StoredCookiePreferences = {
   necessary: true;
   /** Google Analytics / analytics_storage. */
   analytics: boolean;
+  /** Google Ads (remarketing, conversies) / ad_storage, ad_user_data, ad_personalization. */
+  marketing: boolean;
 };
 
 function parseStoredValue(raw: string): StoredCookiePreferences | null {
   if (raw === "accepted") {
-    return { v: PREFS_VERSION, necessary: true, analytics: true };
+    return { v: PREFS_VERSION, necessary: true, analytics: true, marketing: false };
   }
   if (raw === "rejected") {
-    return { v: PREFS_VERSION, necessary: true, analytics: false };
+    return { v: PREFS_VERSION, necessary: true, analytics: false, marketing: false };
   }
   try {
-    const j = JSON.parse(raw) as Partial<StoredCookiePreferences>;
-    if (j.v === PREFS_VERSION && j.necessary === true && typeof j.analytics === "boolean") {
+    const j = JSON.parse(raw) as Record<string, unknown>;
+    if (j.necessary !== true || typeof j.analytics !== "boolean") return null;
+
+    if (j.v === PREFS_VERSION && typeof j.marketing === "boolean") {
       return j as StoredCookiePreferences;
+    }
+
+    if (j.v === PREFS_VERSION_LEGACY) {
+      return {
+        v: PREFS_VERSION,
+        necessary: true,
+        analytics: j.analytics as boolean,
+        marketing: false,
+      };
     }
   } catch {
     /* ignore */
@@ -54,11 +68,19 @@ export function isAnalyticsGranted(): boolean {
   return readCookiePreferences()?.analytics === true;
 }
 
-export function persistCookiePreferences(analytics: boolean): void {
+export function isMarketingGranted(): boolean {
+  return readCookiePreferences()?.marketing === true;
+}
+
+export function persistCookiePreferences(prefs: {
+  analytics: boolean;
+  marketing: boolean;
+}): void {
   const payload: StoredCookiePreferences = {
     v: PREFS_VERSION,
     necessary: true,
-    analytics,
+    analytics: prefs.analytics,
+    marketing: prefs.marketing,
   };
   try {
     localStorage.setItem(COOKIE_CONSENT_STORAGE_KEY, JSON.stringify(payload));
@@ -69,16 +91,22 @@ export function persistCookiePreferences(analytics: boolean): void {
 
 /**
  * Google Consent Mode v2 — update na gebruikerskeuze (client only).
- * Noodzakelijk → functionality + security granted; analytisch → analytics_storage.
+ * Analytisch → analytics_storage; marketing → ad_storage, ad_user_data, ad_personalization.
  */
-export function pushGoogleConsentModeUpdate(prefs: { analytics: boolean }): void {
+export function pushGoogleConsentModeUpdate(prefs: {
+  analytics: boolean;
+  marketing: boolean;
+}): void {
   if (typeof window === "undefined") return;
   const gtag = (window as Window & { gtag?: (...args: unknown[]) => void }).gtag;
   if (typeof gtag !== "function") return;
+
+  const adState = prefs.marketing ? "granted" : "denied";
+
   gtag("consent", "update", {
-    ad_storage: "denied",
-    ad_user_data: "denied",
-    ad_personalization: "denied",
+    ad_storage: adState,
+    ad_user_data: adState,
+    ad_personalization: adState,
     analytics_storage: prefs.analytics ? "granted" : "denied",
     functionality_storage: "granted",
     personalization_storage: "denied",
