@@ -8,19 +8,11 @@ import {
 } from "date-fns";
 import { formatInTimeZone, fromZonedTime, toZonedTime } from "date-fns-tz";
 import { prisma } from "@/lib/prisma";
+import { isScheduleClosedDay } from "@/lib/schedule-closures";
 
 const TZ = "Europe/Amsterdam";
 export const SLOT_BUFFER_MIN = 0;
 const SLOT_STEP_MIN = 30;
-
-/** Vakantie 2026: Amsterdam-kalenderdatum als `yyyy-MM-dd` (zelfde als `dayStr` in deze module). */
-const VACATION_2026_START = "2026-04-06";
-const VACATION_2026_END = "2026-04-27";
-
-function isVacationClosedDay(dayStr: string): boolean {
-  if (!/^\d{4}-\d{2}-\d{2}$/.test(dayStr)) return false;
-  return dayStr >= VACATION_2026_START && dayStr <= VACATION_2026_END;
-}
 
 /** JS getDay: 0=zo, 1=ma, … 6=za. Maandag gesloten. Di–vr 09:00–20:00, za–zo 09:00–17:00 */
 function defaultDayWindowMinutes(dow: number): { startMin: number; endMin: number } | null {
@@ -169,7 +161,7 @@ export async function getAvailableSlots(
   durationMin: number,
   excludeBookingId?: string
 ): Promise<Date[]> {
-  if (isVacationClosedDay(dayStr)) return [];
+  if (isScheduleClosedDay(dayStr)) return [];
   if (await isDayFullyBlocked(dayStr)) return [];
 
   const windows = await dayWindowsMinutes(dayStr);

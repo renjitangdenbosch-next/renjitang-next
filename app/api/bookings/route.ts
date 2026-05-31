@@ -8,6 +8,7 @@ import {
   normalizeTijdslotLabel,
   parsePublicBookingDate,
 } from "@/lib/slots";
+import { getClosureForDay } from "@/lib/schedule-closures";
 import { SERVICES } from "@/lib/site";
 
 export async function POST(req: Request) {
@@ -46,6 +47,14 @@ export async function POST(req: Request) {
     const tijdslotNorm = normalizeTijdslotLabel(String(tijdslot));
     if (!tijdslotNorm) {
       return NextResponse.json({ error: "Ongeldig tijdslot" }, { status: 400 });
+    }
+
+    const closure = getClosureForDay(datumStr);
+    if (closure) {
+      return NextResponse.json(
+        { error: `${closure.reason}. Kies een andere datum.` },
+        { status: 400 }
+      );
     }
 
     const beschikbaar = await getAvailableSlots(datumStr, service.duur);

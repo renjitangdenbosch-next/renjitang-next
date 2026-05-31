@@ -2,6 +2,7 @@ import { addDays, addMinutes } from "date-fns";
 import { prisma } from "@/lib/prisma";
 import { AdminAgendaView } from "@/components/admin/AdminAgendaView";
 import type { SerializedAgendaEvent } from "@/components/admin/AdminAgendaView";
+import { getScheduledClosureAgendaEvents } from "@/lib/schedule-closures";
 import { bookingStartUtc } from "@/lib/slots";
 
 export const dynamic = "force-dynamic";
@@ -38,6 +39,17 @@ export default async function AdminAgendaPage() {
         tijdslot: b.tijdslot,
         opmerking: b.opmerking,
       },
+    });
+  }
+
+  for (const ev of getScheduledClosureAgendaEvents()) {
+    events.push({
+      id: ev.id,
+      title: ev.title,
+      start: ev.start,
+      end: ev.end,
+      allDay: true,
+      resource: { type: "block" },
     });
   }
 

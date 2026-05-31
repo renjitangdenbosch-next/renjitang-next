@@ -6,6 +6,11 @@ import {
   localCalendarDateToYyyyMmDd,
 } from "@/lib/booking-datums";
 import { trackConversion } from "@/lib/google-ads";
+import {
+  getActivePublicAnnouncement,
+  getClosureForDay,
+  isScheduleClosedDay,
+} from "@/lib/schedule-closures";
 import { SERVICES } from "@/lib/site";
 
 const STAP_ANKERS = [
@@ -37,6 +42,7 @@ export default function BookingsPage() {
   });
 
   const service = SERVICES.find((s) => s.id === geselecteerd);
+  const bookingAnnouncement = getActivePublicAnnouncement();
 
   useEffect(() => {
     if (skipStapScroll.current) {
@@ -108,14 +114,8 @@ export default function BookingsPage() {
     return dagen;
   }
 
-  function isVakantieperiode(d: Date): boolean {
-    if (d.getFullYear() !== 2026 || d.getMonth() !== 3) return false;
-    const day = d.getDate();
-    return day >= 6 && day <= 27;
-  }
-
   function isDagBeschikbaar(d: Date): boolean {
-    if (isVakantieperiode(d)) return false;
+    if (isScheduleClosedDay(localCalendarDateToYyyyMmDd(d))) return false;
     const nu = new Date();
     nu.setHours(0, 0, 0, 0);
     if (d < nu) return false;
@@ -298,12 +298,17 @@ export default function BookingsPage() {
                 Kies datum en tijd
               </h2>
 
-              <div
-                className="mb-4 text-center text-sm font-lato"
-                style={{ color: "#c8a040" }}
-              >
-                🌴 Gesloten van 6 t/m 27 april wegens vakantie
-              </div>
+              {bookingAnnouncement ? (
+                <div
+                  className="mb-4 rounded-xl border border-[#c8a040]/35 bg-[#F4FAF0] px-4 py-3 text-center text-sm font-lato text-[#1A2E1A]"
+                  role="status"
+                >
+                  <span className="mr-1" aria-hidden>
+                    📚
+                  </span>
+                  {bookingAnnouncement}
+                </div>
+              ) : null}
 
               {/* Kalender navigatie: ‹ maand jaar › */}
               <div
@@ -367,30 +372,32 @@ export default function BookingsPage() {
                 {getDagenInMaand().map((d, i) => {
                   if (!d) return <div key={i} />;
                   const iso = localCalendarDateToYyyyMmDd(d);
-                  const vakantie = isVakantieperiode(d);
+                  const closure = getClosureForDay(iso);
                   const beschikbaar = isDagBeschikbaar(d);
                   const geselecteerdDag = datum === iso;
 
-                  if (vakantie) {
+                  if (closure) {
+                    const isCourse = closure.id === "course-2026-june";
                     return (
                       <div
                         key={i}
-                        title="Gesloten wegens vakantie"
-                        className="aspect-square rounded-lg flex flex-col items-center 
+                        title={closure.reason}
+                        className={`aspect-square rounded-lg flex flex-col items-center 
                           justify-center gap-0.5 cursor-not-allowed select-none
-                          bg-[rgba(192,57,43,0.08)]"
+                          ${
+                            isCourse
+                              ? "bg-stone-100 text-stone-400"
+                              : "bg-[rgba(192,57,43,0.08)]"
+                          }`}
                       >
-                        <span
-                          className="text-sm font-medium text-[#c0392b]"
-                          style={{ opacity: 0.6 }}
-                        >
+                        <span className="text-sm font-medium opacity-70">
                           {d.getDate()}
                         </span>
                         <span
                           className="text-[10px] leading-none"
                           aria-hidden
                         >
-                          🌴
+                          {isCourse ? "📚" : "🌴"}
                         </span>
                       </div>
                     );
@@ -428,7 +435,12 @@ export default function BookingsPage() {
                     <p className="text-stone-400 text-sm">Laden...</p>
                   ) : slots.length === 0 ? (
                     <p className="text-stone-400 text-sm">
-                      Geen tijden beschikbaar op deze dag.
+                      {(() => {
+                        const slotClosure = getClosureForDay(datum);
+                        return slotClosure
+                          ? `${slotClosure.reason}. Kies een andere datum.`
+                          : "Geen tijden beschikbaar op deze dag.";
+                      })()}
                     </p>
                   ) : (
                     <div className="flex flex-wrap gap-2">
